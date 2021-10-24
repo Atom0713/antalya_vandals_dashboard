@@ -2,6 +2,11 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import RoasterBox from "../../roaster_box/roaster_box";
 import gorgias from "../../../images/gorgias.png";
+import sefa1 from "../../../images/sefa1.png";
+import ibo1 from "../../../images/ibo1.png";
+import ceru1 from "../../../images/ceru1.png";
+import sefa2 from "../../../images/sefa2.png";
+import ibo2 from "../../../images/ibo2.png";
 
 class Roaster extends React.Component {
   constructor(props) {
@@ -10,27 +15,27 @@ class Roaster extends React.Component {
       images: [
         {
           name: "Image 1",
-          src: gorgias,
+          src: sefa1,
           desc: "This describes this image..",
         },
         {
           name: "Image 2",
-          src: gorgias,
+          src: ibo1,
           desc: "This describes this image 2..",
         },
         {
           name: "Image 3",
-          src: gorgias,
+          src: ceru1,
           desc: "This describes this image 3 ..",
         },
         {
           name: "Image 4",
-          src: gorgias,
+          src: sefa2,
           desc: "This describes this image 4..",
         },
         {
           name: "Image 5",
-          src: gorgias,
+          src: ibo2,
           desc: "This describes this image 5..",
         },
         {
