@@ -1,0 +1,4 @@
+.homepage_content {
+  height: calc(100vh - 60px);
+  top: 10px;
+}
