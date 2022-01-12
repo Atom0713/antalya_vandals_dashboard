@@ -1,6 +1,6 @@
-import style from "./RenderCard.module.css";
+import style from "./RosterCard.module.css";
 
-const RenderRoaster = (props) => {
+const RosterCard = (props) => {
     const { item } = props;
 
     return (
@@ -15,4 +15,4 @@ const RenderRoaster = (props) => {
     )
 }
 
-export default RenderRoaster;
+export default RosterCard;

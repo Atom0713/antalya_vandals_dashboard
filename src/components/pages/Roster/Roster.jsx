@@ -1,6 +1,6 @@
 import React from 'react';
 import style from "./Roster.module.css";
-import RenderCard from "../../RosterCard/RenderCard";
+import RosterCard from "../../RosterCard/RosterCard";
 import { getRoaster } from "../../../api/roster";
 
 class Roaster extends React.Component {
@@ -53,13 +53,13 @@ class Roaster extends React.Component {
         return <div className="roaster_container">
             <div className="roaster_container__players">
                 {this.state.players.map((item, i) => (
-                    <RenderCard key={i} item={item} />
+                    <RosterCard key={i} item={item} />
                 ))}
             </div>
             <div className="roaster_container__coaching_staff">
                 <div className={style.roaster_container__section_title}><h2>COACHING STAFF</h2></div>
                 {this.state.coaches.map((item, i) => (
-                    <RenderCard key={i} item={item} />
+                    <RosterCard key={i} item={item} />
                 ))}
             </div>
         </div>
