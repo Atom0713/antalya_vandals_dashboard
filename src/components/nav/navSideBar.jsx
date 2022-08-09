@@ -41,18 +41,22 @@ export default function NavSideBar({userName}) {
           </a>
           <div className="collapse" id="ui-basic">
             <ul className="nav flex-column sub-menu">
-              <li className="nav-item"> <a className="nav-link" href="pages/ui-features/buttons.html">Add user</a></li>
-              <li className="nav-item"> <a className="nav-link" href="pages/ui-features/dropdowns.html">Show all</a></li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/add_user">Add user</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/user">Show all</Link>
+              </li>
             </ul>
           </div>
         </li>
         <li className="nav-item menu-items">
-          <Link className="nav-link" to="/">
+        <Link className="nav-link" to="/attendance">
           <span className="menu-icon">
-              <i className="mdi mdi-account-multiple-outline"></i>
-            </span>
-            <span className="menu-title">User</span>
-          </Link>
+            <i className="mdi mdi-view-dashboard"></i>
+          </span>
+          <span className="menu-title">Attendance</span>
+        </Link>
         </li>
       </ul>
     </nav>
