@@ -1,90 +1,223 @@
-import React from 'react'
+import React, {useState} from 'react';
 
-export default function AddUser() {
+export default function AddUser({setShowUserForm}) {
+
+    const [selectedRoleOption, setRoleOption] = useState("player");
+
+    const handleBackClick = () => {
+        setShowUserForm(false);
+    }
+
+    const handleSubmit = (event) => {
+        alert('An essay was submitted: ' + this.state.value);
+        event.preventDefault();
+      }
+    
+    const onValueChange = (event) => {
+        setRoleOption(event.target.value);
+    }
+
+
+    const addPlayerFormElements = () => {
+        return (
+        <>
+        <div className="row">
+        <div className="col-md-6">
+            <div className="form-group row">
+                <label className="col-sm-3 col-form-label">First Name</label>
+                <div className="col-sm-9">
+                    <input type="text" className="form-control" />
+                </div>
+            </div>
+        </div>
+        <div className="col-md-6">
+            <div className="form-group row">
+            <label className="col-sm-3 col-form-label">Last Name</label>
+            <div className="col-sm-9">
+                <input type="text" className="form-control" />
+            </div>
+            </div>
+        </div>
+    </div>
+    <div className="row">
+        <div className="col-md-6">
+            <div className="form-group row">
+                <label className="col-sm-3 col-form-label">Date of Birth</label>
+                <div className="col-sm-9">
+                    <input className="form-control" placeholder="dd/mm/yyyy" />
+                </div>
+            </div>
+        </div>
+        <div className="col-md-6">
+            <div className="form-group row">
+                <label className="col-sm-3 col-form-label">Boy</label>
+                <div className="col-sm-9">
+                    <input type="text" className="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div className="row">
+        <div className="col-md-6">
+            <div className="form-group row">
+                <label className="col-sm-3 col-form-label">Kilo</label>
+                <div className="col-sm-9">
+                    <input type="text" className="form-control" />
+                </div>
+            </div>
+        </div>
+        <div className="col-md-6">
+            <div className="form-group row">
+                <label className="col-sm-3 col-form-label">Mevki</label>
+                <div className="col-sm-9">
+                    <input type="text" className="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+    </>
+    )}
+
+    const addStaffFormElements = () => {
+
+        return (
+        <>
+                <div className="row">
+        <div className="col-md-6">
+            <div className="form-group row">
+                <label className="col-sm-3 col-form-label">First Name</label>
+                <div className="col-sm-9">
+                    <input type="text" className="form-control" />
+                </div>
+            </div>
+        </div>
+        <div className="col-md-6">
+            <div className="form-group row">
+            <label className="col-sm-3 col-form-label">Last Name</label>
+            <div className="col-sm-9">
+                <input type="text" className="form-control" />
+            </div>
+            </div>
+        </div>
+    </div>
+    <div className="row">
+        <div className="col-md-6">
+            <div className="form-group row">
+                <label className="col-sm-3 col-form-label">Date of Birth</label>
+                <div className="col-sm-9">
+                    <input className="form-control" placeholder="dd/mm/yyyy" />
+                </div>
+            </div>
+        </div>
+        <div className="col-md-6">
+            <div className="form-group row">
+                <label className="col-sm-3 col-form-label">Positions</label>
+                <div className="col-sm-9">
+                    <input type="text" className="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+        </>
+    )}
+
+
   return (
     <div className="content-wrapper">
-        <div class="page-header">
-            <h3 class="page-title"> AddUser </h3>
+        <div className="page-header">
+          <button onClick={handleBackClick} type="button" className="btn btn-primary btn-fw">Back</button>
         </div>
-        <div class="row">
-            <div class="col-12 grid-margin">
-                <div class="card">
-                    <div class="card-body">
-                    <form class="form-sample">
-                        <p class="card-description"> Personal info </p>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">First Name</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
+        <div className="row">
+            <div className="col-12 grid-margin">
+                <div className="card">
+                    <div className="card-body">
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className="form-group row">
+                                <label className="col-sm-3 col-form-label">Role</label>
+                                <div className="col-sm-4">
+                                    <div className="form-check">
+                                        <input onChange={onValueChange} className="form-check-input" type="checkbox" value="staff" id="flexCheckDefault" checked={selectedRoleOption === "staff"}/>
+                                        <label className="form-check-label" for="flexCheckDefault">
+                                            Staff
+                                        </label>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Last Name</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" />
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Date of Birth</label>
-                                    <div class="col-sm-9">
-                                        <input class="form-control" placeholder="dd/mm/yyyy" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Boy</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
+                                <div className="col-sm-5">
+                                    <div className="form-check">
+                                        <input onChange={onValueChange} className="form-check-input" type="checkbox" value="player" id="flexCheckDefault" checked={selectedRoleOption === "player"}/>
+                                        <label className="form-check-label" for="flexCheckDefault">
+                                            Player
+                                        </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Kilo</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
+                    </div>
+                    <form className="form-sample" onSubmit={handleSubmit}>
+                        <p className="card-description"> Personal info </p>
+                        {selectedRoleOption === "player" ? 
+                        addPlayerFormElements():
+                        addStaffFormElements()
+                        }
+                        {/* <div className="row">
+                            <div className="col-md-6">
+                                <div className="form-group row">
+                                    <label className="col-sm-3 col-form-label">First Name</label>
+                                    <div className="col-sm-9">
+                                        <input type="text" className="form-control" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Mevki</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Type</label>
-                                <div class="col-sm-4">
-                                    <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios1" value="" checked/> Staff </label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-5">
-                                    <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios2" value="option2"/> Player </label>
-                                    </div>
+                            <div className="col-md-6">
+                                <div className="form-group row">
+                                <label className="col-sm-3 col-form-label">Last Name</label>
+                                <div className="col-sm-9">
+                                    <input type="text" className="form-control" />
                                 </div>
                                 </div>
                             </div>
                         </div>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="form-group row">
+                                    <label className="col-sm-3 col-form-label">Date of Birth</label>
+                                    <div className="col-sm-9">
+                                        <input className="form-control" placeholder="dd/mm/yyyy" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="form-group row">
+                                    <label className="col-sm-3 col-form-label">Boy</label>
+                                    <div className="col-sm-9">
+                                        <input type="text" className="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="form-group row">
+                                    <label className="col-sm-3 col-form-label">Kilo</label>
+                                    <div className="col-sm-9">
+                                        <input type="text" className="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="form-group row">
+                                    <label className="col-sm-3 col-form-label">Mevki</label>
+                                    <div className="col-sm-9">
+                                        <input type="text" className="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div> */}
+                        <button type="submit" className="btn btn-primary btn-icon-text">
+                            <i className="mdi mdi-file-check btn-icon-prepend"></i> 
+                            Submit 
+                        </button>
                     </form>
                     </div>
                 </div>

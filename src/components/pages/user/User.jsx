@@ -1,142 +1,91 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import AddUser from './AddUser';
+import { fetchAllUsers } from '../../../api/user';
 
 export default function User() {
+  const [showUserForm, setShowUserForm] = useState(false);
+
+
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState();
+  const [data, setData] = useState(
+    {
+      staff: [],
+      players: [] 
+    });
+  useEffect(() => {
+
+    {/*
+        1. Load user: Done
+        2. Load permissions
+    */}
+    async function fetchData() {
+        const res = await Promise.all([fetchAllUsers()]).catch(error => setError(error.message));
+        setData(res[0])
+    }
+
+    fetchData()
+    setIsLoading(false)
+}, []
+)
+
+  const handleAddUserClick = () => {
+    setShowUserForm(true);
+  }
+
+  if (error) return (
+    <div>
+       <h1>{error}</h1>
+    </div>
+  )
+
+
+  if (isLoading) return (
+    <div>
+       <h1>Loading...</h1>
+    </div>
+  )
+
+  if (showUserForm) return (
+    <AddUser setShowUserForm={setShowUserForm}/>
+  )
+
   return (
     <div className="content-wrapper">
-        <div class="page-header">
-            <h3 class="page-title"> Roster </h3>
+        <div className="page-header">
+          <button onClick={handleAddUserClick} type="button" className="btn btn-primary btn-fw">Add user</button>
         </div>
-        <div class="row ">
-            <div class="col-12 grid-margin">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">Coaching staff</h4>
-                    <div class="table-responsive">
-                      <table class="table">
+        <div className="row ">
+            <div className="col-12 grid-margin">
+                <div className="card">
+                  <div className="card-body">
+                    <h4 className="card-title">Coaching staff</h4>
+                    <div className="table-responsive">
+                      <table className="table">
                         <thead>
                           <tr>
-                            <th>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input"/>
-                                </label>
-                              </div>
-                            </th>
-                            <th> Client Name </th>
-                            <th> Order No </th>
-                            <th> Product Cost </th>
-                            <th> Project </th>
-                            <th> Payment Mode </th>
-                            <th> Start Date </th>
-                            <th> Payment Status </th>
+                            <th> Name </th>
+                            <th> Positions </th>
+                            <th> Date of birth</th>
                           </tr>
                         </thead>
                         <tbody>
+                        {data.staff.map((item) =>
                           <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input"/>
-                                </label>
-                              </div>
-                            </td>
                             <td>
                               <img src="assets/images/faces/face1.jpg" alt="image" />
-                              <span class="ps-2">Henry Klein</span>
+                              <span className="ps-2">{item.name}</span>
                             </td>
-                            <td> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Dashboard </td>
-                            <td> Credit card </td>
-                            <td> 04 Dec 2019 </td>
-                            <td>
-                              <div class="badge badge-outline-success">Approved</div>
-                            </td>
+                            <td> {item.positions} </td>
+                            <td> {item.birth_date} </td>
+                            {/* <td> {item.height} </td>
+                            <td> {item.weight} </td> */}
+                            {/* <td> will be practice attendance
+                              <div className="badge badge-outline-success">Approved</div>
+                            </td> */}
                           </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input"/>
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="assets/images/faces/face2.jpg" alt="image" />
-                              <span class="ps-2">Estella Bryan</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Website </td>
-                            <td> Cash on delivered </td>
-                            <td> 04 Dec 2019 </td>
-                            <td>
-                              <div class="badge badge-outline-warning">Pending</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input"/>
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="assets/images/faces/face5.jpg" alt="image" />
-                              <span class="ps-2">Lucy Abbott</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> App design </td>
-                            <td> Credit card </td>
-                            <td> 04 Dec 2019 </td>
-                            <td>
-                              <div class="badge badge-outline-danger">Rejected</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input"/>
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="assets/images/faces/face3.jpg" alt="image" />
-                              <span class="ps-2">Peter Gill</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Development </td>
-                            <td> Online Payment </td>
-                            <td> 04 Dec 2019 </td>
-                            <td>
-                              <div class="badge badge-outline-success">Approved</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input"/>
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="assets/images/faces/face4.jpg" alt="image" />
-                              <span class="ps-2">Sallie Reyes</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Website </td>
-                            <td> Credit card </td>
-                            <td> 04 Dec 2019 </td>
-                            <td>
-                              <div class="badge badge-outline-success">Approved</div>
-                            </td>
-                          </tr>
+                        )}
                         </tbody>
                       </table>
                     </div>
@@ -144,137 +93,38 @@ export default function User() {
                 </div>
             </div>
         </div>
-        <div class="row ">
-            <div class="col-12 grid-margin">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">Players</h4>
-                    <div class="table-responsive">
-                      <table class="table">
+        <div className="row ">
+            <div className="col-12 grid-margin">
+                <div className="card">
+                  <div className="card-body">
+                    <h4 className="card-title">Players</h4>
+                    <div className="table-responsive">
+                      <table className="table">
                         <thead>
                           <tr>
-                            <th>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input"/>
-                                </label>
-                              </div>
-                            </th>
-                            <th> Client Name </th>
-                            <th> Order No </th>
-                            <th> Product Cost </th>
-                            <th> Project </th>
-                            <th> Payment Mode </th>
-                            <th> Start Date </th>
-                            <th> Payment Status </th>
+                            <th> Name </th>
+                            <th> Position </th>
+                            <th> Date of birt Cost </th>
+                            <th> Height </th>
+                            <th> Weight </th>
                           </tr>
                         </thead>
                         <tbody>
+                        {data.players.map((item) =>
                           <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input"/>
-                                </label>
-                              </div>
-                            </td>
                             <td>
                               <img src="assets/images/faces/face1.jpg" alt="image" />
-                              <span class="ps-2">Henry Klein</span>
+                              <span className="ps-2">{item.name}</span>
                             </td>
-                            <td> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Dashboard </td>
-                            <td> Credit card </td>
-                            <td> 04 Dec 2019 </td>
-                            <td>
-                              <div class="badge badge-outline-success">Approved</div>
-                            </td>
+                            <td> {item.position} </td>
+                            <td> {item.birth_date} </td>
+                            <td> {item.height} </td>
+                            <td> {item.weight} </td>
+                            {/* <td> will be practice attendance
+                              <div className="badge badge-outline-success">Approved</div>
+                            </td> */}
                           </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input"/>
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="assets/images/faces/face2.jpg" alt="image" />
-                              <span class="ps-2">Estella Bryan</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Website </td>
-                            <td> Cash on delivered </td>
-                            <td> 04 Dec 2019 </td>
-                            <td>
-                              <div class="badge badge-outline-warning">Pending</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input"/>
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="assets/images/faces/face5.jpg" alt="image" />
-                              <span class="ps-2">Lucy Abbott</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> App design </td>
-                            <td> Credit card </td>
-                            <td> 04 Dec 2019 </td>
-                            <td>
-                              <div class="badge badge-outline-danger">Rejected</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input"/>
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="assets/images/faces/face3.jpg" alt="image" />
-                              <span class="ps-2">Peter Gill</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Development </td>
-                            <td> Online Payment </td>
-                            <td> 04 Dec 2019 </td>
-                            <td>
-                              <div class="badge badge-outline-success">Approved</div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input"/>
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="assets/images/faces/face4.jpg" alt="image" />
-                              <span class="ps-2">Sallie Reyes</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> $14,500 </td>
-                            <td> Website </td>
-                            <td> Credit card </td>
-                            <td> 04 Dec 2019 </td>
-                            <td>
-                              <div class="badge badge-outline-success">Approved</div>
-                            </td>
-                          </tr>
+                        )}
                         </tbody>
                       </table>
                     </div>

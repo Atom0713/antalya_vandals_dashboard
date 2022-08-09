@@ -1,14 +1,14 @@
 import React, { useState, useEffect} from 'react';
 import NavSideBar from '../nav/navSideBar';
 import NavBar from '../nav/navBar';
-import { fetchUser } from '../../api/user'
-import Footer from '../footer/footer'
+import { fetchUser } from '../../api/user';
+import Footer from '../footer/footer';
 
 
 const Layout = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState();
-    const [data, setData] = React.useState([]);
+    const [data, setData] = useState({});
   
     useEffect(() => {
 
@@ -24,7 +24,6 @@ const Layout = ({ children }) => {
         fetchData()
         setIsLoading(false)
     }, []
-    
     )
   
     if (error) return (

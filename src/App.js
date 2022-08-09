@@ -25,7 +25,6 @@ function App(){
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/user" element={<User />}></Route>
-          <Route path="/add_user" element={<AddUser />}></Route>
           <Route path="/attendance" element={<Attendance />}></Route>
         </Routes>
       </Layout>
