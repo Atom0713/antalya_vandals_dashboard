@@ -1,24 +1,32 @@
-import { Component } from "react";
+import React from 'react';
 import { Routes, Route } from "react-router-dom";
-import "./App.css";
-import Layout from "./components/Layout/Layout";
-import Home from "./components/pages/Home/Home";
-import Roaster from "./components/pages/Roster/Roster";
+import './App.css';
+import Login from "./components/pages/login/Login";
+import Home from './components/pages/home/Home';
+import { useToken } from './components/auth';
+import Layout from './components/Layout/Layout'
 
-class App extends Component {
-  componentDidMount() {}
-  render() {
+
+function App(){
+  const { token, setToken } = useToken();
+
+  if(!token) {
     return (
-      <div className="App">
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/roster" element={<Roaster />}></Route>
-          </Routes>
-        </Layout>
-      </div>
-    );
+        <Login setToken={setToken} />
+    )
   }
+
+  return (
+    <div className="wrapper">
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+        </Routes>
+      </Layout>
+    </div>
+  )
+
 }
 
 export default App;
+
