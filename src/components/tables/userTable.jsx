@@ -58,6 +58,7 @@ export default function DarkWithImageTable({title, headers, order, data}) {
                             )}
                         </tbody>
                       </table>
+                      Paginate
                     </div>
                   </div>
                 </div>

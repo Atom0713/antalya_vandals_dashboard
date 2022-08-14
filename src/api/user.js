@@ -41,3 +41,19 @@ export async function fetchAllUserRoles() {
 
   return response.json()
 }
+
+
+export async function addUser(body) {
+  const headers = {
+    "Authorization": "Bearer token"
+  }
+  const response = await fetch('http://localhost:5000/user/add', 
+    {
+      method: 'POST',
+      headers: headers,
+      body: body
+    }
+  )
+
+  return response.json()
+}

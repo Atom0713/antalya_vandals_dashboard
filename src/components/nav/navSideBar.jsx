@@ -40,11 +40,11 @@ export default function NavSideBar({userName, userRole}) {
           </Link>
         </li>
         <li className="nav-item menu-items">
-        <Link className="nav-link" to="/attendance">
+        <Link className="nav-link" to="/events">
           <span className="menu-icon">
             <i className="mdi mdi-view-dashboard"></i>
           </span>
-          <span className="menu-title">Attendance</span>
+          <span className="menu-title">Events</span>
         </Link>
         </li>
       </ul>

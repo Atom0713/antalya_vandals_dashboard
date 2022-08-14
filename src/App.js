@@ -6,8 +6,7 @@ import Home from './components/pages/home/Home';
 import { useToken } from './components/auth';
 import Layout from './components/Layout/Layout'
 import User from './components/pages/user/User';
-import AddUser from './components/pages/user/AddUser';
-import Attendance from './components/pages/attendance/Attendance';
+import Event from './components/pages/events/Event'
 
 
 function App(){
@@ -25,7 +24,7 @@ function App(){
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/user" element={<User />}></Route>
-          <Route path="/attendance" element={<Attendance />}></Route>
+          <Route path="/events" element={<Event />}></Route>
         </Routes>
       </Layout>
     </div>
