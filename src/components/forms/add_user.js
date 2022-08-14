@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import { fetchAllUserRoles } from '../../../api/user';
+import React, {useState} from 'react';
+import {USERTYPE} from '../../constants'
 
-export default function AddUser({setShowUserForm}) {
-    // toggle add form
+export default function AddUserForm({setShowUserForm}) {
+    // toggle add staff/player form
     const [role, setRole] = useState(1);
 
     //add user form input values
@@ -18,45 +18,7 @@ export default function AddUser({setShowUserForm}) {
     const [height, setHeight] = useState()
     const [weight, setWeight] = useState()
     const [position, setPosition] = useState()
-   
 
-    // data fetch on page loading
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState();
-    const [data, setData] = useState();
-    const USERROLES = {
-        "Admin": 1,
-        "Staff": 2,
-        "Player": 3
-    }
-
-    useEffect(() => {
-
-        {/*
-            1. Load user: Done
-            2. Load permissions
-        */}
-        async function fetchData() {
-            const res = await Promise.all([fetchAllUserRoles()]).catch(error => setError(error.message));
-            setData(res[0])
-        }
-    
-        fetchData()
-        setIsLoading(false)
-    }, [])
-
-    if (error) return (
-        <div>
-           <h1>{error}</h1>
-        </div>
-    )
-    
-    
-    if (isLoading) return (
-        <div>
-           <h1>Loading...</h1>
-        </div>
-    )
 
     const handleBackClick = () => {
         setShowUserForm(false);
@@ -68,7 +30,7 @@ export default function AddUser({setShowUserForm}) {
       }
     
     const toggleFormChange = (event) => {
-        setRole(USERROLES[event.target.value]);
+        setRole(USERTYPE[event.target.value]);
     }
 
 
@@ -186,27 +148,34 @@ export default function AddUser({setShowUserForm}) {
                 <div className="card">
                     <div className="card-body">
                     <div className="row">
-                        <div className="col-md-9">
+                        <div className="col-md-6">
                             <div className="form-group row">
                                 <label className="col-sm-3 col-form-label">Role</label>
-                                {data && data["user_roles"].map((item) =>
-                                <div key={item.id} className="col-sm-3">
+                                <div className="col-sm-4">
                                     <div className="form-check">
-                                        <input onChange={toggleFormChange} className="form-check-input" type="checkbox" value={item.name} id="flexCheckDefault" checked={role === item.id}/>
+                                        <input onChange={toggleFormChange} className="form-check-input" type="checkbox" value="staff" id="flexCheckDefault" checked={role === USERTYPE["staff"]}/>
                                         <label className="form-check-label" for="flexCheckDefault">
-                                            {item.name}
+                                            Staff
                                         </label>
                                     </div>
                                 </div>
-                                )}
+                                <div className="col-sm-5">
+                                    <div className="form-check">
+                                        <input onChange={toggleFormChange} className="form-check-input" type="checkbox" value="player" id="flexCheckDefault" checked={role === USERTYPE["player"]}/>
+                                        <label className="form-check-label" for="flexCheckDefault">
+                                            Player
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <form className="form-sample" onSubmit={handleSubmit}>
                         <p className="card-description"> Personal info </p>
-                        {role === USERROLES['Admin'] && addStaffFormElements()}
-                        {role === USERROLES['Staff'] && addStaffFormElements()}
-                        {role === USERROLES['Player'] && addPlayerFormElements()}
+                        {role === USERTYPE['player'] ? 
+                        addPlayerFormElements():
+                        addStaffFormElements()
+                        }
                         <button type="submit" className="btn btn-primary btn-icon-text">
                             <i className="mdi mdi-file-check btn-icon-prepend"></i> 
                             Submit 

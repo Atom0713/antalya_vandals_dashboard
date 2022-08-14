@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
-export default function NavSideBar({userName}) {
+export default function NavSideBar({userName, userRole}) {
   return (
     <nav className="sidebar sidebar-offcanvas" id="sidebar">
       <div className="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
@@ -18,7 +18,7 @@ export default function NavSideBar({userName}) {
               </div>
               <div className="profile-name">
                 <h5 className="mb-0 font-weight-normal">{userName}</h5>
-                <span>role</span>
+                <span>{userRole}</span>
               </div>
             </div>
           </div>

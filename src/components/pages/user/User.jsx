@@ -1,34 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import AddUser from './AddUser';
-import { fetchAllUsers } from '../../../api/user';
+import { fetchUsersByRole } from '../../../api/user';
+import DarkWithImageTable from '../../tables/userTable'
+import { USERROLES } from '../../constants';
 
-export default function User() {
+export default function User({userRole}) {
+  // show add user form toggle
   const [showUserForm, setShowUserForm] = useState(false);
+  const [role, setRole ] = useState("admin")
 
-
-
+  // data fetch on page loading
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
-  const [data, setData] = useState(
-    {
-      staff: [],
-      players: [] 
-    });
+  const [state, setState] = useState({});
+    
   useEffect(() => {
+    Promise.all([
+      fetchUsersByRole(USERROLES['staff']), 
+      fetchUsersByRole(USERROLES['player'])
+    ])
+    .then(response =>
+      setState({
+        "staff": response[0] ,
+        "players": response[1] 
+      }),
+      console.log(state),
+      setIsLoading(false)
+    )
+    .catch(error => setError(error.message));
 
     {/*
         1. Load user: Done
-        2. Load permissions
+        2. accept permissions from parent component
     */}
-    async function fetchData() {
-        const res = await Promise.all([fetchAllUsers()]).catch(error => setError(error.message));
-        setData(res[0])
-    }
-
-    fetchData()
-    setIsLoading(false)
-}, []
-)
+  }, [])
 
   const handleAddUserClick = () => {
     setShowUserForm(true);
@@ -53,85 +58,23 @@ export default function User() {
 
   return (
     <div className="content-wrapper">
-        <div className="page-header">
-          <button onClick={handleAddUserClick} type="button" className="btn btn-primary btn-fw">Add user</button>
-        </div>
-        <div className="row ">
-            <div className="col-12 grid-margin">
-                <div className="card">
-                  <div className="card-body">
-                    <h4 className="card-title">Coaching staff</h4>
-                    <div className="table-responsive">
-                      <table className="table">
-                        <thead>
-                          <tr>
-                            <th> Name </th>
-                            <th> Positions </th>
-                            <th> Date of birth</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        {data.staff.map((item) =>
-                          <tr>
-                            <td>
-                              <img src="assets/images/faces/face1.jpg" alt="image" />
-                              <span className="ps-2">{item.name}</span>
-                            </td>
-                            <td> {item.positions} </td>
-                            <td> {item.birth_date} </td>
-                            {/* <td> {item.height} </td>
-                            <td> {item.weight} </td> */}
-                            {/* <td> will be practice attendance
-                              <div className="badge badge-outline-success">Approved</div>
-                            </td> */}
-                          </tr>
-                        )}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-            </div>
-        </div>
-        <div className="row ">
-            <div className="col-12 grid-margin">
-                <div className="card">
-                  <div className="card-body">
-                    <h4 className="card-title">Players</h4>
-                    <div className="table-responsive">
-                      <table className="table">
-                        <thead>
-                          <tr>
-                            <th> Name </th>
-                            <th> Position </th>
-                            <th> Date of birt Cost </th>
-                            <th> Height </th>
-                            <th> Weight </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        {data.players.map((item) =>
-                          <tr>
-                            <td>
-                              <img src="assets/images/faces/face1.jpg" alt="image" />
-                              <span className="ps-2">{item.name}</span>
-                            </td>
-                            <td> {item.position} </td>
-                            <td> {item.birth_date} </td>
-                            <td> {item.height} </td>
-                            <td> {item.weight} </td>
-                            {/* <td> will be practice attendance
-                              <div className="badge badge-outline-success">Approved</div>
-                            </td> */}
-                          </tr>
-                        )}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-            </div>
-        </div>
+      {role === "admin" ? 
+      <div className="page-header">
+        <button onClick={handleAddUserClick} type="button" className="btn btn-primary btn-fw">Add user</button>
+      </div> : null
+      }
+      {state.staff && <DarkWithImageTable
+        title={'Coaching staff'}
+        headers={['', 'Name', 'Positions', 'Date of birth']}
+        order={['img', 'name', 'positions', 'birth_date']}
+        data={state.staff}/>
+      }
+      {state.players && <DarkWithImageTable
+        title={'Players'} 
+        headers={['', 'Name', 'Position', 'Date of birth', 'Height', 'Weight']}
+        order={['img', 'name', 'position', 'birth_date', 'height', 'weight']}
+        data={state.players}
+        />}
     </div>
   )
 }
