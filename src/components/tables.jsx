@@ -14,13 +14,14 @@ const useGettTableContent = (data) => {
         }
         setTableContent(tempTableContent)
     }, []);
-  
+    console.log(tableContent)
     return [tableContent];
   };
 
 
-export default function DarkWithImageTable({title, headers, order, data}) {
+export function OrderedDarkWithImageTable({title, headers, order, data}) {
     const [tableContent] = useGettTableContent(data)
+
     return (
     <>      
             <div className="row ">
@@ -32,26 +33,28 @@ export default function DarkWithImageTable({title, headers, order, data}) {
                       <table className="table">
                         <thead>
                         <tr>
-                            {headers.map((header) => 
-                                    <th key={header}> {header} </th>
+                        <th>  </th>
+                            {headers.map((header, index) => 
+                                    <th key={index}> {header} </th>
                             )}
                         </tr>
                         </thead>
                         <tbody>
                             {
                             tableContent.map(
-                                (row) =>
-                                    <tr>
+                                (row, index) =>
+                                    <tr key={index}>
+                                        <td key={index}>{index + 1}</td>
                                        {
-                                        order.map((item) =>
-                                            <td key={item}> 
-                                                {
-                                                    item === "img" ?
-                                                    <img src={row[item]} alt={row['name']} />
-                                                    :
-                                                    row[item]
-                                                } 
-                                            </td>
+                                        order.map((item, index) =>
+                                        <td key={index}>
+                                            {
+                                                item === "img" ? 
+                                                <img src={row[item]} alt={row['name']} />
+                                                :
+                                                row[item]
+                                            }
+                                        </td>
                                         )
                                        }
                                     </tr>

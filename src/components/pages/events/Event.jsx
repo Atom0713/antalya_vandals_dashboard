@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import AddEvent from './AddEvent';
+import { fetchEvents } from '../../../api/events';
+import { OrderedDarkWithImageTable } from '../../tables'
 
 export default function Event() {
     // TODO: 
@@ -8,9 +10,38 @@ export default function Event() {
     const [showAddEventForm, setShowAddEventForm] = useState(false);
     const [role, setRole ] = useState("admin")
 
+    // data fetch on page loading
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState();
+    const [state, setState] = useState({});
+
+    useEffect(() => {
+        fetchEvents()
+        .then(response =>
+            {
+                setState(response)
+                setIsLoading(false)
+            }
+        )
+        .catch(error => setError(error.message));
+      }, [])
+
     const handleAddEventClick = () => {
         setShowAddEventForm(true);
     }
+
+     if (error) return (
+        <div>
+            <h1>{error}</h1>
+        </div>
+    )
+
+
+    if (isLoading) return (
+        <div>
+            <h1>Loading...</h1>
+        </div>
+    )
 
     const button = (handleClick) => {
         return (
@@ -24,12 +55,12 @@ export default function Event() {
         return (
             // make it reusable component use in User and Events pages
             <>
-                {role === "admin" ? 
-                    button(handleAddEventClick)
-                    : null
+                {state.events && <OrderedDarkWithImageTable
+                    title={'Events'}
+                    headers={['Name', 'Date', 'Description']}
+                    order={['name', 'date', 'description']}
+                    data={state.events}/>
                 }
-
-                Events
             </>
         )
     }
@@ -43,6 +74,10 @@ export default function Event() {
 
     return (
         <div className="content-wrapper">
+            {role === "admin" && !showAddEventForm ? 
+                button(handleAddEventClick)
+                : null
+            }
             {/* apply same login in User page*/}
             {showAddEventForm ? addEventForm() : listOfEvents()}
         </div>

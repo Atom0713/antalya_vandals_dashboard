@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AddUser from './AddUser';
 import { fetchUsersByRole } from '../../../api/user';
-import DarkWithImageTable from '../../tables/userTable'
+import { OrderedDarkWithImageTable } from '../../tables';
 import { USERROLES } from '../../constants';
 
 export default function User({userRole}) {
@@ -63,13 +63,13 @@ export default function User({userRole}) {
         <button onClick={handleAddUserClick} type="button" className="btn btn-primary btn-fw">Add user</button>
       </div> : null
       }
-      {state.staff && <DarkWithImageTable
+      {state.staff && <OrderedDarkWithImageTable
         title={'Coaching staff'}
         headers={['', 'Name', 'Positions', 'Date of birth']}
         order={['img', 'name', 'positions', 'birth_date']}
         data={state.staff}/>
       }
-      {state.players && <DarkWithImageTable
+      {state.players && <OrderedDarkWithImageTable
         title={'Players'} 
         headers={['', 'Name', 'Position', 'Date of birth', 'Height', 'Weight']}
         order={['img', 'name', 'position', 'birth_date', 'height', 'weight']}
