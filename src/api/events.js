@@ -2,7 +2,7 @@ export async function fetchEvents() {
     const headers = {
       "Authorization": "Bearer token"
     }
-    const response = await fetch('http://localhost:5000/events/', 
+    const response = await fetch('http://localhost:5000/event/', 
       {
         method: 'GET',
         headers: headers
@@ -10,4 +10,18 @@ export async function fetchEvents() {
     )
   
     return response.json()
+}
+
+export async function fetchEvent(event_id) {
+  const headers = {
+    "Authorization": "Bearer token"
+  }
+  const response = await fetch(`http://localhost:5000/event/${event_id}/`, 
+    {
+      method: 'GET',
+      headers: headers
+    }
+  )
+
+  return response.json()
 }

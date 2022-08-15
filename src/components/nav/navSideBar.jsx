@@ -24,29 +24,35 @@ export default function NavSideBar({userName, userRole}) {
           </div>
         </li>
         <li className="nav-item menu-items">
-        <Link className="nav-link" to="/">
-          <span className="menu-icon">
-            <i className="mdi mdi-view-dashboard"></i>
-          </span>
-          <span className="menu-title">Dashboard</span>
-        </Link>
-        </li>
-        <li className="nav-item menu-items">
-          <Link className="nav-link" to="/user"> 
+          <Link className="nav-link" to="/">
             <span className="menu-icon">
-                <i className="mdi mdi-account-multiple-outline"></i>
+              <i className="mdi mdi-view-dashboard"></i>
             </span>
-            <span className="menu-title">User</span>
+            <span className="menu-title">Dashboard</span>
           </Link>
         </li>
-        <li className="nav-item menu-items">
-        <Link className="nav-link" to="/events">
-          <span className="menu-icon">
-            <i className="mdi mdi-view-dashboard"></i>
-          </span>
-          <span className="menu-title">Events</span>
-        </Link>
-        </li>
+        {
+        ['admin', 'staff'].includes(userRole) && 
+          <li className="nav-item menu-items">
+           <Link className="nav-link" to="/user"> 
+             <span className="menu-icon">
+                 <i className="mdi mdi-account-multiple-outline"></i>
+             </span>
+             <span className="menu-title">User</span>
+           </Link>
+         </li>
+        }
+        {
+        ['admin', 'staff'].includes(userRole) && 
+          <li className="nav-item menu-items">
+           <Link className="nav-link" to="/events">
+             <span className="menu-icon">
+               <i className="mdi mdi-view-dashboard"></i>
+             </span>
+             <span className="menu-title">Events</span>
+           </Link>
+          </li>
+        }
       </ul>
     </nav>
   )

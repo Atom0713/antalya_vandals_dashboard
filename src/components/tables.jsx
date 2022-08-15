@@ -1,30 +1,12 @@
-import React, { useState, useEffect } from 'react';
-
-const useGettTableContent = (data) => {
-    const [tableContent, setTableContent] = useState([]);
-    const tempTableContent = [];
-    useEffect(() => {
-        for (const item of data){
-            const items = {};
-            Object.entries(item).forEach(([key, value]) => {
-                items[key] = value
-                
-            });
-            tempTableContent.push(items);
-        }
-        setTableContent(tempTableContent)
-    }, []);
-    console.log(tableContent)
-    return [tableContent];
-  };
+import React from 'react';
+import {Link} from "react-router-dom";
 
 
-export function OrderedDarkWithImageTable({title, headers, order, data}) {
-    const [tableContent] = useGettTableContent(data)
+export function OrderedDarkWithImageTable({title, headers, order, data, link = false, url = ""}) {
 
     return (
     <>      
-            <div className="row ">
+        <div className="row ">
             <div className="col-12 grid-margin">
                 <div className="card">
                   <div className="card-body">
@@ -33,7 +15,7 @@ export function OrderedDarkWithImageTable({title, headers, order, data}) {
                       <table className="table">
                         <thead>
                         <tr>
-                        <th>  </th>
+                        <th> # </th>
                             {headers.map((header, index) => 
                                     <th key={index}> {header} </th>
                             )}
@@ -41,7 +23,7 @@ export function OrderedDarkWithImageTable({title, headers, order, data}) {
                         </thead>
                         <tbody>
                             {
-                            tableContent.map(
+                            data.map(
                                 (row, index) =>
                                     <tr key={index}>
                                         <td key={index}>{index + 1}</td>
@@ -50,9 +32,18 @@ export function OrderedDarkWithImageTable({title, headers, order, data}) {
                                         <td key={index}>
                                             {
                                                 item === "img" ? 
-                                                <img src={row[item]} alt={row['name']} />
+                                                    <>
+                                                        <img src={row[item]} alt="" />
+                                                        <span className='ps-2'>{row['name']}</span>
+                                                    </>
                                                 :
-                                                row[item]
+                                                (
+                                                    link && item === 'name' ?
+                                                        <Link to={`${url}/${row['id']}`}>                       
+                                                            {row[item]}
+                                                        </Link>
+                                                    : row[item]
+                                                )
                                             }
                                         </td>
                                         )
@@ -61,7 +52,6 @@ export function OrderedDarkWithImageTable({title, headers, order, data}) {
                             )}
                         </tbody>
                       </table>
-                      Paginate
                     </div>
                   </div>
                 </div>

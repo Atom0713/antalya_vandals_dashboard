@@ -3,7 +3,7 @@ import React   from 'react';
 
 function Home(){
     return(
-      <div className="content-wrapper">
+      <>
         <div className="row">
           <div className="col-md-4 grid-margin stretch-card">
             <div className="card">
@@ -431,7 +431,7 @@ function Home(){
             </div>
           </div>
         </div>
-      </div>
+      </>
     )
 }
 
