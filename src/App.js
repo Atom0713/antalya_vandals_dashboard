@@ -22,6 +22,7 @@ function App(){
     if (!token) return 
     fetcUserRole()
     .then(response => {
+        console.log(response)
         setUserRole(response)
     })
     .catch(error => setError(error.message))
@@ -39,10 +40,10 @@ function App(){
        <h1>{error}</h1>
     </div>
   )
-
+  console.log(userRole)
   return (
     <div className="wrapper">
-      <Layout userRole={userRole.role}>
+      <Layout userRole={userRole}>
         <Routes>
           <Route path="/" element={<Home userRole={userRole.role} />}></Route>
           <Route path="/user" element={<User userRole={userRole.role} />}></Route>

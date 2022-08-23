@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AddUser from '../addUser/AddUser';
+import AddUser from '../../forms/AddUser';
 import { fetchUsersByRole } from '../../../api/user';
 import { OrderedDarkWithImageTable } from '../../tables';
 import { USERROLES } from '../../constants';

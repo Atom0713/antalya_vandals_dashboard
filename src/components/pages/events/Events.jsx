@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AddEvent from '../addEvent/AddEvent';
+import AddEvent from '../../forms/AddEvent';
 import { fetchEvents } from '../../../api/events';
 import { OrderedDarkWithImageTable } from '../../tables';
 import { BlueButton } from '../../buttons';
@@ -43,29 +43,10 @@ export default function Events({userRole}) {
             <h1>Loading...</h1>
         </div>
     )
-
-    const listOfEvents = () => {
-        return (
-            <>
-                {state.events && <OrderedDarkWithImageTable
-                    title={'Events'}
-                    headers={['Name', 'Date', 'Description']}
-                    order={['name', 'date', 'description']}
-                    data={state.events}
-                    link={true}
-                    url={"/event"}
-                    component={Event}/>
-                }
-            </>
-        )
-    }
     
-    const addEventForm = () => {
-        return (
-            <AddEvent setShowAddEventForm={setShowAddEventForm}/>
-        )
-    }
-
+    if (showAddEventForm) return (
+        <AddEvent setShowAddEventForm={setShowAddEventForm}/>
+    )
 
     return (
         <>
@@ -73,8 +54,15 @@ export default function Events({userRole}) {
                 BlueButton(handleAddEventClick, "Add event")
                 : null
             }
-            {/* apply same login in User page*/}
-            {showAddEventForm ? addEventForm() : listOfEvents()}
+            {state.events && <OrderedDarkWithImageTable
+                title={'Events'}
+                headers={['Name', 'Date', 'Description']}
+                order={['name', 'date', 'description']}
+                data={state.events}
+                link={true}
+                url={"/event"}
+                component={Event}/>
+            }
         </>
     )
 }
