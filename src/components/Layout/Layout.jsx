@@ -1,30 +1,31 @@
 import React, { useState, useEffect} from 'react';
 import NavSideBar from '../nav/navSideBar';
 import NavBar from '../nav/navBar';
-import { fetchUser } from '../../api/user'
-import Footer from '../footer/footer'
+import { fetchUser } from '../../api/user';
+import { fetcUserRole } from '../../api/role';
+import Footer from '../footer/footer';
 
 
-const Layout = ({ children }) => {
+const Layout = ({ userRole, children }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState();
-    const [data, setData] = React.useState([]);
+    const [user, setUser] = useState({});
+    // const [userRole, setUserRole ] = useState({});
   
     useEffect(() => {
-
-        {/*
-            1. Load user: Done
-            2. Load permissions
-        */}
-        async function fetchData() {
-            const res = await Promise.all([fetchUser()]).catch(error => setError(error.message));
-            setData(res[0])
-        }
-
-        fetchData()
-        setIsLoading(false)
+        Promise.all(
+            [
+                fetchUser(), 
+                // fetcUserRole()
+            ]
+        )
+        .then(response => {
+            setUser(response[0])
+            // setUserRole(response[1])
+            setIsLoading(false)
+        })
+        .catch(error => setError(error.message))
     }, []
-    
     )
   
     if (error) return (
@@ -39,13 +40,18 @@ const Layout = ({ children }) => {
          <h1>Loading...</h1>
       </div>
     )
+
     return(
         <div className="container-scroller">   
-            <NavSideBar userName={data.name}/>
+            <NavSideBar userName={user.name} userRole={userRole}/>
             <div className="container-fluid page-body-wrapper">
-                <NavBar userName={data.name}/>
+                <NavBar userName={user.name}/>
                 <div className="main-panel">
-                    <main>{children}</main>
+                    <main>
+                        <div className="content-wrapper">
+                            {children}
+                        </div>
+                    </main>  {/*<!-- can't pass role to children --> */}
                     <Footer />
                 </div>
             </div>
