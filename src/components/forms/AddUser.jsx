@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import { fetchAllUserRoles, addUser } from '../../api/user';
 import { BlueButton } from '../buttons';
+import { USERROLES } from '../constants';
 
-export default function AddUser({setShowUserForm}) {
+export default function AddUser({setShowUserForm, userRole}) {
     // toggle add form
-    const [role, setRole] = useState(1);
+    const [role, setRole] = useState(userRole.id);
     const [addUserBody, setAddUserBody] = useState({})
     const [formSubmitted, setFormSubmitted] = useState()
     const [newUserResponse, setNewUserResponse] =useState({})
@@ -12,17 +13,12 @@ export default function AddUser({setShowUserForm}) {
     // data fetch on page loading
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState();
-    const [data, setData] = useState();
-    const USERROLES = {
-        "Admin": 1,
-        "Staff": 2,
-        "Player": 3
-    }
+    const [userRoles, setUserRoles] = useState({});
 
     useEffect(() => {
         fetchAllUserRoles()
           .then(response => {
-            setData(response)
+            setUserRoles(response)
             setIsLoading(false)
           }
           )
@@ -175,10 +171,8 @@ export default function AddUser({setShowUserForm}) {
                 Username: {newUserResponse.username}
                 Password: {newUserResponse.password}
             </div>
-
         )
     }
-
 
   return (
     <>
@@ -194,9 +188,9 @@ export default function AddUser({setShowUserForm}) {
                                 <div className="col-md-9">
                                     <div className="form-group row">
                                         <label className="col-sm-3 col-form-label">Role</label>
-                                        {data && data["user_roles"].map((item) =>
+                                        {userRoles && userRoles["user_roles"].map((item) =>
                                         <div key={item.id} className="col-sm-3">
-                                            <div className="form-check">
+                                            <div className="form-check"> 
                                                 <input onChange={toggleFormChange} className="form-check-input" type="checkbox" value={item.name} id="flexCheckDefault" checked={role === item.id}/>
                                                 <label className="form-check-label" for="flexCheckDefault">
                                                     {item.name}

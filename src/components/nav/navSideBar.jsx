@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import { USERROLES } from '../constants'
 
 export default function NavSideBar({userName, userRole}) {
   return (
@@ -32,7 +33,7 @@ export default function NavSideBar({userName, userRole}) {
           </Link>
         </li>
         {
-        ['admin', 'staff'].includes(userRole.role) && 
+        [USERROLES.Admin, USERROLES.Staff].includes(userRole.id) && 
           <li className="nav-item menu-items">
            <Link className="nav-link" to="/user"> 
              <span className="menu-icon">
@@ -43,7 +44,7 @@ export default function NavSideBar({userName, userRole}) {
          </li>
         }
         {
-        ['admin', 'staff'].includes(userRole.role) && 
+        [USERROLES.Admin, USERROLES.Staff].includes(userRole.id) && 
           <li className="nav-item menu-items">
            <Link className="nav-link" to="/events">
              <span className="menu-icon">

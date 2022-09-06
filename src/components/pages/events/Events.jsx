@@ -4,6 +4,7 @@ import { fetchEvents } from '../../../api/events';
 import { OrderedDarkWithImageTable } from '../../tables';
 import { BlueButton } from '../../buttons';
 import Event from '../event/Event';
+import { USERROLES } from '../../constants';
 
 export default function Events({userRole}) {
     // TODO: 
@@ -32,14 +33,14 @@ export default function Events({userRole}) {
     }
 
     if (error) return (
-        <div>
+        <div className="row">
             <h1>{error}</h1>
         </div>
     )
 
 
     if (isLoading) return (
-        <div>
+        <div className="row">
             <h1>Loading...</h1>
         </div>
     )
@@ -50,7 +51,7 @@ export default function Events({userRole}) {
 
     return (
         <>
-            {['admin', 'staff'].includes(userRole) && !showAddEventForm ? 
+            {[USERROLES.Admin, USERROLES.Staff].includes(userRole.id) && !showAddEventForm ? 
                 BlueButton(handleAddEventClick, "Add event")
                 : null
             }

@@ -22,7 +22,6 @@ function App(){
     if (!token) return 
     fetcUserRole()
     .then(response => {
-        console.log(response)
         setUserRole(response)
     })
     .catch(error => setError(error.message))
@@ -40,15 +39,14 @@ function App(){
        <h1>{error}</h1>
     </div>
   )
-  console.log(userRole)
   return (
     <div className="wrapper">
       <Layout userRole={userRole}>
         <Routes>
-          <Route path="/" element={<Home userRole={userRole.role} />}></Route>
-          <Route path="/user" element={<User userRole={userRole.role} />}></Route>
-          <Route path="/events" element={<Events userRole={userRole.role} />}></Route>
-          <Route path="/event/:id" element={<Event userRole={userRole.role} />}></Route>
+          <Route path="/" element={<Home userRole={userRole} />}></Route>
+          <Route path="/user" element={<User userRole={userRole} />}></Route>
+          <Route path="/events" element={<Events userRole={userRole} />}></Route>
+          <Route path="/event/:id" element={<Event userRole={userRole} />}></Route>
         </Routes>
       </Layout>
     </div>

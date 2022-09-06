@@ -16,8 +16,8 @@ export default function User({userRole}) {
     
   useEffect(() => {
     Promise.all([
-      fetchUsersByRole(USERROLES['staff']), 
-      fetchUsersByRole(USERROLES['player'])
+      fetchUsersByRole(USERROLES['Staff']), 
+      fetchUsersByRole(USERROLES['Player'])
     ])
     .then(response => {
       setState({
@@ -48,12 +48,12 @@ export default function User({userRole}) {
   )
 
   if (showUserForm) return (
-    <AddUser setShowUserForm={setShowUserForm}/>
+    <AddUser userRole={userRole} setShowUserForm={setShowUserForm}/>
   )
 
   return (
     <>
-      {['admin', 'staff'].includes(userRole) ? BlueButton(handleAddUserClick, "Add user"): null}
+      {[USERROLES.Admin, USERROLES.Staff].includes(userRole.id) ? BlueButton(handleAddUserClick, "Add user"): null}
       {state.staff && <OrderedDarkWithImageTable
         title={'Coaching staff'}
         headers={['Name', 'Positions', 'Date of birth']}

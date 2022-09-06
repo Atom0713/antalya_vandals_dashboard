@@ -6,7 +6,7 @@ export function OrderedDarkWithImageTable({title, headers, order, data, link = f
 
     return (
     <>      
-        <div className="row ">
+        <div className="row">
             <div className="col-12 grid-margin">
                 <div className="card">
                   <div className="card-body">
