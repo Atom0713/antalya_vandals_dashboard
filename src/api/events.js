@@ -2,7 +2,7 @@ export async function fetchEvents() {
     const headers = {
       "Authorization": "Bearer token"
     }
-    const response = await fetch('http://localhost:5000/event/', 
+    const response = await fetch(`${process.env.REACT_APP_MY_ENV_VARIABLE}/event/`, 
       {
         method: 'GET',
         headers: headers
@@ -16,7 +16,7 @@ export async function fetchEvent(event_id) {
   const headers = {
     "Authorization": "Bearer token"
   }
-  const response = await fetch(`http://localhost:5000/event/${event_id}/`, 
+  const response = await fetch(`${process.env.REACT_APP_MY_ENV_VARIABLE}/event/${event_id}/`, 
     {
       method: 'GET',
       headers: headers
@@ -30,7 +30,7 @@ export async function addEvent(body){
   const headers = {
     "Authorization": "Bearer token"
   }
-  const response = await fetch(`http://localhost:5000/event/`, 
+  const response = await fetch(`${process.env.REACT_APP_MY_ENV_VARIABLE}/event/`, 
     {
       method: 'POST',
       headers: headers,

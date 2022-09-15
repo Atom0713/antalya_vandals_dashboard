@@ -47,7 +47,7 @@ export async function addUser(body) {
   const headers = {
     "Authorization": "Bearer token"
   }
-  const response = await fetch('http://localhost:5000/user/add', 
+  const response = await fetch(`${process.env.REACT_APP_MY_ENV_VARIABLE}/user/add`, 
     {
       method: 'POST',
       headers: headers,
