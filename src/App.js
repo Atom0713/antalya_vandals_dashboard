@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route } from "react-router-dom";
 import './App.css';
 import Login from "./components/pages/login/Login";
-import Home from './components/pages/home/Home';
+import Home from './components/pages/Home/Home';
 import { useToken } from './components/auth';
 import Layout from './components/Layout/Layout'
 import User from './components/pages/user/User';
