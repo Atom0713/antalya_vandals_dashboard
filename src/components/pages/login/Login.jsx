@@ -5,14 +5,35 @@ export default function Login({ setToken }) {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
 
+  // data fetch on page loading
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = await loginUser({
+    await loginUser({
       username,
       password,
-    });
-    setToken(token);
+    }).then((response) => {
+      setToken(response);
+      setIsLoading(false);
+    })
+    .catch((error) => setError(error.message));
   };
+
+  if (error)
+  return (
+    <div className="row">
+      <h1>{error}</h1>
+    </div>
+  );
+
+  // if (isLoading)
+  //   return (
+  //     <div className="row">
+  //       <h1>Loading...</h1>
+  //     </div>
+  //   );
 
   return (
     <div className="login_container">
