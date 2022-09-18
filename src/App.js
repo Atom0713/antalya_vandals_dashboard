@@ -10,18 +10,21 @@ import Events from "./components/pages/events/Events";
 import Event from "./components/pages/event/Event";
 
 import { fetcUserRole } from "./api/role";
+import { fetchUser } from "./api/user";
 
 function App() {
-  const { token, setToken } = useToken();
-
-  const [userRole, setUserRole] = useState({});
+  const [token, setToken] = useState();
+  const [user, setUser] = useState();
+  const [userRole, setUserRole] = useState();
   const [error, setError] = useState();
 
   useEffect(() => {
-    if (!token) return;
-    fetcUserRole()
-      .then((response) => {
-        setUserRole(response);
+    Promise.all([
+      fetchUser(),
+      fetcUserRole()
+    ]).then((response) => {
+        setUser(response[0]);
+        setUserRole(response[1]);
       })
       .catch((error) => setError(error.message));
   }, []);
@@ -36,19 +39,26 @@ function App() {
         <h1>{error}</h1>
       </div>
     );
-  return (
+
+  if (!user && !userRole) return (
+    <div className="row">
+      <h1>Loading...</h1>
+    </div>
+  )
+
+  return (  
     <div className="wrapper">
-      <Layout userRole={userRole}>
+      <Layout userRole={userRole} user={user}>
         <Routes>
           <Route path="/" element={<Home userRole={userRole} />}></Route>
           <Route path="/user" element={<User userRole={userRole} />}></Route>
           <Route
             path="/events"
-            element={<Events userRole={userRole} user_id={1} />}
+            element={<Events userRole={userRole} user={user} />}
           ></Route>
           <Route
             path="/event/:id"
-            element={<Event userRole={userRole} user_id={1} />}
+            element={<Event userRole={userRole} user={user} />}
           ></Route>
         </Routes>
       </Layout>

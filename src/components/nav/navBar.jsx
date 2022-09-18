@@ -2,7 +2,7 @@ import React from "react";
 import { logout } from "../auth";
 import { Link } from "react-router-dom";
 
-export default function NavBar({ userName }) {
+export default function NavBar({ user }) {
   return (
     <nav className="navbar p-0 fixed-top d-flex flex-row">
       <div className="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
@@ -157,7 +157,7 @@ export default function NavBar({ userName }) {
                   alt=""
                 />
                 <p className="mb-0 d-none d-sm-block navbar-profile-name">
-                  {userName}
+                  {user.name}
                 </p>
                 <i className="mdi mdi-menu-down d-none d-sm-block"></i>
               </div>

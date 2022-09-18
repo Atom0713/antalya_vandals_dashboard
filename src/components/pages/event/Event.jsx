@@ -9,7 +9,7 @@ import { BlueButton } from "../../buttons";
 import Attandance from "../../forms/Attandance";
 import Comment from "../../forms/Comment";
 
-export default function Event({ userRole, user_id }) {
+export default function Event({ userRole, user }) {
   const { id } = useParams();
 
   // data fetch on page loading
@@ -113,7 +113,7 @@ export default function Event({ userRole, user_id }) {
           </div>
         </div>
       </div>
-      <Comment event_id={id}  user_id={user_id}/>
+      <Comment event_id={id}  user={user}/>
     </>
   );
 }

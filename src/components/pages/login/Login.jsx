@@ -61,7 +61,7 @@ export default function Login({ setToken }) {
                         onChange={(e) => setPassword(e.target.value)}
                       />
                     </div>
-                    <div className="form-group d-flex align-items-center justify-content-between">
+                    {/* <div className="form-group d-flex align-items-center justify-content-between">
                       <div className="form-check">
                         <label className="form-check-label">
                           <input type="checkbox" className="form-check-input" />{" "}
@@ -71,7 +71,7 @@ export default function Login({ setToken }) {
                       <a href="#" className="forgot-pass">
                         Forgot password
                       </a>
-                    </div>
+                    </div> */}
                     <div className="text-center">
                       <button
                         type="submit"
@@ -80,17 +80,17 @@ export default function Login({ setToken }) {
                         Login
                       </button>
                     </div>
-                    <div className="d-flex">
+                    {/* <div className="d-flex">
                       <button className="btn btn-facebook me-2 col">
                         <i className="mdi mdi-facebook"></i> Facebook{" "}
                       </button>
                       <button className="btn btn-google col">
                         <i className="mdi mdi-google-plus"></i> Google plus{" "}
                       </button>
-                    </div>
-                    <p className="sign-up">
+                    </div> */}
+                    {/* <p className="sign-up">
                       Don't have an Account?<a href="#"> Sign Up</a>
-                    </p>
+                    </p> */}
                   </form>
                 </div>
               </div>

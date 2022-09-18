@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { USERROLES } from "../constants";
 
-export default function NavSideBar({ userName, userRole }) {
+export default function NavSideBar({ user, userRole }) {
   return (
     <nav className="sidebar sidebar-offcanvas" id="sidebar">
       <div className="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
@@ -26,7 +26,7 @@ export default function NavSideBar({ userName, userRole }) {
                 <span className="count bg-success"></span>
               </div>
               <div className="profile-name">
-                <h5 className="mb-0 font-weight-normal">{userName}</h5>
+                <h5 className="mb-0 font-weight-normal">{user.name}</h5>
                 <span>{userRole.role}</span>
               </div>
             </div>

@@ -2,47 +2,43 @@ import React, { useState, useEffect } from "react";
 import NavSideBar from "../nav/navSideBar";
 import NavBar from "../nav/navBar";
 import { fetchUser } from "../../api/user";
-import { fetcUserRole } from "../../api/role";
 import Footer from "../footer/footer";
 
-const Layout = ({ userRole, children }) => {
+const Layout = ({ userRole, user, children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
-  const [user, setUser] = useState({});
-  // const [userRole, setUserRole ] = useState({});
+  // const [user, setUser] = useState({});
 
-  useEffect(() => {
-    Promise.all([
-      fetchUser(),
-      // fetcUserRole()
-    ])
-      .then((response) => {
-        setUser(response[0]);
-        // setUserRole(response[1])
-        setIsLoading(false);
-      })
-      .catch((error) => setError(error.message));
-  }, []);
+  // useEffect(() => {
+  //   Promise.all([
+  //     fetchUser(),
+  //   ])
+  //     .then((response) => {
+  //       setUser(response[0]);
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => setError(error.message));
+  // }, []);
 
-  if (error)
-    return (
-      <div>
-        <h1>{error}</h1>
-      </div>
-    );
+  // if (error)
+  //   return (
+  //     <div>
+  //       <h1>{error}</h1>
+  //     </div>
+  //   );
 
-  if (isLoading)
-    return (
-      <div>
-        <h1>Loading...</h1>
-      </div>
-    );
+  // if (isLoading)
+  //   return (
+  //     <div>
+  //       <h1>Loading...</h1>
+  //     </div>
+  //   );
 
   return (
     <div className="container-scroller">
-      <NavSideBar userName={user.name} userRole={userRole} />
+      <NavSideBar user={user} userRole={userRole} />
       <div className="container-fluid page-body-wrapper">
-        <NavBar userName={user.name} />
+        <NavBar user={user} />
         <div className="main-panel">
           <main>
             <div className="content-wrapper">{children}</div>

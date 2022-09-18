@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addComment } from "../../api/comment";
 
-export default function Comment({ event_id, user_id}) {
+export default function Comment({ event_id, user}) {
     
     const [formSubmitted, setFormSubmitted] = useState();
     const [error, setError] = useState();
@@ -9,7 +9,7 @@ export default function Comment({ event_id, user_id}) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        addComment(comment, event_id, user_id)
+        addComment(comment, event_id, user.id)
           .then((response) =>
             console.log(response.status),
             setFormSubmitted(true))
