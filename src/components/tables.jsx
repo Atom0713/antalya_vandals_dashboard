@@ -7,7 +7,7 @@ export function OrderedDarkWithImageTable({
   order,
   data,
   link = false,
-  url = "",
+  url = ""
 }) {
   return (
     <>

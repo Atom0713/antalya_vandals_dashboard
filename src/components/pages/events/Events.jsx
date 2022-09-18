@@ -6,7 +6,7 @@ import { BlueButton } from "../../buttons";
 import Event from "../event/Event";
 import { USERROLES } from "../../constants";
 
-export default function Events({ userRole }) {
+export default function Events({ userRole, user_id }) {
   // TODO:
   // 1. Fetch events (paginate)
   // 2. Save new event (send all users notification: make it an option?)

@@ -6,8 +6,9 @@ import { USERROLES } from "../../constants";
 import { fetchUsersByRole } from "../../../api/user";
 import { BlueButton } from "../../buttons";
 import Attandance from "../../forms/Attandance";
+import Comment from "../../forms/Comment";
 
-export default function Event({ userRole }) {
+export default function Event({ userRole, user_id }) {
   const { id } = useParams();
 
   // data fetch on page loading
@@ -191,6 +192,7 @@ export default function Event({ userRole }) {
           </div>
         </div>
       </div>
+      <Comment event_id={id}  user_id={user_id}/>
     </>
   );
 }

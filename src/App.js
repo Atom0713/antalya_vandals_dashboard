@@ -44,11 +44,11 @@ function App() {
           <Route path="/user" element={<User userRole={userRole} />}></Route>
           <Route
             path="/events"
-            element={<Events userRole={userRole} />}
+            element={<Events userRole={userRole} user_id={1} />}
           ></Route>
           <Route
             path="/event/:id"
-            element={<Event userRole={userRole} />}
+            element={<Event userRole={userRole} user_id={1} />}
           ></Route>
         </Routes>
       </Layout>
