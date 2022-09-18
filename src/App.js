@@ -13,7 +13,7 @@ import { fetcUserRole } from "./api/role";
 import { fetchUser } from "./api/user";
 
 function App() {
-  const [token, setToken] = useState();
+  const { token, setToken } = useToken();
   const [user, setUser] = useState();
   const [userRole, setUserRole] = useState();
   const [error, setError] = useState();
