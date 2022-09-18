@@ -59,9 +59,8 @@
           position: absolute;
           top: 2px;
           left: 0;
-
         }
-  
+
         &:after {
           @include transition(all);
           transition-duration: 0s;
@@ -74,7 +73,7 @@
           -ms-transform: scale(0);
           -o-transform: scale(0);
           transform: scale(0);
-          content: '\F12C';
+          content: "\F12C";
           font-size: 0.875rem;
           font-weight: bold;
           color: $white;
@@ -82,7 +81,7 @@
         }
       }
       &:checked {
-        +.input-helper {
+        + .input-helper {
           &:before {
             background: $primary;
             border-width: 0;
@@ -119,7 +118,7 @@
       }
     }
     input[type="radio"] {
-      +.input-helper {
+      + .input-helper {
         &:before {
           position: absolute;
           content: "";
@@ -169,7 +168,7 @@
       }
 
       &:checked {
-        +.input-helper {
+        + .input-helper {
           &:before {
             background: $primary;
             border-width: 0;
@@ -216,13 +215,13 @@
       label {
         input[type="checkbox"],
         input[type="radio"] {
-          +.input-helper {
+          + .input-helper {
             &:before {
               border-color: theme-color($color);
             }
           }
           &:checked {
-            +.input-helper {
+            + .input-helper {
               &:before {
                 background: $value;
               }
@@ -239,13 +238,13 @@
     label {
       input[type="checkbox"],
       input[type="radio"] {
-        +.input-helper {
+        + .input-helper {
           &:before {
             border-color: $text-muted;
           }
         }
         &:checked {
-          +.input-helper {
+          + .input-helper {
             &:before {
               background: $text-muted;
             }
@@ -255,4 +254,3 @@
     }
   }
 }
-

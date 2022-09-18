@@ -7,32 +7,32 @@
   }
   &.context-menu-icon-cut {
     &:before {
-      content: '\F190';
+      content: "\F190";
     }
   }
   &.context-menu-icon-edit {
     &:before {
-      content: '\F3EF';
+      content: "\F3EF";
     }
   }
   &.context-menu-icon-copy {
     &:before {
-      content: '\F18F';
+      content: "\F18F";
     }
   }
   &.context-menu-icon-paste {
     &:before {
-      content: '\F613';
+      content: "\F613";
     }
   }
   &.context-menu-icon-delete {
     &:before {
-      content: '\F6CB';
+      content: "\F6CB";
     }
   }
   &.context-menu-icon-quit {
     &:before {
-      content: '\F156';
+      content: "\F156";
     }
   }
 }
@@ -42,7 +42,7 @@
   .context-menu-item {
     span {
       color: $black;
-      font-size: .75rem;
+      font-size: 0.75rem;
       font-weight: $font-weight-bold;
     }
     &.context-menu-hover {
