@@ -2,7 +2,7 @@ export async function fetchUser() {
   const headers = {
     "Authorization": "Bearer token"
   }
-  const response = await fetch('http://localhost:5000/user/1', 
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/1`, 
     {
       method: 'GET',
       headers: headers
@@ -17,7 +17,7 @@ export async function fetchUsersByRole(id) {
   const headers = {
     "Authorization": "Bearer token"
   }
-  const response = await fetch(`http://localhost:5000/user/role/${id}/`, 
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/role/${id}/`, 
     {
       method: 'GET',
       headers: headers,
@@ -32,7 +32,7 @@ export async function fetchAllUserRoles() {
   const headers = {
     "Authorization": "Bearer token"
   }
-  const response = await fetch('http://localhost:5000/user/roles', 
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/roles`, 
     {
       method: 'GET',
       headers: headers,
@@ -47,7 +47,7 @@ export async function addUser(body) {
   const headers = {
     "Authorization": "Bearer token"
   }
-  const response = await fetch(`${process.env.REACT_APP_MY_ENV_VARIABLE}/user/add`, 
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/add`, 
     {
       method: 'POST',
       headers: headers,
