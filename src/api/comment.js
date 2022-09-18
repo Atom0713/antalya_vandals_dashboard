@@ -9,5 +9,21 @@ export async function addComment(comment, event_id, user_id) {
     });
   
     return response.json();
-  }
+}
+
+export async function fetchComments() {
+  const headers = {
+    Authorization: "Bearer token",
+  };
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/comment/`,
+    {
+      method: "GET",
+      headers: headers,
+    }
+  );
+
+  return response.json();
+}
+
   
