@@ -1,5 +1,5 @@
 export async function loginUser(credentials) {
-  return fetch(`${process.env.REACT_APP_SERVER_URL}/login`, {
+  return fetch(`${process.env.REACT_APP_SERVER_URL}/login/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
