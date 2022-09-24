@@ -59,7 +59,7 @@ export default function User({ userRole }) {
         <OrderedDarkWithImageTable
           title={"Coaching staff"}
           headers={["Name", "Positions", "Date of birth"]}
-          order={["img", "positions", "birth_date"]}
+          order={["name", "positions", "birth_date"]}
           data={state.staff}
         />
       )}
@@ -67,7 +67,7 @@ export default function User({ userRole }) {
         <OrderedDarkWithImageTable
           title={"Players"}
           headers={["Name", "Position", "Date of birth", "Height", "Weight"]}
-          order={["img", "position", "birth_date", "height", "weight"]}
+          order={["name", "position", "birth_date", "height", "weight"]}
           data={state.players}
         />
       )}
