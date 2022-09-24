@@ -17,14 +17,14 @@ export default function NavSideBar({ user, userRole }) {
         <li className="nav-item profile">
           <div className="profile-desc">
             <div className="profile-pic">
-              <div className="count-indicator">
+              {/* <div className="count-indicator">
                 <img
                   className="img-xs rounded-circle "
                   src="assets/images/faces/face15.jpg"
                   alt=""
                 />
                 <span className="count bg-success"></span>
-              </div>
+              </div> */}
               <div className="profile-name">
                 <h5 className="mb-0 font-weight-normal">{user.name}</h5>
                 <span>{userRole.role}</span>

@@ -151,11 +151,11 @@ export default function NavBar({ user }) {
               data-bs-toggle="dropdown"
             >
               <div className="navbar-profile">
-                <img
+                {/* <img
                   className="img-xs rounded-circle"
                   src="assets/images/faces/face15.jpg"
                   alt=""
-                />
+                /> */}
                 <p className="mb-0 d-none d-sm-block navbar-profile-name">
                   {user.name}
                 </p>
@@ -166,9 +166,9 @@ export default function NavBar({ user }) {
               className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
               aria-labelledby="profileDropdown"
             >
-              <h6 className="p-3 mb-0">Profile</h6>
+              {/* <h6 className="p-3 mb-0">Profile</h6> */}
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item preview-item">
+              {/* <a className="dropdown-item preview-item">
                 <div className="preview-thumbnail">
                   <div className="preview-icon bg-dark rounded-circle">
                     <i className="mdi mdi-settings text-success"></i>
@@ -177,7 +177,7 @@ export default function NavBar({ user }) {
                 <div className="preview-item-content">
                   <p className="preview-subject mb-1">Settings</p>
                 </div>
-              </a>
+              </a> */}
               <div className="dropdown-divider"></div>
               <a className="dropdown-item preview-item">
                 <div className="preview-thumbnail">
@@ -196,7 +196,7 @@ export default function NavBar({ user }) {
                 </div>
               </a>
               <div className="dropdown-divider"></div>
-              <p className="p-3 mb-0 text-center">Advanced settings</p>
+              {/* <p className="p-3 mb-0 text-center">Advanced settings</p> */}
             </div>
           </li>
         </ul>
