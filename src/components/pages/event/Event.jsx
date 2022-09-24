@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchEvent } from "../../../api/events";
+import { fetchEvent, fetchEventAttendance } from "../../../api/events";
 import { fetchComments } from "../../../api/comment";
 
 import { USERROLES } from "../../constants";
@@ -18,22 +18,24 @@ export default function Event({ userRole, user }) {
   const [event, setEvent] = useState({});
   const [players, setPlayers] = useState({});
   const [comments, setComments] = useState({});
+  const [attendance, setAttendance] = useState({});
 
-  const [showAddAtandanceForm, setAddAtandanceForm] = useState(false);
+  const [showAtandanceForm, setShowAttendanceForm] = useState(false);
 
   useEffect(() => {
-    Promise.all([fetchEvent(id), fetchUsersByRole(USERROLES.Player), fetchComments()])
+    Promise.all([fetchEvent(id), fetchEventAttendance(id), fetchUsersByRole(USERROLES.Player), fetchComments()])
       .then((response) => {
         setEvent(response[0]);
-        setPlayers(response[1]);
-        setComments(response[2]);
+        setAttendance(response[1]);
+        setPlayers(response[2]);
+        setComments(response[3]);
         setIsLoading(false);
       })
       .catch((error) => setError(error.message));
   }, []);
 
-  const handleClick = () => {
-    setAddAtandanceForm(true);
+  const handleAddAttendanceClick = () => {
+    setShowAttendanceForm(true);
   };
 
   if (error)
@@ -50,16 +52,16 @@ export default function Event({ userRole, user }) {
       </div>
     );
 
-  if (showAddAtandanceForm)
-    return (
+  if (showAtandanceForm)
+    return ( /* Reload page when Attendance returns here*/
       <>
-        <Attandance userRole={userRole} />
+        <Attandance userRole={userRole} setShowAttendanceForm={setShowAttendanceForm} event_id={id} />
       </>
     );
 
   return (
     <>
-      {BlueButton(handleClick, "Get attandance")}
+      {BlueButton(handleAddAttendanceClick, "Get attandance")}
       <div className="row">
         <div className="col-md-4 grid-margin">
           <div className="card">
@@ -75,6 +77,12 @@ export default function Event({ userRole, user }) {
               <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                 <div className="text-md-center text-xl-left">
                   <p className="text-muted mb-0">{event.date}</p>
+                </div>
+              </div>
+              <h4 className="card-title">Attendance</h4>
+              <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+                <div className="text-md-center text-xl-left"> 
+                  <p className="text-muted mb-0">{attendance.attended}/{attendance.expected}</p>
                 </div>
               </div>
             </div>
