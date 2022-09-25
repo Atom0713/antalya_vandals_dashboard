@@ -199,7 +199,7 @@ export default function NavBar({ user }) {
               {/* <p className="p-3 mb-0 text-center">Advanced settings</p> */}
             </div>
           </li>
-          <li>
+          <li className="d-lg-none">
             <a
                 className="nav-link"
                 id="profileDropdown"
