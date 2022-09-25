@@ -12,12 +12,12 @@ export default function NavBar({ user }) {
       </div>
       <div className="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
         <ul className="navbar-nav navbar-nav-right">
-          <li className="nav-item nav-settings d-none d-lg-block">
+          {/* <li className="nav-item nav-settings d-none d-lg-block">
             <a className="nav-link" href="#">
               <i className="mdi mdi-view-grid"></i>
             </a>
-          </li>
-          <li className="nav-item dropdown border-left">
+          </li> */}
+          {/* <li className="nav-item dropdown border-left">
             <a
               className="nav-link count-indicator dropdown-toggle"
               id="messageDropdown"
@@ -84,8 +84,8 @@ export default function NavBar({ user }) {
               <div className="dropdown-divider"></div>
               <p className="p-3 mb-0 text-center">4 new messages</p>
             </div>
-          </li>
-          <li className="nav-item dropdown border-left">
+          </li> */}
+          {/* <li className="nav-item dropdown border-left">
             <a
               className="nav-link count-indicator dropdown-toggle"
               id="notificationDropdown"
@@ -142,7 +142,7 @@ export default function NavBar({ user }) {
               <div className="dropdown-divider"></div>
               <p className="p-3 mb-0 text-center">See all notifications</p>
             </div>
-          </li>
+          </li> */}
           <li className="nav-item dropdown">
             <a
               className="nav-link"
@@ -199,14 +199,41 @@ export default function NavBar({ user }) {
               {/* <p className="p-3 mb-0 text-center">Advanced settings</p> */}
             </div>
           </li>
+          <li>
+            <a
+                className="nav-link"
+                id="profileDropdown"
+                href="#"
+                data-bs-toggle="dropdown"
+              >
+              <i className="mdi mdi-menu"></i>
+            </a>
+            <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+              aria-labelledby="profileDropdown">
+                <a className="dropdown-item preview-item">
+                  <div className="preview-item-content">
+                    <div className="preview-item-content">
+                      <Link className="d-sm-block navbar-profile-name" to="/">
+                        Dashboard
+                      </Link>
+                    </div>
+                    <div className="dropdown-divider"></div>
+                    <div className="preview-item-content">
+                      <Link to="/user">
+                        Users
+                      </Link>
+                    </div>
+                    <div className="dropdown-divider"></div>
+                    <div className="preview-item-content">
+                      <Link to="/events">
+                        Events
+                      </Link>
+                    </div>
+                  </div>
+                </a>
+            </div>
+          </li>
         </ul>
-        <button
-          className="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
-          type="button"
-          data-toggle="offcanvas"
-        >
-          <span className="mdi mdi-format-line-spacing"></span>
-        </button>
       </div>
     </nav>
   );
