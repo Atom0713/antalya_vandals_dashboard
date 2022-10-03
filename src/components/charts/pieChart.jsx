@@ -1,5 +1,4 @@
 import React from "react";
-import Chart from "react-apexcharts";
 import { PieChart } from "react-minimal-pie-chart";
 
 export default function AphexChart({total, attended}) {
