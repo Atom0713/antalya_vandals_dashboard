@@ -5,7 +5,7 @@ import { USERROLES } from "../constants";
 
 export default function AddUser({ setShowUserForm, userRole }) {
   // toggle add form
-  const [role, setRole] = useState(userRole.id);
+  const [role, setRole] = useState(2);
   const [addUserBody, setAddUserBody] = useState({});
   const [formSubmitted, setFormSubmitted] = useState();
   const [newUserResponse, setNewUserResponse] = useState({});
@@ -18,7 +18,7 @@ export default function AddUser({ setShowUserForm, userRole }) {
   useEffect(() => {
     fetchAllUserRoles()
       .then((response) => {
-        setUserRoles(response);
+        setUserRoles(response.data);
         setIsLoading(false);
       })
       .catch((error) => setError(error.message));
@@ -49,7 +49,7 @@ export default function AddUser({ setShowUserForm, userRole }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     addUser(addUserBody)
-      .then((response) => setNewUserResponse(response), setFormSubmitted(true))
+      .then((response) => setNewUserResponse(response.data), setFormSubmitted(true))
       .catch((error) => setError(error.message));
   };
 

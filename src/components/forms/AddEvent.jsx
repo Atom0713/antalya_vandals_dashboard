@@ -89,6 +89,21 @@ export default function AddEvent({ setShowAddEventForm }) {
                           </div>
                         </div>
                       </div>
+                      <div className="col-md-6">
+                        <div className="form-group row">
+                          <label className="col-sm-3 col-form-label">
+                            Location
+                          </label>
+                          <div className="col-sm-9">
+                            <input
+                              name="description"
+                              type="text"
+                              className="form-control"
+                              onChange={handleChange}
+                            />
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <button
                       type="submit"

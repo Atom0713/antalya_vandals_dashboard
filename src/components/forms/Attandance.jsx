@@ -14,11 +14,11 @@ function Attandance({setShowAttendanceForm, userRole, event_id }) {
     setIsLoading(true);
     fetchUsersByRole(USERROLES["Player"])
       .then((response) => {
-        setPlayersAttandanceList(response);
+        setPlayersAttandanceList(response.data);
         setIsLoading(false);
         setCheckedState(new Array(response.length).fill(true));
         const initAttandance = {};
-        response.map(
+        response.data.map(
           (item) =>
             (initAttandance[item.id] = {
               present: true,

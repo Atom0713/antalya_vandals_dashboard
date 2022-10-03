@@ -15,7 +15,7 @@ export default function Login({ setToken }) {
       username,
       password,
     }).then((response) => {
-      setToken(response);
+      setToken(response.data);
       setIsLoading(false);
     })
     .catch((error) => setError(error.message));

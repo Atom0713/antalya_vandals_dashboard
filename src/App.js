@@ -23,8 +23,9 @@ function App() {
       fetchUser(),
       fetcUserRole()
     ]).then((response) => {
-        setUser(response[0]);
-        setUserRole(response[1]);
+        console.log(response[0])
+        setUser(response[0].data);
+        setUserRole(response[1].data);
       })
       .catch((error) => setError(error.message));
   }, []);

@@ -17,7 +17,7 @@ export default function Events({ userRole, user }) {
   useEffect(() => {
     fetchEvents()
       .then((response) => {
-        setState(response);
+        setState(response.data);
         setIsLoading(false);
       })
       .catch((error) => setError(error.message));

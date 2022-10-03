@@ -25,10 +25,10 @@ export default function Event({ userRole, user }) {
   useEffect(() => {
     Promise.all([fetchEvent(id), fetchEventAttendance(id), fetchUsersByRole(USERROLES.Player), fetchComments()])
       .then((response) => {
-        setEvent(response[0]);
-        setAttendance(response[1]);
-        setPlayers(response[2]);
-        setComments(response[3]);
+        setEvent(response[0].data);
+        setAttendance(response[1].data);
+        setPlayers(response[2].data);
+        setComments(response[3].data);
         setIsLoading(false);
       })
       .catch((error) => setError(error.message));

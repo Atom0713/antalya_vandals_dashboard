@@ -2,7 +2,7 @@ export async function fetchUser() {
   const headers = {
     Authorization: "Bearer token",
   };
-  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/1`, {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/`, {
     method: "GET",
     headers: headers,
   });

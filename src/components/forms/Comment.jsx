@@ -11,7 +11,6 @@ export default function Comment({ event_id, user}) {
         event.preventDefault();
         addComment(comment, event_id, user.id)
           .then((response) =>
-            console.log(response.status),
             setFormSubmitted(true))
           .catch((error) => 
             setError(error.message)
