@@ -16,7 +16,7 @@ function Attandance({setShowAttendanceForm, userRole, event_id }) {
       .then((response) => {
         setPlayersAttandanceList(response.data);
         setIsLoading(false);
-        setCheckedState(new Array(response.length).fill(true));
+        setCheckedState(new Array(response.data.length).fill(true));
         const initAttandance = {};
         response.data.map(
           (item) =>
@@ -85,14 +85,14 @@ function Attandance({setShowAttendanceForm, userRole, event_id }) {
                     <thead>
                       <tr>
                         <th>
-                          <div className="form-check">
+                          {/* <div className="form-check">
                             <input
                               className="form-check-input"
                               type="checkbox"
                               value=""
                               id="flexCheckChecked"
                             />
-                          </div>
+                          </div> */}
                         </th>
                         <th> Name </th>
                         <th>Absence reason</th>

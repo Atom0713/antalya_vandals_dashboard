@@ -9,6 +9,8 @@ import { BlueButton } from "../../buttons";
 import Attandance from "../../forms/Attandance";
 import Comment from "../../forms/Comment";
 
+import AphexChart from '../../charts/pieChart';
+
 export default function Event({ userRole, user }) {
   const { id } = useParams();
 
@@ -81,9 +83,8 @@ export default function Event({ userRole, user }) {
               </div>
               <h4 className="card-title">Attendance</h4>
               <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
-                <div className="text-md-center text-xl-left"> 
-                  <p className="text-muted mb-0">{attendance.attended}/{attendance.expected}</p>
-                </div>
+                <AphexChart total={attendance.expected} attended={attendance.attended}
+                />
               </div>
             </div>
           </div>
@@ -98,7 +99,7 @@ export default function Event({ userRole, user }) {
                 <div className="col-12">
                   <div className="preview-list">
                     {comments.map((comment, index) => (
-                      <div className={index == comments.length - 1 ? "preview-item" : "preview-item border-bottom"}>
+                      <div key={index} className={index == comments.length - 1 ? "preview-item" : "preview-item border-bottom"}>
                         <div className="preview-item-content d-sm-flex flex-grow">
                           <div className="flex-grow">
                             <p className="text mb-0">
