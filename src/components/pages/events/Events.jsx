@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import AddEvent from "../../forms/AddEvent";
 import { fetchEvents } from "../../../api/events";
 import { OrderedDarkWithImageTable } from "../../tables";
 import { BlueButton } from "../../buttons";
 import Event from "../event/Event";
 import { USERROLES } from "../../constants";
+import AuthContext from '../../shared/AuthContext';
 
-export default function Events({ userRole, user }) {
+export default function Events() {
+  const { userRole } = useContext(AuthContext);
   const [showAddEventForm, setShowAddEventForm] = useState(false);
 
   // data fetch on page loading

@@ -3,7 +3,7 @@ import { fetchAllUserRoles, addUser } from "../../api/user";
 import { BlueButton } from "../buttons";
 import { USERROLES } from "../constants";
 
-export default function AddUser({ setShowUserForm, userRole }) {
+export default function AddUser({ setShowUserForm }) {
   // toggle add form
   const [role, setRole] = useState(2);
   const [addUserBody, setAddUserBody] = useState({});

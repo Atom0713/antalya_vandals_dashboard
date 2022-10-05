@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { USERROLES } from "../constants";
+import AuthContext from '../shared/AuthContext'
 
-export default function NavSideBar({ user, userRole }) {
+export default function NavSideBar() {
+  const {user, userRole} = useContext(AuthContext);
   return (
     <nav className="sidebar sidebar-offcanvas" id="sidebar">
       <div className="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
@@ -26,7 +28,7 @@ export default function NavSideBar({ user, userRole }) {
                 <span className="count bg-success"></span>
               </div> */}
               <div className="profile-name">
-                <h5 className="mb-0 font-weight-normal">{user.data.name}</h5>
+                <h5 className="mb-0 font-weight-normal">{user.name}</h5>
                 <span>{userRole.role}</span>
               </div>
             </div>

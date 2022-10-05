@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext }from "react";
 import { logout } from "../auth";
 import { Link } from "react-router-dom";
+import AuthContext from '../shared/AuthContext'
 
-export default function NavBar({ user }) {
+export default function NavBar() {
+  const {user} = useContext(AuthContext);
   return (
     <nav className="navbar p-0 fixed-top d-flex flex-row">
       <div className="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
@@ -157,7 +159,7 @@ export default function NavBar({ user }) {
                   alt=""
                 /> */}
                 <p className="mb-0 d-none d-sm-block navbar-profile-name">
-                  {user.data.name}
+                  {user.name}
                 </p>
                 <i className="mdi mdi-menu-down d-none d-sm-block"></i>
               </div>

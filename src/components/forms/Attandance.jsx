@@ -3,7 +3,7 @@ import { fetchUsersByRole } from "../../api/user";
 import { addEventAttendance } from '../../api/events';
 import { USERROLES } from "../constants";
 
-function Attandance({setShowAttendanceForm, userRole, event_id }) {
+function Attandance({setShowAttendanceForm, event_id }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
   const [playersAttandanceList, setPlayersAttandanceList] = useState([]);

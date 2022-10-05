@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { fetchEvent, fetchEventAttendance } from "../../../api/events";
 import { fetchComments } from "../../../api/comment";
@@ -10,8 +10,10 @@ import Attandance from "../../forms/Attandance";
 import Comment from "../../forms/Comment";
 
 import AphexChart from '../../charts/pieChart';
+import AuthContext from '../../shared/AuthContext'
 
-export default function Event({ userRole, user }) {
+export default function Event() {
+  const { user } = useContext(AuthContext);
   const { id } = useParams();
 
   // data fetch on page loading
@@ -25,7 +27,13 @@ export default function Event({ userRole, user }) {
   const [showAtandanceForm, setShowAttendanceForm] = useState(false);
 
   useEffect(() => {
-    Promise.all([fetchEvent(id), fetchEventAttendance(id), fetchUsersByRole(USERROLES.Player), fetchComments()])
+    Promise.all(
+      [
+        fetchEvent(id),
+        fetchEventAttendance(id), 
+        fetchUsersByRole(USERROLES.Player), 
+        fetchComments()
+      ])
       .then((response) => {
         setEvent(response[0].data);
         setAttendance(response[1].data);
@@ -57,7 +65,7 @@ export default function Event({ userRole, user }) {
   if (showAtandanceForm)
     return ( /* Reload page when Attendance returns here*/
       <>
-        <Attandance userRole={userRole} setShowAttendanceForm={setShowAttendanceForm} event_id={id} />
+        <Attandance setShowAttendanceForm={setShowAttendanceForm} event_id={id} />
       </>
     );
 

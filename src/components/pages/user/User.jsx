@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import AddUser from "../../forms/AddUser";
 import { fetchUsersByRole } from "../../../api/user";
 import { OrderedDarkWithImageTable } from "../../tables";
 import { USERROLES } from "../../constants";
 import { BlueButton } from "../../buttons";
+import AuthContext from '../../shared/AuthContext'
 
-export default function User({ userRole }) {
+export default function User() {
+  const { userRole} = useContext(AuthContext);
   // show add user form toggle
   const [showUserForm, setShowUserForm] = useState(false);
 
@@ -48,7 +50,7 @@ export default function User({ userRole }) {
     );
 
   if (showUserForm)
-    return <AddUser userRole={userRole} setShowUserForm={setShowUserForm} />;
+    return <AddUser setShowUserForm={setShowUserForm} />;
 
   return (
     <>
