@@ -1,7 +1,6 @@
+import {headers} from './headers'
+
 export async function fetchEvents() {
-  const headers = {
-    Authorization: "Bearer token",
-  };
   const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/event/`, {
     method: "GET",
     headers: headers,
@@ -11,9 +10,6 @@ export async function fetchEvents() {
 }
 
 export async function fetchEvent(event_id) {
-  const headers = {
-    Authorization: "Bearer token",
-  };
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/event/${event_id}/`,
     {
@@ -26,9 +22,6 @@ export async function fetchEvent(event_id) {
 }
 
 export async function addEvent(body) {
-  const headers = {
-    Authorization: "Bearer token",
-  };
   const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/event/`, {
     method: "POST",
     headers: headers,
@@ -40,9 +33,6 @@ export async function addEvent(body) {
 
 
 export async function addEventAttendance(body, event_id) {
-  const headers = {
-    Authorization: "Bearer token",
-  };
   const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/event/attendance/${event_id}/`, {
     method: "POST",
     headers: headers,
@@ -54,9 +44,6 @@ export async function addEventAttendance(body, event_id) {
 
 
 export async function fetchEventAttendance(event_id) {
-  const headers = {
-    Authorization: "Bearer token",
-  };
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/event/attendance/${event_id}/`,
     {

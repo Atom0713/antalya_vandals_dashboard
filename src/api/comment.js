@@ -1,7 +1,7 @@
+import {headers} from './headers'
+
+
 export async function addComment(comment, event_id, user_id) {
-    const headers = {
-      Authorization: "Bearer token",
-    };
     const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/comment/`, {
       method: "POST",
       headers: headers,
@@ -12,9 +12,6 @@ export async function addComment(comment, event_id, user_id) {
 }
 
 export async function fetchComments() {
-  const headers = {
-    Authorization: "Bearer token",
-  };
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/comment/`,
     {

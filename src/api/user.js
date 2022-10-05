@@ -1,7 +1,7 @@
+import {headers} from './headers'
+
+
 export async function fetchUser() {
-  const headers = {
-    Authorization: "Bearer token",
-  };
   const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/`, {
     method: "GET",
     headers: headers,
@@ -11,9 +11,6 @@ export async function fetchUser() {
 }
 
 export async function fetchUsersByRole(id) {
-  const headers = {
-    Authorization: "Bearer token",
-  };
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/user/role/${id}/`,
     {
@@ -26,9 +23,6 @@ export async function fetchUsersByRole(id) {
 }
 
 export async function fetchAllUserRoles() {
-  const headers = {
-    Authorization: "Bearer token",
-  };
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/user/roles`,
     {
@@ -41,9 +35,6 @@ export async function fetchAllUserRoles() {
 }
 
 export async function addUser(body) {
-  const headers = {
-    Authorization: "Bearer token",
-  };
   const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/add`, {
     method: "POST",
     headers: headers,
