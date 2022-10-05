@@ -10,10 +10,9 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [userRole, setUserRole] = useState();
   const [token, setToken] = useState(() => {
-      if (localStorage.getItem("token")) {
-        let token = localStorage.getItem("token");
+      if (localStorage.getItem("access_token")) {
         // return jwt_decode(tokens.access_token);
-        return token
+        return localStorage.getItem("access_token")
       }
       return null;
     }
@@ -22,13 +21,15 @@ export const AuthContextProvider = ({ children }) => {
   const navigate = useNavigate();
  
   const login = async (payload) => {
-    const apiResponse = await loginUser(
+    await loginUser(
       payload
-    );
-    localStorage.setItem("token",  apiResponse.token);
+    )
+    .then((response) => {
+      localStorage.setItem("access_token",  response.access_token);
 
-    setToken(apiResponse.token);
-    navigate("/");
+      setToken(response.access_token);
+      navigate("/");
+    })
   };
   return (
     <AuthContext.Provider value={{ token, user, setUser, userRole, setUserRole, login }}>
