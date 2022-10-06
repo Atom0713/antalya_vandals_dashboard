@@ -1,7 +1,5 @@
 import { createContext, useState } from "react";
 import jwt_decode from "jwt-decode";
-import { useNavigate } from "react-router-dom";
-import { loginUser } from '../../api/login'
 
  
 const AuthContext = createContext();
@@ -18,21 +16,8 @@ export const AuthContextProvider = ({ children }) => {
     }
   );
 
-  const navigate = useNavigate();
- 
-  const login = async (payload) => {
-    await loginUser(
-      payload
-    )
-    .then((response) => {
-      console.log(response);
-      localStorage.setItem("access_token",  response.access_token);
-      setToken(response.access_token);
-      navigate("/");
-    }).catch((error) => console.log(error))
-  };
   return (
-    <AuthContext.Provider value={{ token, user, setUser, userRole, setUserRole, login }}>
+    <AuthContext.Provider value={{ token, user, setUser, userRole, setUserRole }}>
       {children}
     </AuthContext.Provider>
   );
