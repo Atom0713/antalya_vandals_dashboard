@@ -25,11 +25,11 @@ export const AuthContextProvider = ({ children }) => {
       payload
     )
     .then((response) => {
+      console.log(response);
       localStorage.setItem("access_token",  response.access_token);
-
       setToken(response.access_token);
       navigate("/");
-    })
+    }).catch((error) => console.log(error))
   };
   return (
     <AuthContext.Provider value={{ token, user, setUser, userRole, setUserRole, login }}>
