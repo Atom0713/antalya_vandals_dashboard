@@ -107,7 +107,7 @@ export default function Event() {
                 <div className="col-12">
                   <div className="preview-list">
                     {comments.map((comment, index) => (
-                      <div key={index} className={index == comments.length - 1 ? "preview-item" : "preview-item border-bottom"}>
+                      <div key={index} className={index === comments.length - 1 ? "preview-item" : "preview-item border-bottom"}>
                         <div className="preview-item-content d-sm-flex flex-grow">
                           <div className="flex-grow">
                             <p className="text mb-0">
