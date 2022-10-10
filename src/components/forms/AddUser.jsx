@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { fetchAllUserRoles, addUser } from "../../api/user";
 import { BlueButton } from "../buttons";
 import { USERROLES } from "../constants";
+import AuthContext from '../shared/AuthContext'
 
 export default function AddUser({ setShowUserForm }) {
-  // toggle add form
+  const { userRole } = useContext(AuthContext);
   const [role, setRole] = useState(2);
   const [addUserBody, setAddUserBody] = useState({});
   const [formSubmitted, setFormSubmitted] = useState();
@@ -18,7 +19,13 @@ export default function AddUser({ setShowUserForm }) {
   useEffect(() => {
     fetchAllUserRoles()
       .then((response) => {
-        setUserRoles(response.data);
+        let roles = response.data["user_roles"]
+        if (userRole.id !== USERROLES.Admin){
+          roles = roles.filter(function( obj ) {
+            return obj.id !== USERROLES.Admin;
+          });
+        }
+        setUserRoles(roles);
         setIsLoading(false);
       })
       .catch((error) => setError(error.message));
@@ -238,7 +245,7 @@ export default function AddUser({ setShowUserForm }) {
                       <div className="form-group row">
                         <label className="col-sm-3 col-form-label">Role</label>
                         {userRoles &&
-                          userRoles["user_roles"].map((item) => (
+                          userRoles.map((item) => (
                             <div key={item.id} className="col-sm-3">
                               <div className="form-check">
                                 <input
