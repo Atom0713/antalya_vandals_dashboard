@@ -6,8 +6,8 @@ import AuthContext from '../shared/AuthContext'
 
 export default function AddUser({ setShowUserForm }) {
   const { userRole } = useContext(AuthContext);
-  const [role, setRole] = useState(2);
-  const [addUserBody, setAddUserBody] = useState({});
+  const [role, setRole] = useState(userRole.id);
+  const [addUserBody, setAddUserBody] = useState({"role_id": userRole});
   const [formSubmitted, setFormSubmitted] = useState();
   const [newUserResponse, setNewUserResponse] = useState({});
 
@@ -55,6 +55,7 @@ export default function AddUser({ setShowUserForm }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(addUserBody)
     addUser(addUserBody)
       .then((response) => setNewUserResponse(response.data), setFormSubmitted(true))
       .catch((error) => setError(error.message));
@@ -62,7 +63,7 @@ export default function AddUser({ setShowUserForm }) {
 
   const toggleFormChange = (event) => {
     setRole(USERROLES[event.target.value]);
-    setAddUserBody({});
+    setAddUserBody({"role_id": USERROLES[event.target.value]});
   };
 
   const addAdminFormElements = () => {
@@ -317,7 +318,6 @@ export default function AddUser({ setShowUserForm }) {
     return (
       <div>
         Username: {newUserResponse.username}
-        Password: {newUserResponse.password}
       </div>
     );
   };
