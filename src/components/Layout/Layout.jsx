@@ -3,24 +3,31 @@ import NavSideBar from "../nav/navSideBar";
 import NavBar from "../nav/navBar";
 import Footer from "../footer/footer";
 import { fetchUser } from '../../api/user';
-import { fetcUserRole } from "../../api/role";
 import AuthContext from '../shared/AuthContext'
 
 const Layout = ({ children }) => {
-  const { setUser, setUserRole} = useContext(AuthContext)
+  const { setUser} = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
 
   useEffect(() => {
-    Promise.all([
-      fetchUser(),
-      fetcUserRole()
-    ]).then((response) => {
-        setUser(response[0].data);
-        setUserRole(response[1].data);
-        setIsLoading(false);
-      })
-      .catch((error) => setError(error.message));
+    fetchUser()
+    .then((response) => {
+      console.log(response.data)
+      setUser(response.data)
+      setIsLoading(false);
+    })
+    .catch((error) => setError(error.message))
+
+    // Promise.all([
+    //   fetchUser(),
+    //   fetcUserRole()
+    // ]).then((response) => {
+    //     setUser(response[0].data);
+    //     setUserRole(response[1].data);
+    //     setIsLoading(false);
+    //   })
+    //   .catch((error) => setError(error.message));
   }, []);
 
   if (error)

@@ -6,9 +6,9 @@ import { USERROLES } from "../constants";
 import AuthContext from '../shared/AuthContext'
 
 export default function AddUser({ setShowUserForm }) {
-  const { userRole } = useContext(AuthContext);
-  const [role, setRole] = useState(userRole.id);
-  const [addUserBody, setAddUserBody] = useState({"role_id": userRole.id});
+  const { user } = useContext(AuthContext);
+  const [role, setRole] = useState(user.role.id);
+  const [addUserBody, setAddUserBody] = useState({"role_id": user.role.id});
   const [formSubmitted, setFormSubmitted] = useState();
   const [newUserResponse, setNewUserResponse] = useState({});
 
@@ -21,7 +21,7 @@ export default function AddUser({ setShowUserForm }) {
     fetchAllRoles()
       .then((response) => {
         let roles = response.data["roles"]
-        if (userRole.id !== USERROLES.ADMIN){
+        if (user.role.id !== USERROLES.ADMIN){
           roles = roles.filter(function( obj ) {
             return obj.id !== USERROLES.ADMIN;
           });
@@ -30,7 +30,7 @@ export default function AddUser({ setShowUserForm }) {
         setIsLoading(false);
       })
       .catch((error) => setError(error.message));
-  }, [userRole.id]);
+  }, [user.role.id]);
 
   if (error)
     return (

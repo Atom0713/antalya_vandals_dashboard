@@ -7,7 +7,7 @@ import { BlueButton } from "../../buttons";
 import AuthContext from '../../shared/AuthContext'
 
 export default function User() {
-  const { userRole} = useContext(AuthContext);
+  const { user} = useContext(AuthContext);
   // show add user form toggle
   const [showUserForm, setShowUserForm] = useState(false);
 
@@ -55,7 +55,7 @@ export default function User() {
 
   return (
     <>
-      {[USERROLES.ADMIN, USERROLES.STAFF].includes(userRole.id)
+      {[USERROLES.ADMIN, USERROLES.STAFF].includes(user.role.id)
         ? BlueButton(handleAddUserClick, "Add user")
         : null}
       {state.staff && (

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { addComment } from "../../api/comment";
+import AuthContext from '../shared/AuthContext'
 
-export default function Comment({ event_id, user}) {
-    
+export default function Comment({ event_id}) {
+    const { user } = useContext(AuthContext);
     const [formSubmitted, setFormSubmitted] = useState();
     const [error, setError] = useState();
     const [comment, setComment] = useState({});

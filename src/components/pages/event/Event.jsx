@@ -68,7 +68,7 @@ export default function Event() {
         <Attandance setShowAttendanceForm={setShowAttendanceForm} event_id={id} />
       </>
     );
-
+      // SHOW ATTENDANCE
   return (
     <>
       {BlueButton(handleAddAttendanceClick, "Get attandance")}
@@ -130,7 +130,7 @@ export default function Event() {
           </div>
         </div>
       </div>
-      <Comment event_id={id}  user={user}/>
+      <Comment event_id={id}/>
     </>
   );
 }

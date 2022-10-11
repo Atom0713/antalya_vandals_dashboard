@@ -4,7 +4,7 @@ import { USERROLES } from "../constants";
 import AuthContext from '../shared/AuthContext'
 
 export default function NavSideBar() {
-  const {user, userRole} = useContext(AuthContext);
+  const {user} = useContext(AuthContext);
   return (
     <nav className="sidebar sidebar-offcanvas" id="sidebar">
       <div className="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
@@ -29,7 +29,7 @@ export default function NavSideBar() {
               </div> */}
               <div className="profile-name">
                 <h5 className="mb-0 font-weight-normal">{user.name}</h5>
-                <span>{userRole.name}</span>
+                <span>{user.role.name}</span>
               </div>
             </div>
           </div>
@@ -42,7 +42,7 @@ export default function NavSideBar() {
             <span className="menu-title">Dashboard</span>
           </Link>
         </li>
-        {[USERROLES.ADMIN, USERROLES.STAFF].includes(userRole.id) && (
+        {[USERROLES.ADMIN, USERROLES.STAFF].includes(user.role.id) && (
           <li className="nav-item menu-items">
             <Link className="nav-link" to="/user">
               <span className="menu-icon">
@@ -52,7 +52,7 @@ export default function NavSideBar() {
             </Link>
           </li>
         )}
-        {[USERROLES.ADMIN, USERROLES.STAFF].includes(userRole.id) && (
+        {[USERROLES.ADMIN, USERROLES.STAFF].includes(user.role.id) && (
           <li className="nav-item menu-items">
             <Link className="nav-link" to="/events">
               <span className="menu-icon">

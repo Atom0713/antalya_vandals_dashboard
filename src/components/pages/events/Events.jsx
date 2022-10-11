@@ -8,7 +8,7 @@ import { USERROLES } from "../../constants";
 import AuthContext from '../../shared/AuthContext';
 
 export default function Events() {
-  const { userRole } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [showAddEventForm, setShowAddEventForm] = useState(false);
 
   // data fetch on page loading
@@ -48,7 +48,7 @@ export default function Events() {
 
   return (
     <>
-      {[USERROLES.Admin, USERROLES.Staff].includes(userRole.id) &&
+      {[USERROLES.Admin, USERROLES.Staff].includes(user.role.id) &&
       !showAddEventForm
         ? BlueButton(handleAddEventClick, "Add event")
         : null}
