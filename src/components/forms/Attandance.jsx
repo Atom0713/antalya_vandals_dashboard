@@ -12,7 +12,7 @@ function Attandance({setShowAttendanceForm, event_id }) {
 
   useEffect(() => {
     setIsLoading(true);
-    fetchUsersByRole(USERROLES["Player"])
+    fetchUsersByRole(USERROLES.PLAYER)
       .then((response) => {
         setPlayersAttandanceList(response.data);
         setIsLoading(false);

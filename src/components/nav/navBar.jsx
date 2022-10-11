@@ -1,10 +1,10 @@
 import React, { useContext }from "react";
-import { logout } from "../auth";
+// import { logout } from "../auth";
 import { Link } from "react-router-dom";
 import AuthContext from '../shared/AuthContext'
 
 export default function NavBar() {
-  const {user} = useContext(AuthContext);
+  const {user, logout} = useContext(AuthContext);
   return (
     <nav className="navbar p-0 fixed-top d-flex flex-row">
       <div className="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">

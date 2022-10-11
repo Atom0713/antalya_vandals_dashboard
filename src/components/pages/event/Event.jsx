@@ -31,7 +31,7 @@ export default function Event() {
       [
         fetchEvent(id),
         fetchEventAttendance(id), 
-        fetchUsersByRole(USERROLES.Player), 
+        fetchUsersByRole(USERROLES.PLAYER), 
         fetchComments()
       ])
       .then((response) => {

@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
  
 const AuthContext = createContext();
@@ -16,8 +17,16 @@ export const AuthContextProvider = ({ children }) => {
     }
   );
 
+  const navigate = useNavigate();
+
+  function logout() {
+    localStorage.removeItem("access_token");
+    window.location.reload();
+    // navigate("/login")
+  }
+
   return (
-    <AuthContext.Provider value={{ token, user, setUser, userRole, setUserRole }}>
+    <AuthContext.Provider value={{ token, user, setUser, userRole, setUserRole, logout }}>
       {children}
     </AuthContext.Provider>
   );

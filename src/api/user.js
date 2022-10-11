@@ -22,18 +22,6 @@ export async function fetchUsersByRole(id) {
   return response.json();
 }
 
-export async function fetchAllUserRoles() {
-  const response = await fetch(
-    `${process.env.REACT_APP_SERVER_URL}/user/roles`,
-    {
-      method: "GET",
-      headers: headers,
-    }
-  );
-
-  return response.json();
-}
-
 export async function addUser(body) {
   console.log(body)
   const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/add`, {

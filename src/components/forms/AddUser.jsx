@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { fetchAllUserRoles, addUser } from "../../api/user";
+import { addUser } from "../../api/user";
+import { fetchAllRoles } from "../../api/role";
 import { BlueButton } from "../buttons";
 import { USERROLES } from "../constants";
 import AuthContext from '../shared/AuthContext'
@@ -7,7 +8,7 @@ import AuthContext from '../shared/AuthContext'
 export default function AddUser({ setShowUserForm }) {
   const { userRole } = useContext(AuthContext);
   const [role, setRole] = useState(userRole.id);
-  const [addUserBody, setAddUserBody] = useState({"role_id": userRole});
+  const [addUserBody, setAddUserBody] = useState({"role_id": userRole.id});
   const [formSubmitted, setFormSubmitted] = useState();
   const [newUserResponse, setNewUserResponse] = useState({});
 
@@ -17,19 +18,19 @@ export default function AddUser({ setShowUserForm }) {
   const [userRoles, setUserRoles] = useState({});
 
   useEffect(() => {
-    fetchAllUserRoles()
+    fetchAllRoles()
       .then((response) => {
-        let roles = response.data["user_roles"]
-        if (userRole.id !== USERROLES.Admin){
+        let roles = response.data["roles"]
+        if (userRole.id !== USERROLES.ADMIN){
           roles = roles.filter(function( obj ) {
-            return obj.id !== USERROLES.Admin;
+            return obj.id !== USERROLES.ADMIN;
           });
         }
         setUserRoles(roles);
         setIsLoading(false);
       })
       .catch((error) => setError(error.message));
-  }, []);
+  }, [userRole.id]);
 
   if (error)
     return (
@@ -54,11 +55,11 @@ export default function AddUser({ setShowUserForm }) {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
     console.log(addUserBody)
+    event.preventDefault();
     addUser(addUserBody)
       .then((response) => setNewUserResponse(response.data), setFormSubmitted(true))
-      .catch((error) => setError(error.message));
+      .catch((error) => console.log(error.message));
   };
 
   const toggleFormChange = (event) => {
@@ -72,7 +73,7 @@ export default function AddUser({ setShowUserForm }) {
         <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Fist name</label>
+              <label className="col-sm-3 col-form-label">Fist name *</label>
               <div className="col-sm-9">
                 <input
                   name="first_name"
@@ -85,7 +86,7 @@ export default function AddUser({ setShowUserForm }) {
           </div>
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Last name</label>
+              <label className="col-sm-3 col-form-label">Last name *</label>
               <div className="col-sm-9">
                 <input
                   name="last_name"
@@ -100,7 +101,7 @@ export default function AddUser({ setShowUserForm }) {
         <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Email</label>
+              <label className="col-sm-3 col-form-label">Email *</label>
               <div className="col-sm-9">
                 <input
                   name="email"
@@ -113,10 +114,10 @@ export default function AddUser({ setShowUserForm }) {
           </div>
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Date of Birth</label>
+              <label className="col-sm-3 col-form-label">Date of Birth *</label>
               <div className="col-sm-9">
                 <input
-                  name="birth_date"
+                  name="dob"
                   className="form-control"
                   placeholder="dd/mm/yyyy"
                   onChange={handleChange}
@@ -129,14 +130,14 @@ export default function AddUser({ setShowUserForm }) {
     );
   };
 
-  // make input fields reusable
+
   const addPlayerFormElements = () => {
     return (
       <>
         <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Fist name</label>
+              <label className="col-sm-3 col-form-label">Fist name *</label>
               <div className="col-sm-9">
                 <input
                   name="first_name"
@@ -149,7 +150,7 @@ export default function AddUser({ setShowUserForm }) {
           </div>
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Last name</label>
+              <label className="col-sm-3 col-form-label">Last name *</label>
               <div className="col-sm-9">
                 <input
                   name="last_name"
@@ -164,7 +165,7 @@ export default function AddUser({ setShowUserForm }) {
         <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Email</label>
+              <label className="col-sm-3 col-form-label">Email *</label>
               <div className="col-sm-9">
                 <input
                   name="email"
@@ -177,10 +178,10 @@ export default function AddUser({ setShowUserForm }) {
           </div>
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Date of Birth</label>
+              <label className="col-sm-3 col-form-label">Date of Birth *</label>
               <div className="col-sm-9">
                 <input
-                  name="birth_date"
+                  name="dob"
                   className="form-control"
                   placeholder="dd/mm/yyyy"
                   onChange={handleChange}
@@ -192,7 +193,7 @@ export default function AddUser({ setShowUserForm }) {
         <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Boy</label>
+              <label className="col-sm-3 col-form-label">Boy *</label>
               <div className="col-sm-9">
                 <input
                   name="height"
@@ -205,7 +206,7 @@ export default function AddUser({ setShowUserForm }) {
           </div>
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Kilo</label>
+              <label className="col-sm-3 col-form-label">Kilo *</label>
               <div className="col-sm-9">
                 <input
                   name="weight"
@@ -220,7 +221,7 @@ export default function AddUser({ setShowUserForm }) {
         <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Mevki</label>
+              <label className="col-sm-3 col-form-label">Mevki *</label>
               <div className="col-sm-9">
                 <input
                   name="position"
@@ -242,7 +243,7 @@ export default function AddUser({ setShowUserForm }) {
         <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Fist name</label>
+              <label className="col-sm-3 col-form-label">Fist name *</label>
               <div className="col-sm-9">
                 <input
                   name="first_name"
@@ -255,7 +256,7 @@ export default function AddUser({ setShowUserForm }) {
           </div>
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Last name</label>
+              <label className="col-sm-3 col-form-label">Last name *</label>
               <div className="col-sm-9">
                 <input
                   name="last_name"
@@ -270,7 +271,7 @@ export default function AddUser({ setShowUserForm }) {
         <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Email</label>
+              <label className="col-sm-3 col-form-label">Email *</label>
               <div className="col-sm-9">
                 <input
                   name="email"
@@ -283,12 +284,12 @@ export default function AddUser({ setShowUserForm }) {
           </div>
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Date of Birth</label>
+              <label className="col-sm-3 col-form-label">Date of Birth *</label>
               <div className="col-sm-9">
                 <input
-                  name="birth_date"
+                  name="dob"
                   className="form-control"
-                  placeholder="dd/mm/yyyy"
+                  placeholder="YYYY/MM/DD"
                   onChange={handleChange}
                 />
               </div>
@@ -298,7 +299,7 @@ export default function AddUser({ setShowUserForm }) {
         <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Position</label>
+              <label className="col-sm-3 col-form-label">Position *</label>
               <div className="col-sm-9">
                 <input
                   name="position"
@@ -321,7 +322,6 @@ export default function AddUser({ setShowUserForm }) {
       </div>
     );
   };
-
   return (
     <>
       {formSubmitted && newUserResponse ? (
@@ -345,7 +345,7 @@ export default function AddUser({ setShowUserForm }) {
                                   onChange={toggleFormChange}
                                   className="form-check-input"
                                   type="checkbox"
-                                  value={item.name}
+                                  value={item.name.toUpperCase()}
                                   id="flexCheckDefault"
                                   checked={role === item.id}
                                 />
@@ -363,9 +363,9 @@ export default function AddUser({ setShowUserForm }) {
                   </div>
                   <form className="form-sample" onSubmit={handleSubmit}>
                     <p className="card-description"> Personal info </p>
-                    {role === USERROLES["Admin"] && addAdminFormElements()}
-                    {role === USERROLES["Staff"] && addStaffFormElements()}
-                    {role === USERROLES["Player"] && addPlayerFormElements()}
+                    {role === USERROLES.ADMIN && addAdminFormElements()}
+                    {role === USERROLES.STAFF && addStaffFormElements()}
+                    {role === USERROLES.PLAYER && addPlayerFormElements()}
                     <button
                       type="submit"
                       className="btn btn-primary btn-icon-text"

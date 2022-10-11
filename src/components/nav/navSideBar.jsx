@@ -29,7 +29,7 @@ export default function NavSideBar() {
               </div> */}
               <div className="profile-name">
                 <h5 className="mb-0 font-weight-normal">{user.name}</h5>
-                <span>{userRole.role}</span>
+                <span>{userRole.name}</span>
               </div>
             </div>
           </div>
@@ -42,7 +42,7 @@ export default function NavSideBar() {
             <span className="menu-title">Dashboard</span>
           </Link>
         </li>
-        {[USERROLES.Admin, USERROLES.Staff].includes(userRole.id) && (
+        {[USERROLES.ADMIN, USERROLES.STAFF].includes(userRole.id) && (
           <li className="nav-item menu-items">
             <Link className="nav-link" to="/user">
               <span className="menu-icon">
@@ -52,7 +52,7 @@ export default function NavSideBar() {
             </Link>
           </li>
         )}
-        {[USERROLES.Admin, USERROLES.Staff].includes(userRole.id) && (
+        {[USERROLES.ADMIN, USERROLES.STAFF].includes(userRole.id) && (
           <li className="nav-item menu-items">
             <Link className="nav-link" to="/events">
               <span className="menu-icon">

@@ -18,10 +18,11 @@ export default function User() {
 
   useEffect(() => {
     Promise.all([
-      fetchUsersByRole(USERROLES["Staff"]),
-      fetchUsersByRole(USERROLES["Player"]),
+      fetchUsersByRole(USERROLES.STAFF),
+      fetchUsersByRole(USERROLES.PLAYER),
     ])
       .then((response) => {
+        console.log(response)
         setState({
           staff: response[0].data,
           players: response[1].data,
@@ -54,14 +55,14 @@ export default function User() {
 
   return (
     <>
-      {[USERROLES.Admin, USERROLES.Staff].includes(userRole.id)
+      {[USERROLES.ADMIN, USERROLES.STAFF].includes(userRole.id)
         ? BlueButton(handleAddUserClick, "Add user")
         : null}
       {state.staff && (
         <OrderedDarkWithImageTable
           title={"Coaching staff"}
           headers={["Name", "Positions", "Date of birth"]}
-          order={["name", "positions", "birth_date"]}
+          order={["name", "position", "dob"]}
           data={state.staff}
         />
       )}
@@ -69,7 +70,7 @@ export default function User() {
         <OrderedDarkWithImageTable
           title={"Players"}
           headers={["Name", "Position", "Date of birth", "Height", "Weight"]}
-          order={["name", "position", "birth_date", "height", "weight"]}
+          order={["name", "position", "dob", "height", "weight"]}
           data={state.players}
         />
       )}
