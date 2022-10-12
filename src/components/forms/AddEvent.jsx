@@ -87,7 +87,7 @@ export default function AddEvent({ setShowAddEventForm }) {
                             <input
                               name="date"
                               className="form-control"
-                              placeholder="dd/mm/yyyy"
+                              placeholder="YYYY-MM-DD"
                               onChange={handleChange}
                             />
                           </div>

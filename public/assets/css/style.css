@@ -10787,7 +10787,7 @@ progress {
 .typeahead:focus,
 .tt-query:focus,
 .tt-hint:focus {
-  color: #212529;
+  color: #ffffff;
   background-color: #fff;
   border-color: #86b7fe;
   outline: 0;
