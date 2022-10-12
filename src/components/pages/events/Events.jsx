@@ -55,8 +55,8 @@ export default function Events() {
       {state.events && (
         <OrderedDarkWithImageTable
           title={"Events"}
-          headers={["Name", "Date", "Description"]}
-          order={["name", "date", "description"]}
+          headers={["Name", "Description", "Location", "Date", "Completed"]}
+          order={["name", "description", "location", "date", "completed"]}
           data={state.events}
           link={true}
           url={"/event"}

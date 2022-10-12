@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { fetchEvent, fetchEventAttendance } from "../../../api/events";
-import { fetchComments } from "../../../api/comment";
-
-import { USERROLES } from "../../constants";
-import { fetchUsersByRole } from "../../../api/user";
+import { fetchEvent } from "../../../api/events";
 import { BlueButton } from "../../buttons";
 import Attandance from "../../forms/Attandance";
 import Comment from "../../forms/Comment";
@@ -20,28 +16,17 @@ export default function Event() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
   const [event, setEvent] = useState({});
-  const [players, setPlayers] = useState({});
-  const [comments, setComments] = useState({});
-  const [attendance, setAttendance] = useState({});
 
   const [showAtandanceForm, setShowAttendanceForm] = useState(false);
 
   useEffect(() => {
-    Promise.all(
-      [
-        fetchEvent(id),
-        fetchEventAttendance(id), 
-        fetchUsersByRole(USERROLES.PLAYER), 
-        fetchComments()
-      ])
-      .then((response) => {
-        setEvent(response[0].data);
-        setAttendance(response[1].data);
-        setPlayers(response[2].data);
-        setComments(response[3].data);
-        setIsLoading(false);
-      })
-      .catch((error) => setError(error.message));
+    fetchEvent(id)
+    .then((response) => {
+      console.log(response.data)
+      setEvent(response.data);
+      setIsLoading(false);
+    })
+    .catch((error) => setError(error.message));
   }, []);
 
   const handleAddAttendanceClick = () => {
@@ -68,7 +53,7 @@ export default function Event() {
         <Attandance setShowAttendanceForm={setShowAttendanceForm} event_id={id} />
       </>
     );
-      // SHOW ATTENDANCE
+
   return (
     <>
       {BlueButton(handleAddAttendanceClick, "Get attandance")}
@@ -90,10 +75,10 @@ export default function Event() {
                 </div>
               </div>
               <h4 className="card-title">Attendance</h4>
-              <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+              {/* <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                 <AphexChart total={attendance.expected} attended={attendance.attended}
                 />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -101,12 +86,12 @@ export default function Event() {
           <div className="card">
             <div className="card-body">
               <div className="d-flex flex-row justify-content-between">
-                <h4 className="card-title mb-1">Event comments (TODO)</h4>
+                <h4 className="card-title mb-1">Event comments</h4>
               </div>
               <div className="row">
                 <div className="col-12">
                   <div className="preview-list">
-                    {comments.map((comment, index) => (
+                    {event.comments.map((comment, index) => (
                       <div key={index} className={index === comments.length - 1 ? "preview-item" : "preview-item border-bottom"}>
                         <div className="preview-item-content d-sm-flex flex-grow">
                           <div className="flex-grow">

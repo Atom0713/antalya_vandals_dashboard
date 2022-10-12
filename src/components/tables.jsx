@@ -42,7 +42,7 @@ export function OrderedDarkWithImageTable({
                                 {row[item]}
                               </Link>
                             ) : (
-                              row[item]
+                              item === "completed" ? (row[item] ? "YES" : "NO") : row[item]
                             )}
                           </td>
                         ))}
