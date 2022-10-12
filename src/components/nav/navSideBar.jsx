@@ -52,7 +52,7 @@ export default function NavSideBar() {
             </Link>
           </li>
         )}
-        {[USERROLES.ADMIN, USERROLES.STAFF].includes(user.role.id) && (
+        {[USERROLES.ADMIN, USERROLES.STAFF, USERROLES.PLAYER].includes(user.role.id) && (
           <li className="nav-item menu-items">
             <Link className="nav-link" to="/events">
               <span className="menu-icon">

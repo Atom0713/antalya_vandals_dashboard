@@ -48,7 +48,7 @@ export default function Events() {
 
   return (
     <>
-      {[USERROLES.Admin, USERROLES.Staff].includes(user.role.id) &&
+      {[USERROLES.ADMIN, USERROLES.STAFF].includes(user.role.id) &&
       !showAddEventForm
         ? BlueButton(handleAddEventClick, "Add event")
         : null}

@@ -13,21 +13,10 @@ const Layout = ({ children }) => {
   useEffect(() => {
     fetchUser()
     .then((response) => {
-      console.log(response.data)
       setUser(response.data)
       setIsLoading(false);
     })
     .catch((error) => setError(error.message))
-
-    // Promise.all([
-    //   fetchUser(),
-    //   fetcUserRole()
-    // ]).then((response) => {
-    //     setUser(response[0].data);
-    //     setUserRole(response[1].data);
-    //     setIsLoading(false);
-    //   })
-    //   .catch((error) => setError(error.message));
   }, []);
 
   if (error)

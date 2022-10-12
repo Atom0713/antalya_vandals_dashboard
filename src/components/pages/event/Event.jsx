@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { fetchEvent } from "../../../api/events";
+import { fetchEventComments } from "../../../api/comment";
 import { BlueButton } from "../../buttons";
 import Attandance from "../../forms/Attandance";
 import Comment from "../../forms/Comment";
@@ -16,14 +17,18 @@ export default function Event() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
   const [event, setEvent] = useState({});
+  const [comments, setComments] = useState({})
 
   const [showAtandanceForm, setShowAttendanceForm] = useState(false);
 
   useEffect(() => {
-    fetchEvent(id)
+    Promise.all([
+      fetchEvent(id),
+      fetchEventComments(id)
+    ])
     .then((response) => {
-      console.log(response.data)
-      setEvent(response.data);
+      setEvent(response[0].data);
+      setComments(response[1].data);
       setIsLoading(false);
     })
     .catch((error) => setError(error.message));
@@ -91,8 +96,8 @@ export default function Event() {
               <div className="row">
                 <div className="col-12">
                   <div className="preview-list">
-                    {event.comments.map((comment, index) => (
-                      <div key={index} className={index === event.comments.length - 1 ? "preview-item" : "preview-item border-bottom"}>
+                    {comments.map((comment, index) => (
+                      <div key={index} className={index === comments.length - 1 ? "preview-item" : "preview-item border-bottom"}>
                         <div className="preview-item-content d-sm-flex flex-grow">
                           <div className="flex-grow">
                             <p className="text mb-0">

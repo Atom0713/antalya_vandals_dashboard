@@ -14,7 +14,11 @@ export default function AddEvent({ setShowAddEventForm }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     addEvent(addEventBody)
-      .then((response) => setNewUserResponse(response), setFormSubmitted(true))
+      .then((response) => 
+      {
+        setNewUserResponse(response)
+        setFormSubmitted(true)
+      })
       .catch((error) => setError(error.message));
   };
 
@@ -81,7 +85,7 @@ export default function AddEvent({ setShowAddEventForm }) {
                           </label>
                           <div className="col-sm-9">
                             <input
-                              name="birth_date"
+                              name="date"
                               className="form-control"
                               placeholder="dd/mm/yyyy"
                               onChange={handleChange}
@@ -96,7 +100,7 @@ export default function AddEvent({ setShowAddEventForm }) {
                           </label>
                           <div className="col-sm-9">
                             <input
-                              name="description"
+                              name="location"
                               type="text"
                               className="form-control"
                               onChange={handleChange}

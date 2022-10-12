@@ -55,11 +55,10 @@ export default function AddUser({ setShowUserForm }) {
   };
 
   const handleSubmit = (event) => {
-    console.log(addUserBody)
     event.preventDefault();
     addUser(addUserBody)
       .then((response) => setNewUserResponse(response.data), setFormSubmitted(true))
-      .catch((error) => console.log(error.message));
+      .catch((error) => setError(error.message));
   };
 
   const toggleFormChange = (event) => {
