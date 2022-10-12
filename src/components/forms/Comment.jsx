@@ -4,36 +4,15 @@ import AuthContext from '../shared/AuthContext'
 
 export default function Comment({ event_id}) {
     const { user } = useContext(AuthContext);
-    const [formSubmitted, setFormSubmitted] = useState();
+
     const [error, setError] = useState();
     const [comment, setComment] = useState({});
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        addComment(comment, event_id, user.id)
-          .then((response) =>
-            setFormSubmitted(true))
-          .catch((error) => 
-            setError(error.message)
+    const handleSubmit = () => {
+        addComment({"comment": comment, "event_id": parseInt(event_id), "user_id": user.id})
+          .catch((error) => setError(error.message)
         );
     };
-
-    if (error) return (
-        <div>
-            <h1>{error}</h1>
-        </div>
-    );
-     if (formSubmitted) return (
-        <div className="row">
-            <div className="col-md-8 grid-margin">
-                <div className="card">
-                    <div className="card-body">
-                        <h4>DONE</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-     )
 
     return (
         <div className="row">
