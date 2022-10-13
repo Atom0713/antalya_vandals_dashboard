@@ -6,6 +6,8 @@ import { BlueButton } from "../../buttons";
 import Attandance from "../../forms/Attandance";
 import Comment from "../../forms/Comment";
 
+import { AttendanceOrderedDarkWithImageTable } from "../../tables";
+
 import AphexChart from '../../charts/pieChart';
 import AuthContext from '../../shared/AuthContext'
 
@@ -59,9 +61,29 @@ export default function Event() {
       </>
     );
 
+  const getAttendance = () => {
+    let counter = 0;
+    for (let i = 0; i <= event.attendance.length -1 ; i++) {
+      if (event.attendance[i].present) {
+          counter++;
+      }
+    }
+      return counter
+  };
+
+  const attendanceChart = (
+    <>
+      <h4 className="card-title">Attendance</h4>
+      <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+        <AphexChart total={event.attendance.length} attended={getAttendance()}
+        />
+      </div>
+    </>
+  )
+
   return (
     <>
-      {BlueButton(handleAddAttendanceClick, "Get attandance")}
+      {!event.completed && BlueButton(handleAddAttendanceClick, "Get attandance")}
       <div className="row">
         <div className="col-md-4 grid-margin">
           <div className="card">
@@ -79,11 +101,7 @@ export default function Event() {
                   <p className="text-muted mb-0">{event.date}</p>
                 </div>
               </div>
-              <h4 className="card-title">Attendance</h4>
-              {/* <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
-                <AphexChart total={attendance.expected} attended={attendance.attended}
-                />
-              </div> */}
+              {event.completed && attendanceChart}
             </div>
           </div>
         </div>
@@ -121,6 +139,13 @@ export default function Event() {
         </div>
       </div>
       <Comment event_id={id}/>
+      {event.completed &&
+        <AttendanceOrderedDarkWithImageTable
+          title={"Attendance"}
+          headers={["Name", "Present", "Absence comment"]}
+          data={event.attendance}
+        />
+      }
     </>
   );
 }

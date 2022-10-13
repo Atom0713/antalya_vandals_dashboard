@@ -7,11 +7,11 @@ export default function NavBar() {
   const {user, logout} = useContext(AuthContext);
   return (
     <nav className="navbar p-0 fixed-top d-flex flex-row">
-      <div className="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
+      {/* <div className="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
         <Link className="navbar-brand brand-logo-mini" to="/">
           <img src="assets/images/logo-mini.svg" alt="logo" />
         </Link>
-      </div>
+      </div> */}
       <div className="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
         <ul className="navbar-nav navbar-nav-right">
           {/* <li className="nav-item nav-settings d-none d-lg-block">

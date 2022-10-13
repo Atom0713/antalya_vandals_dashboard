@@ -7,14 +7,14 @@ export default function NavSideBar() {
   const {user} = useContext(AuthContext);
   return (
     <nav className="sidebar sidebar-offcanvas" id="sidebar">
-      <div className="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+      {/* <div className="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
         <Link className="sidebar-brand brand-logo" to="/">
           <img src="assets/images/logo.svg" alt="logo" />
         </Link>
         <Link className="sidebar-brand brand-logo-mini" to="/">
           <img src="assets/images/logo-mini.svg" alt="logo" />
         </Link>
-      </div>
+      </div> */}
       <ul className="nav">
         <li className="nav-item profile">
           <div className="profile-desc">

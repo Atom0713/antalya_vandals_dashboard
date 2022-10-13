@@ -32,8 +32,9 @@ export async function addEvent(body) {
 }
 
 
-export async function addEventAttendance(body, event_id) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/event/attendance/${event_id}/`, {
+export async function addEventAttendance(body) {
+  console.log(body)
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/event/attendance/`, {
     method: "POST",
     headers: headers,
     body: JSON.stringify(body),
