@@ -7,6 +7,7 @@ import Layout from "./components/Layout/Layout";
 import User from "./components/pages/user/User";
 import Events from "./components/pages/events/Events";
 import Event from "./components/pages/event/Event";
+import Profile from "./components/pages/myprofile/Profile";
 
 import AuthContext from './components/shared/AuthContext';
 
@@ -21,7 +22,8 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<Home/>}></Route>
-        <Route path="/user" element={<User />}></Route>
+        <Route path="/me/:id" element={<Profile/>}></Route>
+        <Route path="/users" element={<User />}></Route>
         <Route
           path="/events"
           element={<Events/>}

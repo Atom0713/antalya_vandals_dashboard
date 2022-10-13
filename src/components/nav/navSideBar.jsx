@@ -42,13 +42,23 @@ export default function NavSideBar() {
             <span className="menu-title">Dashboard</span>
           </Link>
         </li>
-        {[USERROLES.ADMIN, USERROLES.STAFF].includes(user.role.id) && (
+        {[USERROLES.ADMIN, USERROLES.STAFF, USERROLES.PLAYER].includes(user.role.id) && (
           <li className="nav-item menu-items">
-            <Link className="nav-link" to="/user">
+            <Link className="nav-link" to={`/me/${user.id}`}>
               <span className="menu-icon">
                 <i className="mdi mdi-account-multiple-outline"></i>
               </span>
-              <span className="menu-title">User</span>
+              <span className="menu-title">My Profile</span>
+            </Link>
+          </li>
+        )}
+        {[USERROLES.ADMIN, USERROLES.STAFF].includes(user.role.id) && (
+          <li className="nav-item menu-items">
+            <Link className="nav-link" to="/users">
+              <span className="menu-icon">
+                <i className="mdi mdi-account-multiple-outline"></i>
+              </span>
+              <span className="menu-title">Users</span>
             </Link>
           </li>
         )}

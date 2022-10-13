@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchEvent } from "../../../api/events";
 import { fetchEventComments } from "../../../api/comment";
@@ -9,10 +9,8 @@ import Comment from "../../forms/Comment";
 import { AttendanceOrderedDarkWithImageTable } from "../../tables";
 
 import AphexChart from '../../charts/pieChart';
-import AuthContext from '../../shared/AuthContext'
 
 export default function Event() {
-  const { user } = useContext(AuthContext);
   const { id } = useParams();
 
   // data fetch on page loading

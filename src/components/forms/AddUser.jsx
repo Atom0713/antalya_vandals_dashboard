@@ -3,14 +3,14 @@ import { addUser } from "../../api/user";
 import { fetchAllRoles } from "../../api/role";
 import { BlueButton } from "../buttons";
 import { USERROLES } from "../constants";
-import AuthContext from '../shared/AuthContext'
+import AuthContext from '../shared/AuthContext';
+import { useNavigate } from "react-router-dom";
 
 export default function AddUser({ setShowUserForm }) {
   const { user } = useContext(AuthContext);
   const [role, setRole] = useState(user.role.id);
   const [addUserBody, setAddUserBody] = useState({"role_id": user.role.id});
-  const [formSubmitted, setFormSubmitted] = useState();
-  const [newUserResponse, setNewUserResponse] = useState({});
+  const navigate = useNavigate();
 
   // data fetch on page loading
   const [isLoading, setIsLoading] = useState(true);
@@ -57,7 +57,10 @@ export default function AddUser({ setShowUserForm }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     addUser(addUserBody)
-      .then((response) => setNewUserResponse(response.data), setFormSubmitted(true))
+      .then((response) => 
+      {
+        navigate(`/me/${response.data.id}`);
+      })
       .catch((error) => setError(error.message));
   };
 
@@ -314,71 +317,58 @@ export default function AddUser({ setShowUserForm }) {
     );
   };
 
-  const newUSerPage = () => {
-    return (
-      <div>
-        Username: {newUserResponse.username}
-      </div>
-    );
-  };
   return (
     <>
-      {formSubmitted && newUserResponse ? (
-        newUSerPage()
-      ) : (
-        <>
-          {BlueButton(handleBackClick, "Back")}
-          <div className="row">
-            <div className="col-12 grid-margin">
-              <div className="card">
-                <div className="card-body">
-                  <div className="row">
-                    <div className="col-md-9">
-                      <div className="form-group row">
-                        <label className="col-sm-3 col-form-label">Role</label>
-                        {userRoles &&
-                          userRoles.map((item) => (
-                            <div key={item.id} className="col-sm-3">
-                              <div className="form-check">
-                                <input
-                                  onChange={toggleFormChange}
-                                  className="form-check-input"
-                                  type="checkbox"
-                                  value={item.name.toUpperCase()}
-                                  id="flexCheckDefault"
-                                  checked={role === item.id}
-                                />
-                                <label
-                                  className="form-check-label"
-                                  for="flexCheckDefault"
-                                >
-                                  {item.name}
-                                </label>
-                              </div>
-                            </div>
-                          ))}
-                      </div>
-                    </div>
+      {BlueButton(handleBackClick, "Back")}
+      <div className="row">
+        <div className="col-12 grid-margin">
+          <div className="card">
+            <div className="card-body">
+              <div className="row">
+                <div className="col-md-9">
+                  <div className="form-group row">
+                    <label className="col-sm-3 col-form-label">Role</label>
+                    {userRoles &&
+                      userRoles.map((item) => (
+                        <div key={item.id} className="col-sm-3">
+                          <div className="form-check">
+                            <input
+                              onChange={toggleFormChange}
+                              className="form-check-input"
+                              type="checkbox"
+                              value={item.name.toUpperCase()}
+                              id="flexCheckDefault"
+                              checked={role === item.id}
+                            />
+                            <label
+                              className="form-check-label"
+                              for="flexCheckDefault"
+                            >
+                              {item.name}
+                            </label>
+                          </div>
+                        </div>
+                      ))}
                   </div>
-                  <form className="form-sample" onSubmit={handleSubmit}>
-                    <p className="card-description"> Personal info </p>
-                    {role === USERROLES.ADMIN && addAdminFormElements()}
-                    {role === USERROLES.STAFF && addStaffFormElements()}
-                    {role === USERROLES.PLAYER && addPlayerFormElements()}
-                    <button
-                      type="submit"
-                      className="btn btn-primary btn-icon-text"
-                    >
-                      <i className="mdi mdi-file-check btn-icon-prepend"></i>
-                      Submit
-                    </button>
-                  </form>
                 </div>
               </div>
+              <form className="form-sample" onSubmit={handleSubmit}>
+                <p className="card-description"> Personal info </p>
+                {role === USERROLES.ADMIN && addAdminFormElements()}
+                {role === USERROLES.STAFF && addStaffFormElements()}
+                {role === USERROLES.PLAYER && addPlayerFormElements()}
+                <button
+                  type="submit"
+                  className="btn btn-primary btn-icon-text"
+                >
+                  <i className="mdi mdi-file-check btn-icon-prepend"></i>
+                  Submit
+                </button>
+              </form>
             </div>
           </div>
-        </>
-      )}
+        </div>
+      </div>
     </>
   );
 }

@@ -62,6 +62,8 @@ export default function User() {
           title={"Coaching staff"}
           headers={["Name", "Positions", "Date of birth"]}
           order={["name", "position", "dob"]}
+          link={true}
+          url={"/me"}
           data={state.staff}
         />
       )}
@@ -70,6 +72,8 @@ export default function User() {
           title={"Players"}
           headers={["Name", "Position", "Date of birth", "Height", "Weight"]}
           order={["name", "position", "dob", "height", "weight"]}
+          link={true}
+          url={"/me"}
           data={state.players}
         />
       )}
