@@ -23,7 +23,7 @@ export default function Comment({ event_id}) {
                         <form className="form-sample" onSubmit={handleSubmit}>
                             <div className="form-outline mb-4">
                                 <label for="exampleFormControlTextarea1">Add comment</label>
-                                <textarea className="form-control" id="exampleFormControlTextarea1" rows="8" onChange={(e) => setComment(e.target.value)}></textarea>
+                                <textarea className="form-control" id="exampleFormControlTextarea1" rows="8" onChange={(e) => setComment(e.target.value)} placeholder="Event comment"></textarea>
                             </div>
                             <div className="float-end">
                                 <button type="submit" className={`btn btn-primary btn-block mb-4 ${comment ? "" : "disabled"}`}>

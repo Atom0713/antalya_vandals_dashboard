@@ -221,7 +221,7 @@ export default function NavBar() {
                     </div>
                     <div className="dropdown-divider"></div>
                     <div className="preview-item-content">
-                      <Link to="/user">
+                      <Link to="/users">
                         Users
                       </Link>
                     </div>

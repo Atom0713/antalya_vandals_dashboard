@@ -92,11 +92,11 @@ export default function Event() {
         <div className="col-md-4 grid-margin">
           <div className="card">
             <div className="card-body">
-              <h4 className="card-title">{event.name}</h4>
+              <h4 className="card-title text-md-center text-muted">{event.name}</h4>
               <h4 className="card-title">Description</h4>
               <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                 <div className="text-md-center text-xl-left">
-                  <p className="text-muted mb-0">{event.description}</p>
+                  <p className="text-muted text-break mb-0">{event.description}</p>
                 </div>
               </div>
               <h4 className="card-title">Date</h4>
@@ -109,7 +109,7 @@ export default function Event() {
             </div>
           </div>
         </div>
-        <div className="col-md-8 grid-margin stretch-card">
+        <div className="col-md-8 grid-margin">
           <div className="card">
             <div className="card-body">
               <div className="d-flex flex-row justify-content-between">
@@ -121,8 +121,8 @@ export default function Event() {
                     {comments.map((comment, index) => (
                       <div key={index} className={index === comments.length - 1 ? "preview-item" : "preview-item border-bottom"}>
                         <div className="preview-item-content d-sm-flex flex-grow">
-                          <div className="flex-grow">
-                            <p className="text mb-0">
+                          <div className="flex-grow text-xl-left">
+                            <p className="text-break mb-0">
                             {comment.comment}
                             </p>
                           </div>

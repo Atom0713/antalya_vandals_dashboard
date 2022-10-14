@@ -22263,6 +22263,7 @@ button:focus {
 textarea {
   resize: none;
   overflow-x: hidden;
+  overflow-y:hidden
 }
 
 .btn,

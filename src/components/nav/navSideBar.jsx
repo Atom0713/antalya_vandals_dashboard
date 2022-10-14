@@ -29,7 +29,7 @@ export default function NavSideBar() {
               </div> */}
               <div className="profile-name">
                 <h5 className="mb-0 font-weight-normal">{user.first_name} {user.last_name}</h5>
-                <span>{user.role.name}</span>
+                <span className="text-capitalize">{user.role.name}</span>
               </div>
             </div>
           </div>
