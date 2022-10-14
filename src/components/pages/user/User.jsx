@@ -22,6 +22,7 @@ export default function User() {
       fetchUsersByRole(USERROLES.PLAYER),
     ])
       .then((response) => {
+        console.log(response)
         setState({
           staff: response[0].data,
           players: response[1].data,
@@ -61,7 +62,7 @@ export default function User() {
         <OrderedDarkWithImageTable
           title={"Coaching staff"}
           headers={["Name", "Positions", "Date of birth"]}
-          order={["name", "position", "dob"]}
+          order={["first_name", "position", "dob"]}
           link={true}
           url={"/me"}
           data={state.staff}
@@ -71,7 +72,7 @@ export default function User() {
         <OrderedDarkWithImageTable
           title={"Players"}
           headers={["Name", "Position", "Date of birth", "Height", "Weight"]}
-          order={["name", "position", "dob", "height", "weight"]}
+          order={["first_name", "position", "dob", "height", "weight"]}
           link={true}
           url={"/me"}
           data={state.players}

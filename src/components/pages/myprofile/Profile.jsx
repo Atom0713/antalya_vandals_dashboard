@@ -54,7 +54,7 @@ export default function Profile() {
                             <h4 className="card-title">Name</h4>
                             <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                                 <div className="text-md-center text-xl-left">
-                                <p className="text-muted mb-0">{user.name}</p>
+                                <p className="text-muted mb-0">{user.first_name} {user.last_name}</p>
                                 </div>
                             </div>
                             <h4 className="card-title">Role</h4>

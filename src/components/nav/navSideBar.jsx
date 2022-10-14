@@ -28,7 +28,7 @@ export default function NavSideBar() {
                 <span className="count bg-success"></span>
               </div> */}
               <div className="profile-name">
-                <h5 className="mb-0 font-weight-normal">{user.name}</h5>
+                <h5 className="mb-0 font-weight-normal">{user.first_name} {user.last_name}</h5>
                 <span>{user.role.name}</span>
               </div>
             </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchEvent } from "../../../api/events";
 import { fetchEventComments } from "../../../api/comment";
+import { fetchEventAttendance } from "../../../api/attendance";
 import { BlueButton } from "../../buttons";
 import Attandance from "../../forms/Attandance";
 import Comment from "../../forms/Comment";
@@ -18,17 +19,22 @@ export default function Event() {
   const [error, setError] = useState();
   const [event, setEvent] = useState({});
   const [comments, setComments] = useState({})
+  const [attendance, setAttendance] = useState({})
+
 
   const [showAtandanceForm, setShowAttendanceForm] = useState(false);
 
   useEffect(() => {
     Promise.all([
       fetchEvent(id),
-      fetchEventComments(id)
+      fetchEventComments(id),
+      fetchEventAttendance(id),
     ])
     .then((response) => {
       setEvent(response[0].data);
       setComments(response[1].data);
+      setAttendance(response[2].data.attendance);
+      
       setIsLoading(false);
     })
     .catch((error) => setError(error.message));
@@ -61,8 +67,8 @@ export default function Event() {
 
   const getAttendance = () => {
     let counter = 0;
-    for (let i = 0; i <= event.attendance.length -1 ; i++) {
-      if (event.attendance[i].present) {
+    for (let i = 0; i <= attendance.length -1 ; i++) {
+      if (attendance[i].present) {
           counter++;
       }
     }
@@ -73,7 +79,7 @@ export default function Event() {
     <>
       <h4 className="card-title">Attendance</h4>
       <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
-        <AphexChart total={event.attendance.length} attended={getAttendance()}
+        <AphexChart total={attendance.length} attended={getAttendance()}
         />
       </div>
     </>
@@ -141,7 +147,9 @@ export default function Event() {
         <AttendanceOrderedDarkWithImageTable
           title={"Attendance"}
           headers={["Name", "Present", "Absence comment"]}
-          data={event.attendance}
+          data={attendance}
+          link={true}
+          url={"/me"}
         />
       }
     </>

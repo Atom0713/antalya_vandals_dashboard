@@ -13,7 +13,7 @@ export async function addComment(body) {
 
 export async function fetchEventComments(event_id) {
   const response = await fetch(
-    `${process.env.REACT_APP_SERVER_URL}/comment/event/${event_id}`,
+    `${process.env.REACT_APP_SERVER_URL}/comment/event/${event_id}/`,
     {
       method: "GET",
       headers: headers,
