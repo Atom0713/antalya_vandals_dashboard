@@ -13,7 +13,7 @@ export default function Profile() {
         setIsLoading(true);
         fetchUserById(id)
         .then((response) => {
-            setUser(response.data);
+            setUser(response);
           setIsLoading(false);
         })
         .catch((error) => setError(error.message));

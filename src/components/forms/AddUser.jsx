@@ -20,7 +20,7 @@ export default function AddUser({ setShowUserForm }) {
   useEffect(() => {
     fetchAllRoles()
       .then((response) => {
-        let roles = response.data["roles"]
+        let roles = response.data
         if (user.role.id !== USERROLES.ADMIN){
           roles = roles.filter(function( obj ) {
             return obj.id !== USERROLES.ADMIN;
@@ -59,7 +59,7 @@ export default function AddUser({ setShowUserForm }) {
     addUser(addUserBody)
       .then((response) => 
       {
-        navigate(`/me/${response.data.id}`);
+        navigate(`/me/${response.id}`);
       })
       .catch((error) => setError(error.message));
   };

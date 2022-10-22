@@ -14,12 +14,12 @@ export default function Events() {
   // data fetch on page loading
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
-  const [state, setState] = useState({});
+  const [events, setEvents] = useState({});
 
   useEffect(() => {
     fetchEvents()
       .then((response) => {
-        setState(response.data);
+        setEvents(response.data);
         setIsLoading(false);
       })
       .catch((error) => setError(error.message));
@@ -52,12 +52,12 @@ export default function Events() {
       !showAddEventForm
         ? BlueButton(handleAddEventClick, "Add event")
         : null}
-      {state.events && (
+      {events && (
         <OrderedDarkWithImageTable
           title={"Events"}
           headers={["Name", "Description", "Location", "Date", "Completed"]}
           order={["name", "description", "location", "date", "completed"]}
-          data={state.events}
+          data={events}
           link={true}
           url={"/event"}
           component={Event}

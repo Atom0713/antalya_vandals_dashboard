@@ -17,7 +17,7 @@ export default function AddEvent({ setShowAddEventForm }) {
     addEvent(addEventBody)
       .then((response) => 
       {
-        navigate(`/event/${response.data.id}`);
+        navigate(`/event/${response.id}`);
 
       })
       .catch((error) => setError(error.message));

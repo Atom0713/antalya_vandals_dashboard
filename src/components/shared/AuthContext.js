@@ -19,15 +19,13 @@ export const AuthContextProvider = ({ children }) => {
     }
   );
 
-  // if(!token){
-  //   console.log("to login")
-  //   navigate("/login")
-  // }
 
   function logout() {
     localStorage.removeItem("access_token");
-    window.location.reload();
-    // navigate("/login")
+    setToken(null)
+    setUserRole(null)
+    setUser(null)
+    navigate("/login")
   }
 
   return (

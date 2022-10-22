@@ -14,6 +14,7 @@ function Attandance({setShowAttendanceForm, event_id }) {
     setIsLoading(true);
     fetchUsersByRole(USERROLES.PLAYER)
       .then((response) => {
+        console.log(response)
         setPlayersAttandanceList(response.data);
         setIsLoading(false);
         setCheckedState(new Array(response.data.length).fill(true));
@@ -70,7 +71,7 @@ function Attandance({setShowAttendanceForm, event_id }) {
         <h1>Loading...</h1>
       </div>
     );
-
+  console.log(playersAttandanceList)
   return (
     <>
       <div className="row">
@@ -112,7 +113,7 @@ function Attandance({setShowAttendanceForm, event_id }) {
                             </div>
                           </td>
                           <td>
-                            <p>{player.name}</p>
+                            <p>{player.first_name} {player.last_name}</p>
                             {/* <img src="assets/images/faces/face1.jpg" alt="" />
                             <span className="ps-2">{player.name}</span> */}
                           </td>

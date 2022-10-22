@@ -21,17 +21,15 @@ function App() {
   return ( 
     <Layout>
       <Routes>
-        <Route path="/" element={<Home/>}></Route>
+        <Route path="/login" element={<Home/>}></Route>
         <Route path="/me/:id" element={<Profile/>}></Route>
         <Route path="/users" element={<User />}></Route>
-        <Route
-          path="/events"
-          element={<Events/>}
-        ></Route>
+        <Route path="/events" element={<Events/>}></Route>
         <Route
           path="/event/:id"
           element={<Event />}
         ></Route>
+        <Route path="/" element={<Home/>}></Route>
       </Routes>
     </Layout>
   );

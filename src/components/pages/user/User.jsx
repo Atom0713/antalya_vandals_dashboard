@@ -22,7 +22,6 @@ export default function User() {
       fetchUsersByRole(USERROLES.PLAYER),
     ])
       .then((response) => {
-        console.log(response)
         setState({
           staff: response[0].data,
           players: response[1].data,

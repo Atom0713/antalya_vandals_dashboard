@@ -31,9 +31,10 @@ export default function Event() {
       fetchEventAttendance(id),
     ])
     .then((response) => {
-      setEvent(response[0].data);
+      console.log(response)
+      setEvent(response[0]);
       setComments(response[1].data);
-      setAttendance(response[2].data.attendance);
+      setAttendance(response[2].data);
       
       setIsLoading(false);
     })

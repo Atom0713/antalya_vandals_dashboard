@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
   useEffect(() => {
     fetchUser()
     .then((response) => {
-      setUser(response.data)
+      setUser(response)
       setIsLoading(false);
     })
     .catch((error) => setError(error.message))
