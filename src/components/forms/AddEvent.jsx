@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { BlueButton } from "../buttons";
-import { addEvent } from "../../api/events";
+import { addEvent } from "../../api/";
 import { useNavigate } from "react-router-dom";
+import { Layout } from '../';
 
 export default function AddEvent({ setShowAddEventForm }) {
   const [addEventBody, setAddEventBody] = useState({});
@@ -29,7 +30,7 @@ export default function AddEvent({ setShowAddEventForm }) {
   };
 
   return (
-    <>
+    <Layout>
       {BlueButton(handleBackClick, "Back")}
       <div className="row">
         <div className="col-12 grid-margin">
@@ -113,6 +114,6 @@ export default function AddEvent({ setShowAddEventForm }) {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }

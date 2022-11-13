@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import AddUser from "../../forms/AddUser";
-import { fetchUsersByRole } from "../../../api/user";
-import { OrderedDarkWithImageTable } from "../../tables";
-import { USERROLES } from "../../constants";
-import { BlueButton } from "../../buttons";
-import AuthContext from '../../shared/AuthContext'
+import { AddUser } from "../forms/";
+import { fetchUsersByRole, fetchUser } from "../../api/";
+import { OrderedDarkWithImageTable } from "../tables";
+import { USERROLES } from "../constants";
+import { BlueButton } from "../buttons";
+// import { useLocalStorage } from "../shared/useLocalStorage";
+import { Layout } from '../';
 
 export default function User() {
-  const { user} = useContext(AuthContext);
+  // const [] = useLocalStorage("user", null);
   // show add user form toggle
   const [showUserForm, setShowUserForm] = useState(false);
 
@@ -18,13 +19,15 @@ export default function User() {
 
   useEffect(() => {
     Promise.all([
+      fetchUser(),
       fetchUsersByRole(USERROLES.STAFF),
       fetchUsersByRole(USERROLES.PLAYER),
     ])
       .then((response) => {
         setState({
-          staff: response[0].data,
-          players: response[1].data,
+          user: response[0],
+          staff: response[1].data,
+          players: response[2].data,
         });
         setIsLoading(false);
       })
@@ -50,11 +53,11 @@ export default function User() {
     );
 
   if (showUserForm)
-    return <AddUser setShowUserForm={setShowUserForm} />;
+    return <AddUser setShowUserForm={setShowUserForm} user={state.user} />;
 
   return (
-    <>
-      {[USERROLES.ADMIN, USERROLES.STAFF].includes(user.role.id)
+    <Layout>
+      {[USERROLES.ADMIN, USERROLES.STAFF].includes(state.user.role.id)
         ? BlueButton(handleAddUserClick, "Add user")
         : null}
       {state.staff && (
@@ -77,6 +80,6 @@ export default function User() {
           data={state.players}
         />
       )}
-    </>
+    </Layout>
   );
 }

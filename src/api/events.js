@@ -33,7 +33,6 @@ export async function addEvent(body) {
 
 
 export async function addEventAttendance(body) {
-  console.log(body)
   const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/event/attendance/`, {
     method: "POST",
     headers: headers,
@@ -42,17 +41,3 @@ export async function addEventAttendance(body) {
 
   return response.json();
 }
-
-
-export async function fetchEventAttendance(event_id) {
-  const response = await fetch(
-    `${process.env.REACT_APP_SERVER_URL}/event/attendance/${event_id}/`,
-    {
-      method: "GET",
-      headers: headers,
-    }
-  );
-
-  return response.json();
-}
-

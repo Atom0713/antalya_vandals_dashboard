@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { addUser } from "../../api/user";
-import { fetchAllRoles } from "../../api/role";
+import { fetchAllRoles } from "../../api/";
 import { BlueButton } from "../buttons";
 import { USERROLES } from "../constants";
-import AuthContext from '../shared/AuthContext';
-import { useNavigate } from "react-router-dom";
+import { Layout } from '../'
 
-export default function AddUser({ setShowUserForm }) {
-  const { user } = useContext(AuthContext);
+export default function AddUser({ setShowUserForm, user }) {
   const [role, setRole] = useState(user.role.id);
   const [addUserBody, setAddUserBody] = useState({"role_id": user.role.id});
   const navigate = useNavigate();
@@ -318,7 +317,7 @@ export default function AddUser({ setShowUserForm }) {
   };
 
   return (
-    <>
+    <Layout>
       {BlueButton(handleBackClick, "Back")}
       <div className="row">
         <div className="col-12 grid-margin">
@@ -369,6 +368,6 @@ export default function AddUser({ setShowUserForm }) {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }

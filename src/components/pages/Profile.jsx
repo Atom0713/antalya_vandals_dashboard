@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchUserById } from '../../../api/user';
-import { USERROLES } from '../../constants';
+import { fetchUserById } from '../../api';
+import { USERROLES } from '../constants';
+import { Layout } from '../';
 
 export default function Profile() {
     const { id } = useParams();
@@ -46,7 +47,7 @@ export default function Profile() {
 
 
     return (
-        <>
+        <Layout>
             <div className="row">
                 <div className="col-md-4 grid-margin">
                     <div className="card">
@@ -86,6 +87,6 @@ export default function Profile() {
                     </div>
                 </div>
             </div>
-        </>
+        </Layout>
     )
 }

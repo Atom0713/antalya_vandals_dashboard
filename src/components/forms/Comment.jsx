@@ -1,9 +1,7 @@
 import React, { useState, useContext } from "react";
-import { addComment } from "../../api/comment";
-import AuthContext from '../shared/AuthContext'
+import { addComment } from "../../api/";
 
-export default function Comment({ event_id}) {
-    const { user } = useContext(AuthContext);
+export default function Comment({ event_id, user }) {
 
     const [error, setError] = useState();
     const [comment, setComment] = useState();
@@ -13,6 +11,12 @@ export default function Comment({ event_id}) {
         .catch((error) => setError(error.message)
         );
     };
+
+    if (error){
+       return <div>
+        {error.message}
+       </div> 
+    }
 
     return (
         <div className="row">

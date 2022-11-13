@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { fetchUsersByRole } from "../../api/user";
-import { addEventAttendance } from '../../api/events';
+import { fetchUsersByRole, addEventAttendance } from "../../api/";
 import { USERROLES } from "../constants";
+import { Layout } from '../';
+
 
 function Attandance({setShowAttendanceForm, event_id }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,7 +15,6 @@ function Attandance({setShowAttendanceForm, event_id }) {
     setIsLoading(true);
     fetchUsersByRole(USERROLES.PLAYER)
       .then((response) => {
-        console.log(response)
         setPlayersAttandanceList(response.data);
         setIsLoading(false);
         setCheckedState(new Array(response.data.length).fill(true));
@@ -71,9 +71,8 @@ function Attandance({setShowAttendanceForm, event_id }) {
         <h1>Loading...</h1>
       </div>
     );
-  console.log(playersAttandanceList)
   return (
-    <>
+    <Layout>
       <div className="row">
         <div className="col-12 grid-margin">
           <div className="card">
@@ -149,7 +148,7 @@ function Attandance({setShowAttendanceForm, event_id }) {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }
 

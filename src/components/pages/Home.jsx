@@ -1,8 +1,9 @@
 import React from "react";
+import { Layout } from '../';
 
 export default function Home() {
   return (
-    <>
+    <Layout>
       <div className="row">
         <div className="col-md-4 grid-margin stretch-card">
           <div className="card">
@@ -533,6 +534,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }

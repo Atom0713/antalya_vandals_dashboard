@@ -1,26 +1,31 @@
-import React, { useState, useEffect, useContext } from "react";
-import AddEvent from "../../forms/AddEvent";
-import { fetchEvents } from "../../../api/events";
-import { OrderedDarkWithImageTable } from "../../tables";
-import { BlueButton } from "../../buttons";
-import Event from "../event/Event";
-import { USERROLES } from "../../constants";
-import AuthContext from '../../shared/AuthContext';
+import React, { useState, useEffect } from "react";
+import { AddEvent } from "../forms/";
+import { fetchEvents, fetchUser } from "../../api/";
+import { OrderedDarkWithImageTable } from "../tables";
+import { BlueButton } from "../buttons";
+import { Event } from "../";
+import { USERROLES } from "../constants";
+import { Layout } from '../';
 
 export default function Events() {
-  const { user } = useContext(AuthContext);
   const [showAddEventForm, setShowAddEventForm] = useState(false);
 
   // data fetch on page loading
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
-  const [events, setEvents] = useState({});
+  const [state, setState] = useState({});
 
   useEffect(() => {
-    fetchEvents()
-      .then((response) => {
-        setEvents(response.data);
-        setIsLoading(false);
+    Promise.all([
+      fetchUser(),
+      fetchEvents()
+    ])
+    .then((response) => {
+      setIsLoading(false);
+      setState({
+        user: response[0],
+        events: response[1].data
+      });
       })
       .catch((error) => setError(error.message));
   }, []);
@@ -47,22 +52,22 @@ export default function Events() {
     return <AddEvent setShowAddEventForm={setShowAddEventForm} />;
 
   return (
-    <>
-      {[USERROLES.ADMIN, USERROLES.STAFF].includes(user.role.id) &&
+    <Layout>
+      {[USERROLES.ADMIN, USERROLES.STAFF].includes(state.user.role.id) &&
       !showAddEventForm
         ? BlueButton(handleAddEventClick, "Add event")
         : null}
-      {events && (
+      {state.events && (
         <OrderedDarkWithImageTable
           title={"Events"}
           headers={["Name", "Description", "Location", "Date", "Completed"]}
           order={["name", "description", "location", "date", "completed"]}
-          data={events}
+          data={state.events}
           link={true}
           url={"/event"}
           component={Event}
         />
       )}
-    </>
+    </Layout>
   );
 }
