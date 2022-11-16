@@ -120,7 +120,7 @@ export default function AddUser({ setShowUserForm, user }) {
                 <input
                   name="dob"
                   className="form-control"
-                  placeholder="dd/mm/yyyy"
+                  placeholder="YYYY-MM-DD"
                   onChange={handleChange}
                 />
               </div>
@@ -184,7 +184,7 @@ export default function AddUser({ setShowUserForm, user }) {
                 <input
                   name="dob"
                   className="form-control"
-                  placeholder="dd/mm/yyyy"
+                  placeholder="YYYY-MM-DD"
                   onChange={handleChange}
                 />
               </div>
@@ -290,7 +290,7 @@ export default function AddUser({ setShowUserForm, user }) {
                 <input
                   name="dob"
                   className="form-control"
-                  placeholder="YYYY/MM/DD"
+                  placeholder="YYYY-MM-DD"
                   onChange={handleChange}
                 />
               </div>
