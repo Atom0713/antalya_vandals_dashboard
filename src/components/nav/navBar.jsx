@@ -221,7 +221,7 @@ export default function NavBar() {
               {/* <p className="p-3 mb-0 text-center">Advanced settings</p> */}
             </div>
           </li>
-          {/* <li className="d-lg-none">
+          <li className="d-lg-none">
             <a
                 className="nav-link"
                 id="profileDropdown"
@@ -254,7 +254,7 @@ export default function NavBar() {
                   </div>
                 </a>
             </div>
-          </li> */}
+          </li>
         </ul>
       </div>
     </nav>
