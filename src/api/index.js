@@ -4,6 +4,7 @@ import { fetcUserRole, fetchAllRoles } from './role';
 import { fetchEvents, fetchEvent, addEvent, addEventAttendance } from './events';
 import { addComment, fetchEventComments } from './comment';
 import { fetchEventAttendance } from './attendance';
+import { fetchPositions } from './position';
 
 export {
     loginUser,
@@ -19,5 +20,6 @@ export {
     addEventAttendance,
     addComment,
     fetchEventComments,
-    fetchEventAttendance
+    fetchEventAttendance,
+    fetchPositions,
 }

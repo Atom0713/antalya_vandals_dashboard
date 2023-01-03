@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { addUser } from "../../api/user";
-import { fetchAllRoles } from "../../api/";
+import { fetchAllRoles, fetchPositions } from "../../api/";
 import { BlueButton } from "../buttons";
 import { USERROLES } from "../constants";
 import { Layout } from '../'
@@ -14,21 +14,29 @@ export default function AddUser({ setShowUserForm, user }) {
   // data fetch on page loading
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
+  const [state, setState] = useState({});
   const [userRoles, setUserRoles] = useState({});
 
+
   useEffect(() => {
-    fetchAllRoles()
-      .then((response) => {
-        let roles = response.data
-        if (user.role.id !== USERROLES.ADMIN){
-          roles = roles.filter(function( obj ) {
-            return obj.id !== USERROLES.ADMIN;
-          });
-        }
-        setUserRoles(roles);
-        setIsLoading(false);
+    Promise.all([
+      fetchAllRoles(),
+      fetchPositions()
+    ])
+    .then((response) => {
+      let roles = response[0].data
+      if (user.role.id !== USERROLES.ADMIN){
+        roles = roles.filter(function( obj ) {
+          return obj.id !== USERROLES.ADMIN;
+        });
+      }
+      setUserRoles(roles);
+      setIsLoading(false);
+      setState({
+        positions: response[1]
       })
-      .catch((error) => setError(error.message));
+    })
+      
   }, [user.role.id]);
 
   if (error)
@@ -49,7 +57,11 @@ export default function AddUser({ setShowUserForm, user }) {
     setShowUserForm(false);
   };
   const handleChange = (event) => {
-    addUserBody[event.target.name] = event.target.value;
+    let value = event.target.value
+    if (event.target.name === "position"){
+      value = parseInt(value)
+    } 
+    addUserBody[event.target.name] = value;
     setAddUserBody(addUserBody);
   };
 
@@ -68,10 +80,10 @@ export default function AddUser({ setShowUserForm, user }) {
     setAddUserBody({"role_id": USERROLES[event.target.value]});
   };
 
-  const addAdminFormElements = () => {
+  const commonFormElemenets = () => {
     return (
       <>
-        <div className="row">
+      <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
               <label className="col-sm-3 col-form-label">Fist name *</label>
@@ -128,69 +140,36 @@ export default function AddUser({ setShowUserForm, user }) {
           </div>
         </div>
       </>
-    );
-  };
+    )
+  }
 
+  const selectPosition =() => {
+    return (
+      <div className="row">
+        <div className="col-md-6">
+          <div className="form-group row">
+            <label className="col-sm-3 col-form-label">Mevki *</label>
+            <div className="col-sm-9">
+              <select className="js-example-basic-single" style={{width:"100%"}} onChange={handleChange} name="position">
+                {state.positions && state.positions.map((item) => (
+                  <option key={item.id} value={item.id}>{item.name}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const addAdminFormElements = () => {
+    return commonFormElemenets()
+  };
 
   const addPlayerFormElements = () => {
     return (
       <>
-        <div className="row">
-          <div className="col-md-6">
-            <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Fist name *</label>
-              <div className="col-sm-9">
-                <input
-                  name="first_name"
-                  type="text"
-                  className="form-control"
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Last name *</label>
-              <div className="col-sm-9">
-                <input
-                  name="last_name"
-                  type="text"
-                  className="form-control"
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-6">
-            <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Email *</label>
-              <div className="col-sm-9">
-                <input
-                  name="email"
-                  type="text"
-                  className="form-control"
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Date of Birth *</label>
-              <div className="col-sm-9">
-                <input
-                  name="dob"
-                  className="form-control"
-                  placeholder="YYYY-MM-DD"
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        {commonFormElemenets()}
         <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
@@ -219,21 +198,7 @@ export default function AddUser({ setShowUserForm, user }) {
             </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col-md-6">
-            <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Mevki *</label>
-              <div className="col-sm-9">
-                <input
-                  name="position"
-                  type="text"
-                  className="form-control"
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        {selectPosition()}
       </>
     );
   };
@@ -241,77 +206,8 @@ export default function AddUser({ setShowUserForm, user }) {
   const addStaffFormElements = () => {
     return (
       <>
-        <div className="row">
-          <div className="col-md-6">
-            <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Fist name *</label>
-              <div className="col-sm-9">
-                <input
-                  name="first_name"
-                  type="text"
-                  className="form-control"
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Last name *</label>
-              <div className="col-sm-9">
-                <input
-                  name="last_name"
-                  type="text"
-                  className="form-control"
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-6">
-            <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Email *</label>
-              <div className="col-sm-9">
-                <input
-                  name="email"
-                  type="text"
-                  className="form-control"
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Date of Birth *</label>
-              <div className="col-sm-9">
-                <input
-                  name="dob"
-                  className="form-control"
-                  placeholder="YYYY-MM-DD"
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-6">
-            <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Position *</label>
-              <div className="col-sm-9">
-                <input
-                  name="position"
-                  type="text"
-                  className="form-control"
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        {commonFormElemenets()}
+        {selectPosition()}
       </>
     );
   };
