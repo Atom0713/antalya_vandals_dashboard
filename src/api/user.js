@@ -10,21 +10,19 @@ export async function fetchUser() {
   return response.json();
 }
 
-export async function fetchUsersByRole(id) {
-  const response = await fetch(
-    `${process.env.REACT_APP_SERVER_URL}/user/role/${id}/`,
-    {
-      method: "GET",
-      headers: headers,
-    }
-  );
+
+export async function fetchUserById(user_id) {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/${user_id}`, {
+    method: "GET",
+    headers: headers,
+  });
 
   return response.json();
 }
 
-export async function fetchAllUserRoles() {
+export async function fetchUsersByRole(id) {
   const response = await fetch(
-    `${process.env.REACT_APP_SERVER_URL}/user/roles`,
+    `${process.env.REACT_APP_SERVER_URL}/user/role/${id}/`,
     {
       method: "GET",
       headers: headers,
@@ -38,7 +36,7 @@ export async function addUser(body) {
   const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/add`, {
     method: "POST",
     headers: headers,
-    body: body,
+    body: JSON.stringify(body),
   });
 
   return response.json();

@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import AddUser from "../../forms/AddUser";
-import { fetchUsersByRole } from "../../../api/user";
-import { OrderedDarkWithImageTable } from "../../tables";
-import { USERROLES } from "../../constants";
-import { BlueButton } from "../../buttons";
-import AuthContext from '../../shared/AuthContext'
+import { AddUser } from "../forms/";
+import { fetchUsersByRole, fetchUser } from "../../api/";
+import { OrderedDarkWithImageTable } from "../tables";
+import { USERROLES } from "../constants";
+import { BlueButton } from "../buttons";
+// import { useLocalStorage } from "../shared/useLocalStorage";
+import { Layout } from '../';
 
 export default function User() {
-  const { userRole} = useContext(AuthContext);
+  // const [] = useLocalStorage("user", null);
   // show add user form toggle
   const [showUserForm, setShowUserForm] = useState(false);
 
@@ -18,13 +19,15 @@ export default function User() {
 
   useEffect(() => {
     Promise.all([
-      fetchUsersByRole(USERROLES["Staff"]),
-      fetchUsersByRole(USERROLES["Player"]),
+      fetchUser(),
+      fetchUsersByRole(USERROLES.STAFF),
+      fetchUsersByRole(USERROLES.PLAYER),
     ])
       .then((response) => {
         setState({
-          staff: response[0].data,
-          players: response[1].data,
+          user: response[0],
+          staff: response[1].data,
+          players: response[2].data,
         });
         setIsLoading(false);
       })
@@ -50,18 +53,20 @@ export default function User() {
     );
 
   if (showUserForm)
-    return <AddUser setShowUserForm={setShowUserForm} />;
+    return <AddUser setShowUserForm={setShowUserForm} user={state.user} />;
 
   return (
-    <>
-      {[USERROLES.Admin, USERROLES.Staff].includes(userRole.id)
+    <Layout>
+      {[USERROLES.ADMIN, USERROLES.STAFF].includes(state.user.role.id)
         ? BlueButton(handleAddUserClick, "Add user")
         : null}
       {state.staff && (
         <OrderedDarkWithImageTable
           title={"Coaching staff"}
           headers={["Name", "Positions", "Date of birth"]}
-          order={["name", "positions", "birth_date"]}
+          order={["first_name", "position", "dob"]}
+          link={true}
+          url={"/me"}
           data={state.staff}
         />
       )}
@@ -69,10 +74,12 @@ export default function User() {
         <OrderedDarkWithImageTable
           title={"Players"}
           headers={["Name", "Position", "Date of birth", "Height", "Weight"]}
-          order={["name", "position", "birth_date", "height", "weight"]}
+          order={["first_name", "position", "dob", "height", "weight"]}
+          link={true}
+          url={"/me"}
           data={state.players}
         />
       )}
-    </>
+    </Layout>
   );
 }

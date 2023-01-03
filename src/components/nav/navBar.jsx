@@ -1,17 +1,37 @@
-import React, { useContext }from "react";
-import { logout } from "../auth";
+import React, { useState, useEffect }from "react";
 import { Link } from "react-router-dom";
-import AuthContext from '../shared/AuthContext'
+import { useAuth } from '../shared/useAuth';
+import { fetchUser } from '../../api'
+
 
 export default function NavBar() {
-  const {user} = useContext(AuthContext);
+
+  const { logout } = useAuth();
+  const [state, setState] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetchUser()
+    .then((response) => {
+        setState({user: response});
+        setIsLoading(false);
+      })
+      .catch((error) => console.log(error.message));
+  }, []);
+
+  if (isLoading)
+    return (
+      <div>
+      </div>
+    );
+
   return (
     <nav className="navbar p-0 fixed-top d-flex flex-row">
-      <div className="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
+      {/* <div className="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
         <Link className="navbar-brand brand-logo-mini" to="/">
           <img src="assets/images/logo-mini.svg" alt="logo" />
         </Link>
-      </div>
+      </div> */}
       <div className="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
         <ul className="navbar-nav navbar-nav-right">
           {/* <li className="nav-item nav-settings d-none d-lg-block">
@@ -159,7 +179,7 @@ export default function NavBar() {
                   alt=""
                 /> */}
                 <p className="mb-0 d-none d-sm-block navbar-profile-name">
-                  {user.name}
+                {state.user.first_name}  {state.user.last_name}
                 </p>
                 <i className="mdi mdi-menu-down d-none d-sm-block"></i>
               </div>
@@ -221,7 +241,7 @@ export default function NavBar() {
                     </div>
                     <div className="dropdown-divider"></div>
                     <div className="preview-item-content">
-                      <Link to="/user">
+                      <Link to="/users">
                         Users
                       </Link>
                     </div>

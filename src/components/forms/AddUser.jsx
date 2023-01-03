@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { fetchAllUserRoles, addUser } from "../../api/user";
+import { useNavigate } from "react-router-dom";
+import { addUser } from "../../api/user";
+import { fetchAllRoles } from "../../api/";
 import { BlueButton } from "../buttons";
 import { USERROLES } from "../constants";
+import { Layout } from '../'
 
-export default function AddUser({ setShowUserForm }) {
-  // toggle add form
-  const [role, setRole] = useState(2);
-  const [addUserBody, setAddUserBody] = useState({});
-  const [formSubmitted, setFormSubmitted] = useState();
-  const [newUserResponse, setNewUserResponse] = useState({});
+export default function AddUser({ setShowUserForm, user }) {
+  const [role, setRole] = useState(user.role.id);
+  const [addUserBody, setAddUserBody] = useState({"role_id": user.role.id});
+  const navigate = useNavigate();
 
   // data fetch on page loading
   const [isLoading, setIsLoading] = useState(true);
@@ -16,13 +17,19 @@ export default function AddUser({ setShowUserForm }) {
   const [userRoles, setUserRoles] = useState({});
 
   useEffect(() => {
-    fetchAllUserRoles()
+    fetchAllRoles()
       .then((response) => {
-        setUserRoles(response.data);
+        let roles = response.data
+        if (user.role.id !== USERROLES.ADMIN){
+          roles = roles.filter(function( obj ) {
+            return obj.id !== USERROLES.ADMIN;
+          });
+        }
+        setUserRoles(roles);
         setIsLoading(false);
       })
       .catch((error) => setError(error.message));
-  }, []);
+  }, [user.role.id]);
 
   if (error)
     return (
@@ -49,26 +56,28 @@ export default function AddUser({ setShowUserForm }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     addUser(addUserBody)
-      .then((response) => setNewUserResponse(response.data), setFormSubmitted(true))
+      .then((response) => 
+      {
+        navigate(`/me/${response.id}`);
+      })
       .catch((error) => setError(error.message));
   };
 
   const toggleFormChange = (event) => {
     setRole(USERROLES[event.target.value]);
-    setAddUserBody({});
+    setAddUserBody({"role_id": USERROLES[event.target.value]});
   };
 
-  // make input fields reusable
-  const addPlayerFormElements = () => {
+  const addAdminFormElements = () => {
     return (
       <>
         <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Name</label>
+              <label className="col-sm-3 col-form-label">Fist name *</label>
               <div className="col-sm-9">
                 <input
-                  name="name"
+                  name="first_name"
                   type="text"
                   className="form-control"
                   onChange={handleChange}
@@ -78,7 +87,22 @@ export default function AddUser({ setShowUserForm }) {
           </div>
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Email</label>
+              <label className="col-sm-3 col-form-label">Last name *</label>
+              <div className="col-sm-9">
+                <input
+                  name="last_name"
+                  type="text"
+                  className="form-control"
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-6">
+            <div className="form-group row">
+              <label className="col-sm-3 col-form-label">Email *</label>
               <div className="col-sm-9">
                 <input
                   name="email"
@@ -89,16 +113,37 @@ export default function AddUser({ setShowUserForm }) {
               </div>
             </div>
           </div>
+          <div className="col-md-6">
+            <div className="form-group row">
+              <label className="col-sm-3 col-form-label">Date of Birth *</label>
+              <div className="col-sm-9">
+                <input
+                  name="dob"
+                  className="form-control"
+                  placeholder="YYYY-MM-DD"
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+          </div>
         </div>
+      </>
+    );
+  };
+
+
+  const addPlayerFormElements = () => {
+    return (
+      <>
         <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Date of Birth</label>
+              <label className="col-sm-3 col-form-label">Fist name *</label>
               <div className="col-sm-9">
                 <input
-                  name="birth_date"
+                  name="first_name"
+                  type="text"
                   className="form-control"
-                  placeholder="dd/mm/yyyy"
                   onChange={handleChange}
                 />
               </div>
@@ -106,7 +151,50 @@ export default function AddUser({ setShowUserForm }) {
           </div>
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Boy</label>
+              <label className="col-sm-3 col-form-label">Last name *</label>
+              <div className="col-sm-9">
+                <input
+                  name="last_name"
+                  type="text"
+                  className="form-control"
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-6">
+            <div className="form-group row">
+              <label className="col-sm-3 col-form-label">Email *</label>
+              <div className="col-sm-9">
+                <input
+                  name="email"
+                  type="text"
+                  className="form-control"
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="form-group row">
+              <label className="col-sm-3 col-form-label">Date of Birth *</label>
+              <div className="col-sm-9">
+                <input
+                  name="dob"
+                  className="form-control"
+                  placeholder="YYYY-MM-DD"
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-6">
+            <div className="form-group row">
+              <label className="col-sm-3 col-form-label">Boy *</label>
               <div className="col-sm-9">
                 <input
                   name="height"
@@ -117,11 +205,9 @@ export default function AddUser({ setShowUserForm }) {
               </div>
             </div>
           </div>
-        </div>
-        <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Kilo</label>
+              <label className="col-sm-3 col-form-label">Kilo *</label>
               <div className="col-sm-9">
                 <input
                   name="weight"
@@ -132,9 +218,11 @@ export default function AddUser({ setShowUserForm }) {
               </div>
             </div>
           </div>
+        </div>
+        <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Mevki</label>
+              <label className="col-sm-3 col-form-label">Mevki *</label>
               <div className="col-sm-9">
                 <input
                   name="position"
@@ -156,10 +244,10 @@ export default function AddUser({ setShowUserForm }) {
         <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Name</label>
+              <label className="col-sm-3 col-form-label">Fist name *</label>
               <div className="col-sm-9">
                 <input
-                  name="name"
+                  name="first_name"
                   type="text"
                   className="form-control"
                   onChange={handleChange}
@@ -169,10 +257,10 @@ export default function AddUser({ setShowUserForm }) {
           </div>
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Email</label>
+              <label className="col-sm-3 col-form-label">Last name *</label>
               <div className="col-sm-9">
                 <input
-                  name="email"
+                  name="last_name"
                   type="text"
                   className="form-control"
                   onChange={handleChange}
@@ -184,12 +272,12 @@ export default function AddUser({ setShowUserForm }) {
         <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Date of Birth</label>
+              <label className="col-sm-3 col-form-label">Email *</label>
               <div className="col-sm-9">
                 <input
-                  name="birth_date"
+                  name="email"
+                  type="text"
                   className="form-control"
-                  placeholder="dd/mm/yyyy"
                   onChange={handleChange}
                 />
               </div>
@@ -197,10 +285,25 @@ export default function AddUser({ setShowUserForm }) {
           </div>
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Positions</label>
+              <label className="col-sm-3 col-form-label">Date of Birth *</label>
               <div className="col-sm-9">
                 <input
-                  name="positions"
+                  name="dob"
+                  className="form-control"
+                  placeholder="YYYY-MM-DD"
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-6">
+            <div className="form-group row">
+              <label className="col-sm-3 col-form-label">Position *</label>
+              <div className="col-sm-9">
+                <input
+                  name="position"
                   type="text"
                   className="form-control"
                   onChange={handleChange}
@@ -213,73 +316,58 @@ export default function AddUser({ setShowUserForm }) {
     );
   };
 
-  const newUSerPage = () => {
-    return (
-      <div>
-        Username: {newUserResponse.username}
-        Password: {newUserResponse.password}
-      </div>
-    );
-  };
-
   return (
-    <>
-      {formSubmitted && newUserResponse ? (
-        newUSerPage()
-      ) : (
-        <>
-          {BlueButton(handleBackClick, "Back")}
-          <div className="row">
-            <div className="col-12 grid-margin">
-              <div className="card">
-                <div className="card-body">
-                  <div className="row">
-                    <div className="col-md-9">
-                      <div className="form-group row">
-                        <label className="col-sm-3 col-form-label">Role</label>
-                        {userRoles &&
-                          userRoles["user_roles"].map((item) => (
-                            <div key={item.id} className="col-sm-3">
-                              <div className="form-check">
-                                <input
-                                  onChange={toggleFormChange}
-                                  className="form-check-input"
-                                  type="checkbox"
-                                  value={item.name}
-                                  id="flexCheckDefault"
-                                  checked={role === item.id}
-                                />
-                                <label
-                                  className="form-check-label"
-                                  for="flexCheckDefault"
-                                >
-                                  {item.name}
-                                </label>
-                              </div>
-                            </div>
-                          ))}
-                      </div>
-                    </div>
+    <Layout>
+      {BlueButton(handleBackClick, "Back")}
+      <div className="row">
+        <div className="col-12 grid-margin">
+          <div className="card">
+            <div className="card-body">
+              <div className="row">
+                <div className="col-md-9">
+                  <div className="form-group row">
+                    <label className="col-sm-3 col-form-label">Role</label>
+                    {userRoles &&
+                      userRoles.map((item) => (
+                        <div key={item.id} className="col-sm-3">
+                          <div className="form-check">
+                            <input
+                              onChange={toggleFormChange}
+                              className="form-check-input"
+                              type="checkbox"
+                              value={item.name.toUpperCase()}
+                              id="flexCheckDefault"
+                              checked={role === item.id}
+                            />
+                            <label
+                              className="form-check-label"
+                              for="flexCheckDefault"
+                            >
+                              {item.name}
+                            </label>
+                          </div>
+                        </div>
+                      ))}
                   </div>
-                  <form className="form-sample" onSubmit={handleSubmit}>
-                    <p className="card-description"> Personal info </p>
-                    {role === USERROLES["Admin"] && addStaffFormElements()}
-                    {role === USERROLES["Staff"] && addStaffFormElements()}
-                    {role === USERROLES["Player"] && addPlayerFormElements()}
-                    <button
-                      type="submit"
-                      className="btn btn-primary btn-icon-text"
-                    >
-                      <i className="mdi mdi-file-check btn-icon-prepend"></i>
-                      Submit
-                    </button>
-                  </form>
                 </div>
               </div>
+              <form className="form-sample" onSubmit={handleSubmit}>
+                <p className="card-description"> Personal info </p>
+                {role === USERROLES.ADMIN && addAdminFormElements()}
+                {role === USERROLES.STAFF && addStaffFormElements()}
+                {role === USERROLES.PLAYER && addPlayerFormElements()}
+                <button
+                  type="submit"
+                  className="btn btn-primary btn-icon-text"
+                >
+                  <i className="mdi mdi-file-check btn-icon-prepend"></i>
+                  Submit
+                </button>
+              </form>
             </div>
           </div>
-        </>
-      )}
-    </>
+        </div>
+      </div>
+    </Layout>
   );
 }

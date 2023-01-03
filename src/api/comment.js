@@ -1,19 +1,19 @@
 import {headers} from './headers'
 
 
-export async function addComment(comment, event_id, user_id) {
+export async function addComment(body) {
     const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/comment/`, {
       method: "POST",
       headers: headers,
-      body: {"comment": comment, "event_id": event_id, "user_id": user_id},
+      body: JSON.stringify(body),
     });
   
     return response.json();
 }
 
-export async function fetchComments() {
+export async function fetchEventComments(event_id) {
   const response = await fetch(
-    `${process.env.REACT_APP_SERVER_URL}/comment/`,
+    `${process.env.REACT_APP_SERVER_URL}/comment/event/${event_id}/`,
     {
       method: "GET",
       headers: headers,

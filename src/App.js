@@ -1,38 +1,27 @@
-import React, { useContext } from "react";
-import { Routes, Route } from "react-router-dom";
+import React from "react";
 import "./App.css";
-import Login from "./components/pages/login/Login";
-import Home from "./components/pages/Home/Home";
-import Layout from "./components/Layout/Layout";
-import User from "./components/pages/user/User";
-import Events from "./components/pages/events/Events";
-import Event from "./components/pages/event/Event";
+import { Routes, Route } from "react-router-dom";
+import  {Login, Home, User, Event, Events, Profile, ProtectedRoute } from "./components/";
 
-import AuthContext from './components/shared/AuthContext';
+export default function App() {
 
-
-function App() {
-  const { token } = useContext(AuthContext);
-  if (!token) {
-    return <Login />;
-  }
-
-  return ( 
-    <Layout>
-      <Routes>
-        <Route path="/" element={<Home/>}></Route>
-        <Route path="/user" element={<User />}></Route>
+  return (
+    <Routes>
+      <Route path="/login" element={<Login />}></Route>
+      <Route element={<ProtectedRoute />}>
+        <Route path="/" 
+            element={
+                  <Home/>
+            }></Route>
+        <Route path="/me/:id" element={<Profile/>}></Route>
+        <Route path="/users" element={<User />}></Route>
+        <Route path="/events" element={<Events/>}></Route>
         <Route
-          path="/events"
-          element={<Events/>}
+            path="/event/:id"
+            element={<Event />}
         ></Route>
-        <Route
-          path="/event/:id"
-          element={<Event />}
-        ></Route>
-      </Routes>
-    </Layout>
+        <Route path="*"></Route>
+      </Route>
+    </Routes>
   );
 }
-
-export default App;

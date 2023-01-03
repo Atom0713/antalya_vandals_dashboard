@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { fetchUsersByRole } from "../../api/user";
-import { addEventAttendance } from '../../api/events';
+import { fetchUsersByRole, addEventAttendance } from "../../api/";
 import { USERROLES } from "../constants";
+import { Layout } from '../';
+
 
 function Attandance({setShowAttendanceForm, event_id }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -12,7 +13,7 @@ function Attandance({setShowAttendanceForm, event_id }) {
 
   useEffect(() => {
     setIsLoading(true);
-    fetchUsersByRole(USERROLES["Player"])
+    fetchUsersByRole(USERROLES.PLAYER)
       .then((response) => {
         setPlayersAttandanceList(response.data);
         setIsLoading(false);
@@ -22,7 +23,7 @@ function Attandance({setShowAttendanceForm, event_id }) {
           (item) =>
             (initAttandance[item.id] = {
               present: true,
-              absence_comment: null,
+              absence_reason: null,
             })
         );
         setAddAttandanceBody({ player_ids: initAttandance });
@@ -31,8 +32,7 @@ function Attandance({setShowAttendanceForm, event_id }) {
   }, []);
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    addEventAttendance(addAttandanceBody, event_id)
+    addEventAttendance({"attendance": addAttandanceBody, "event_id": parseInt(event_id)})
       .then((response) =>{
         setShowAttendanceForm(false)
     })
@@ -49,13 +49,13 @@ function Attandance({setShowAttendanceForm, event_id }) {
       addAttandanceBody.player_ids[event.target.value].present = false;
     } else {
       addAttandanceBody.player_ids[event.target.value].present = true;
-      addAttandanceBody.player_ids[event.target.value].absence_comment = null;
+      addAttandanceBody.player_ids[event.target.value].absence_reason = null;
     }
     setAddAttandanceBody(addAttandanceBody);
   };
 
   const handleAbsenceChange = (event, playerId, index) => {
-    addAttandanceBody.player_ids[playerId].absence_comment = event.target.value;
+    addAttandanceBody.player_ids[playerId].absence_reason = event.target.value;
   };
 
   if (error)
@@ -71,9 +71,8 @@ function Attandance({setShowAttendanceForm, event_id }) {
         <h1>Loading...</h1>
       </div>
     );
-
   return (
-    <>
+    <Layout>
       <div className="row">
         <div className="col-12 grid-margin">
           <div className="card">
@@ -113,7 +112,7 @@ function Attandance({setShowAttendanceForm, event_id }) {
                             </div>
                           </td>
                           <td>
-                            <p>{player.name}</p>
+                            <p>{player.first_name} {player.last_name}</p>
                             {/* <img src="assets/images/faces/face1.jpg" alt="" />
                             <span className="ps-2">{player.name}</span> */}
                           </td>
@@ -149,7 +148,7 @@ function Attandance({setShowAttendanceForm, event_id }) {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }
 
