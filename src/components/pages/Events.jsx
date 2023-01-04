@@ -24,7 +24,7 @@ export default function Events() {
       setIsLoading(false);
       setState({
         user: response[0],
-        events: response[1].data
+        events: response[1]
       });
       })
       .catch((error) => setError(error.message));
