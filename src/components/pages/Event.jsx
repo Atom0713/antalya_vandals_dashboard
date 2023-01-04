@@ -31,8 +31,8 @@ export default function Event() {
       setState({
         user: response[0],
         event: response[1],
-        comments: response[2].data,
-        attendance: response[3].data 
+        comments: response[2],
+        attendance: response[3] 
       })
       
       setIsLoading(false);

@@ -26,8 +26,8 @@ export default function User() {
       .then((response) => {
         setState({
           user: response[0],
-          staff: response[1].data,
-          players: response[2].data,
+          staff: response[1],
+          players: response[2],
         });
         setIsLoading(false);
       })
