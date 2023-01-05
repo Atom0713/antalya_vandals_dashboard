@@ -6,7 +6,7 @@ import { Layout } from '../';
 
 export default function Profile() {
     const { id } = useParams();
-    const [user, setUser] = useState({})
+    const [state, setState] = useState({});
     const [isLoading, setIsLoading] = useState({})
     const [error, setError] = useState({})
 
@@ -14,8 +14,8 @@ export default function Profile() {
         setIsLoading(true);
         fetchUserById(id)
         .then((response) => {
-            setUser(response);
-          setIsLoading(false);
+            setState({user: response});
+            setIsLoading(false);
         })
         .catch((error) => setError(error.message));
       }, []);
@@ -33,13 +33,13 @@ export default function Profile() {
             <h4 className="card-title">Height</h4>
             <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                 <div className="text-md-center text-xl-left">
-                    <p className="text-muted mb-0">{user.height}</p>
+                    <p className="text-muted mb-0">{state.user.height}</p>
                 </div>
             </div>
             <h4 className="card-title">Weight</h4>
             <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                 <div className="text-md-center text-xl-left">
-                    <p className="text-muted mb-0">{user.weight}</p>
+                    <p className="text-muted mb-0">{state.user.weight}</p>
                 </div>
             </div>
         </>
@@ -47,7 +47,7 @@ export default function Profile() {
 
 
     return (
-        <Layout>
+        <Layout user={state.user}>
             <div className="row">
                 <div className="col-md-4 grid-margin">
                     <div className="card">
@@ -55,33 +55,33 @@ export default function Profile() {
                             <h4 className="card-title">Name</h4>
                             <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                                 <div className="text-md-center text-xl-left">
-                                <p className="text-muted mb-0">{user.first_name} {user.last_name}</p>
+                                <p className="text-muted mb-0">{state.user.first_name} {state.user.last_name}</p>
                                 </div>
                             </div>
                             <h4 className="card-title">Role</h4>
                             <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                                 <div className="text-md-center text-xl-left">
-                                    <p className="text-muted mb-0 text-capitalize">{user.role.name}</p>
+                                    <p className="text-muted mb-0 text-capitalize">{state.user.role.name}</p>
                                 </div>
                             </div>
                             <h4 className="card-title">Date of birth</h4>
                             <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                                 <div className="text-md-center text-xl-left">
-                                    <p className="text-muted mb-0">{user.dob}</p>
+                                    <p className="text-muted mb-0">{state.user.dob}</p>
                                 </div>
                             </div>
-                            {[USERROLES.STAFF, USERROLES.PLAYER].includes(user.role.id) && (
+                            {[USERROLES.STAFF, USERROLES.PLAYER].includes(state.user.role.id) && (
                                 <>
                                     <h4 className="card-title">Position</h4>
                                     <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
                                         <div className="text-md-center text-xl-left">
-                                            <p className="text-muted mb-0">{user.position}</p>
+                                            <p className="text-muted mb-0">{state.user.position}</p>
                                         </div>
                                     </div>
                                 </>
                             )}
                             {
-                                user.role.id === USERROLES.PLAYER && PlayerDetails
+                                state.user.role.id === USERROLES.PLAYER && PlayerDetails
                             }
                         </div>
                     </div>

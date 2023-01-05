@@ -12,7 +12,6 @@ import AphexChart from '../charts/pieChart';
 export default function Event() {
   const { id } = useParams();
 
-  // data fetch on page loading
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
   const [state, setState] = useState({});
@@ -86,7 +85,7 @@ export default function Event() {
   )
 
   return (
-    <Layout>
+    <Layout user={state.user}>
       {!state.event.completed && BlueButton(handleAddAttendanceClick, "Get attandance")}
       <div className="row">
         <div className="col-md-4 grid-margin">

@@ -1,31 +1,11 @@
-import React, { useState, useEffect }from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from '../shared/useAuth';
-import { fetchUser } from '../../api'
 
 
-export default function NavBar() {
-
+export default function NavBar({ user }) {
   const { logout } = useAuth();
-  const [state, setState] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    console.log("Fetch user Layout navBar")
-    fetchUser()
-    .then((response) => {
-        setState({user: response});
-        setIsLoading(false);
-      })
-      .catch((error) => console.log(error.message));
-  }, []);
-
-  if (isLoading)
-    return (
-      <div>
-      </div>
-    );
-
+  
   return (
     <nav className="navbar p-0 fixed-top d-flex flex-row">
       {/* <div className="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
@@ -180,7 +160,7 @@ export default function NavBar() {
                   alt=""
                 /> */}
                 <p className="mb-0 d-none d-sm-block navbar-profile-name">
-                {state.user.first_name}  {state.user.last_name}
+                {user.first_name}  {user.last_name}
                 </p>
                 <i className="mdi mdi-menu-down d-none d-sm-block"></i>
               </div>
