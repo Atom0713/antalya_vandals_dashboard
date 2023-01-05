@@ -4,15 +4,10 @@ import { fetchUsersByRole, fetchUser } from "../../api/";
 import { OrderedDarkWithImageTable } from "../tables";
 import { USERROLES } from "../constants";
 import { BlueButton } from "../buttons";
-// import { useLocalStorage } from "../shared/useLocalStorage";
 import { Layout } from '../';
 
 export default function User() {
-  // const [] = useLocalStorage("user", null);
-  // show add user form toggle
   const [showUserForm, setShowUserForm] = useState(false);
-
-  // data fetch on page loading
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
   const [state, setState] = useState({});
@@ -56,7 +51,7 @@ export default function User() {
     return <AddUser setShowUserForm={setShowUserForm} user={state.user} />;
 
   return (
-    <Layout>
+    <Layout user={state.user}>
       {[USERROLES.ADMIN, USERROLES.STAFF].includes(state.user.role.id)
         ? BlueButton(handleAddUserClick, "Add user")
         : null}

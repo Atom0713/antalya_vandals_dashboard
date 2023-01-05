@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Layout } from '../';
+import { fetchUser } from '../../api';
 
 export default function Home() {
+
+  const [state, setState] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetchUser()
+    .then((response) => {
+        setState({user: response});
+        setIsLoading(false);
+      })
+      .catch((error) => console.log(error.message));
+  }, []);
+
+  if (isLoading)
+    return (
+      <div>
+      </div>
+    );
+
   return (
-    <Layout>
+    <Layout user={state.user}>
       <div className="row">
         <div className="col-md-4 grid-margin stretch-card">
           <div className="card">

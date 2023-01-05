@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { Layout } from '../';
 import { USERROLES } from "../constants";
-import { fetchUsersByRole } from "../../api/";
+import { fetchUsersByRole, fetchUser } from "../../api/";
 
 export default function DepthChart() {
     const [state, setState] = useState()
-
-    // data fetch on page loading
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState();
 
     useEffect(() => {
-        fetchUsersByRole(USERROLES.PLAYER).then((response) => {
+        Promise.all([
+            fetchUser(),
+            fetchUsersByRole(USERROLES.PLAYER),
+        ])
+        .then((response) => {
             setState({
-                players: response
-              });
-              setIsLoading(false);
+                user: response[0],
+                players: response[1],
+            });
+            setIsLoading(false);
         })
-    })
-
+        .catch((error) => setError(error.message));
+    }, []);
 
     if (isLoading)
         return (
@@ -26,9 +30,8 @@ export default function DepthChart() {
             </div>
         );
 
-
   return (
-    <Layout>
+    <Layout user={state.user}>
         <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">
                 <div className="card-body">

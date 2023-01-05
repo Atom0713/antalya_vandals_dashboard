@@ -213,7 +213,7 @@ export default function AddUser({ setShowUserForm, user }) {
   };
 
   return (
-    <Layout>
+    <Layout user={user}>
       {BlueButton(handleBackClick, "Back")}
       <div className="row">
         <div className="col-12 grid-margin">

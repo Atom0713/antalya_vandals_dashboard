@@ -3,12 +3,12 @@ import NavSideBar from "../nav/navSideBar";
 import NavBar from "../nav/navBar";
 import Footer from "../footer/footer";
 
-const Layout = ({ children }) =>{
+const Layout = ({ user, children }) =>{
   return (
     <div className="container-scroller">
-      <NavSideBar/>
+      <NavSideBar user={user}/>
       <div className="container-fluid page-body-wrapper">
-        <NavBar/>
+        <NavBar user={user}/>
         <div className="main-panel">
           <main>
             <div className="content-wrapper">{children}</div>

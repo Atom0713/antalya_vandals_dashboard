@@ -12,7 +12,6 @@ import AphexChart from '../charts/pieChart';
 export default function Event() {
   const { id } = useParams();
 
-  // data fetch on page loading
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
   const [state, setState] = useState({});
@@ -61,7 +60,7 @@ export default function Event() {
   if (showAtandanceForm)
     return ( /* Reload page when Attendance returns here*/
       <>
-        <Attandance setShowAttendanceForm={setShowAttendanceForm} event_id={id} />
+        <Attandance setShowAttendanceForm={setShowAttendanceForm} event_id={id} user={state.user} />
       </>
     );
 
@@ -86,7 +85,7 @@ export default function Event() {
   )
 
   return (
-    <Layout>
+    <Layout user={state.user}>
       {!state.event.completed && BlueButton(handleAddAttendanceClick, "Get attandance")}
       <div className="row">
         <div className="col-md-4 grid-margin">
@@ -150,6 +149,7 @@ export default function Event() {
           data={state.attendance}
           link={true}
           url={"/me"}
+          user_id_field={"user_id"}
         />
       }
     </Layout>

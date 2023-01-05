@@ -3,14 +3,12 @@ import { AddEvent } from "../forms/";
 import { fetchEvents, fetchUser } from "../../api/";
 import { OrderedDarkWithImageTable } from "../tables";
 import { BlueButton } from "../buttons";
-import { Event } from "../";
+import { Event, Layout } from "../";
 import { USERROLES } from "../constants";
-import { Layout } from '../';
 
 export default function Events() {
   const [showAddEventForm, setShowAddEventForm] = useState(false);
 
-  // data fetch on page loading
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
   const [state, setState] = useState({});
@@ -49,10 +47,10 @@ export default function Events() {
     );
 
   if (showAddEventForm)
-    return <AddEvent setShowAddEventForm={setShowAddEventForm} />;
+    return <AddEvent setShowAddEventForm={setShowAddEventForm} user={state.user} />;
 
   return (
-    <Layout>
+    <Layout user={state.user}>
       {[USERROLES.ADMIN, USERROLES.STAFF].includes(state.user.role.id) &&
       !showAddEventForm
         ? BlueButton(handleAddEventClick, "Add event")
