@@ -182,20 +182,14 @@ export default function NavBar({ user }) {
                 </div>
               </a> */}
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item preview-item">
+              <a className="dropdown-item preview-item" onClick={logout}>
                 <div className="preview-thumbnail">
                   <div className="preview-icon bg-dark rounded-circle">
                     <i className="mdi mdi-logout text-danger"></i>
                   </div>
                 </div>
                 <div className="preview-item-content">
-                  <button
-                    className="preview-subject mb-1"
-                    onClickCapture={logout}
-                  >
-                    Log out
-                  </button>
-                  {/* <p className="preview-subject mb-1">Log out</p> */}
+                  <p className="preview-subject mb-1">Log out</p>
                 </div>
               </a>
               <div className="dropdown-divider"></div>
