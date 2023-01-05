@@ -60,7 +60,7 @@ export default function Event() {
   if (showAtandanceForm)
     return ( /* Reload page when Attendance returns here*/
       <>
-        <Attandance setShowAttendanceForm={setShowAttendanceForm} event_id={id} />
+        <Attandance setShowAttendanceForm={setShowAttendanceForm} event_id={id} user={state.user} />
       </>
     );
 

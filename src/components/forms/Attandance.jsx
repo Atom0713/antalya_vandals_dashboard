@@ -3,38 +3,43 @@ import { fetchUsersByRole, addEventAttendance } from "../../api/";
 import { USERROLES } from "../constants";
 import { Layout } from '../';
 
+import { useNavigate } from "react-router-dom";
 
-function Attandance({setShowAttendanceForm, event_id }) {
+
+function Attandance({setShowAttendanceForm, event_id, user }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
   const [playersAttandanceList, setPlayersAttandanceList] = useState([]);
   const [addAttandanceBody, setAddAttandanceBody] = useState({});
   const [checkedState, setCheckedState] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
     fetchUsersByRole(USERROLES.PLAYER)
       .then((response) => {
-        setPlayersAttandanceList(response.data);
+        setPlayersAttandanceList(response);
         setIsLoading(false);
-        setCheckedState(new Array(response.data.length).fill(true));
+        setCheckedState(new Array(response.length).fill(true));
         const initAttandance = {};
-        response.data.map(
+        response.map(
           (item) =>
             (initAttandance[item.id] = {
               present: true,
               absence_reason: null,
             })
         );
-        setAddAttandanceBody({ player_ids: initAttandance });
+        setAddAttandanceBody({attendance: initAttandance, "event_id": parseInt(event_id)});
       })
       .catch((error) => setError(error.message));
   }, []);
 
   const handleSubmit = (event) => {
-    addEventAttendance({"attendance": addAttandanceBody, "event_id": parseInt(event_id)})
+    event.target.reset();
+    addEventAttendance(addAttandanceBody)
       .then((response) =>{
         setShowAttendanceForm(false)
+        navigate(`/event/${event_id}`, {replace: true})
     })
       .catch((error) => setError(error.message));
   };
@@ -45,17 +50,17 @@ function Attandance({setShowAttendanceForm, event_id }) {
     );
 
     setCheckedState(updatedCheckedState);
-    if (addAttandanceBody.player_ids[event.target.value].present) {
-      addAttandanceBody.player_ids[event.target.value].present = false;
+    if (addAttandanceBody.attendance[event.target.value].present) {
+      addAttandanceBody.attendance[event.target.value].present = false;
     } else {
-      addAttandanceBody.player_ids[event.target.value].present = true;
-      addAttandanceBody.player_ids[event.target.value].absence_reason = null;
+      addAttandanceBody.attendance[event.target.value].present = true;
+      addAttandanceBody.attendance[event.target.value].absence_reason = null;
     }
     setAddAttandanceBody(addAttandanceBody);
   };
 
   const handleAbsenceChange = (event, playerId, index) => {
-    addAttandanceBody.player_ids[playerId].absence_reason = event.target.value;
+    addAttandanceBody.attendance[playerId].absence_reason = event.target.value;
   };
 
   if (error)
@@ -72,7 +77,7 @@ function Attandance({setShowAttendanceForm, event_id }) {
       </div>
     );
   return (
-    <Layout>
+    <Layout user={user}>
       <div className="row">
         <div className="col-12 grid-margin">
           <div className="card">
@@ -119,7 +124,6 @@ function Attandance({setShowAttendanceForm, event_id }) {
                           <td>
                             {!checkedState[index] && (
                               <input
-                                name="name"
                                 type="text"
                                 className="form-control"
                                 onChange={(event) =>

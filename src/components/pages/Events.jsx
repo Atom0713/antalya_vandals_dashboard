@@ -47,7 +47,7 @@ export default function Events() {
     );
 
   if (showAddEventForm)
-    return <AddEvent setShowAddEventForm={setShowAddEventForm} />;
+    return <AddEvent setShowAddEventForm={setShowAddEventForm} user={state.user} />;
 
   return (
     <Layout user={state.user}>

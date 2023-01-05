@@ -4,7 +4,7 @@ import { addEvent } from "../../api/";
 import { useNavigate } from "react-router-dom";
 import { Layout } from '../';
 
-export default function AddEvent({ setShowAddEventForm }) {
+export default function AddEvent({ setShowAddEventForm, user }) {
   const [addEventBody, setAddEventBody] = useState({});
   const [error, setError] = useState();
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ export default function AddEvent({ setShowAddEventForm }) {
   };
 
   return (
-    <Layout>
+    <Layout user={user}>
       {BlueButton(handleBackClick, "Back")}
       <div className="row">
         <div className="col-12 grid-margin">

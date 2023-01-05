@@ -12,7 +12,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const login = async (token) => {
     setToken(token);
-    navigate("/");
+    navigate("/", { replace: true });
   };
 
 
