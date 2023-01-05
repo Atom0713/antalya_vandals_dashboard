@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { AddUser } from "../forms/";
 import { fetchUsersByRole, fetchUser } from "../../api/";
 import { OrderedDarkWithImageTable } from "../tables";

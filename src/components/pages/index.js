@@ -4,6 +4,7 @@ import User from "./User";
 import Events from "./Events";
 import Event from "./Event";
 import Profile from "./Profile";
+import DepthChart from "./DepthChart";
 
 export {
     Login,
@@ -12,4 +13,5 @@ export {
     Event,
     Events,
     Profile,
+    DepthChart,
 }
