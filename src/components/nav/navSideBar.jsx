@@ -89,6 +89,16 @@ export default function NavSideBar() {
             </Link>
           </li>
         )}
+        {[USERROLES.ADMIN, USERROLES.STAFF, USERROLES.PLAYER].includes(state.user.role.id) && (
+          <li className="nav-item menu-items">
+            <Link className="nav-link" to="/depth_chart">
+              <span className="menu-icon">
+                <i className="mdi mdi-view-dashboard"></i>
+              </span>
+              <span className="menu-title">Depth chart</span>
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   );

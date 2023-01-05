@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import  {Login, Home, User, Event, Events, Profile, ProtectedRoute } from "./components/";
+import  {Login, Home, User, Event, Events, Profile, ProtectedRoute, DepthChart } from "./components/";
 
 export default function App() {
 
@@ -20,6 +20,7 @@ export default function App() {
             path="/event/:id"
             element={<Event />}
         ></Route>
+        <Route path="/depth_chart" element={<DepthChart/>}></Route>
         <Route path="*"></Route>
       </Route>
     </Routes>
