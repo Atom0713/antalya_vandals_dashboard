@@ -11,6 +11,7 @@ export default function NavBar() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    console.log("Fetch user Layout navBar")
     fetchUser()
     .then((response) => {
         setState({user: response});

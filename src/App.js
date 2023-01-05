@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import  {Login, Home, User, Event, Events, Profile, ProtectedRoute, DepthChart } from "./components/";
+import  {Login, Home, User, Event, Events, Profile, ProtectedRoute, DepthChart, PageNotFound } from "./components/";
 
 export default function App() {
 
@@ -21,7 +21,7 @@ export default function App() {
             element={<Event />}
         ></Route>
         <Route path="/depth_chart" element={<DepthChart/>}></Route>
-        <Route path="*"></Route>
+        <Route path="*" element={<PageNotFound/>}></Route>
       </Route>
     </Routes>
   );

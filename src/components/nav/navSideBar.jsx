@@ -8,6 +8,7 @@ export default function NavSideBar() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    console.log("Fetch user Layout navSideBar")
     fetchUser()
     .then((response) => {
         setState({user: response});

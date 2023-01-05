@@ -5,6 +5,7 @@ import Events from "./Events";
 import Event from "./Event";
 import Profile from "./Profile";
 import DepthChart from "./DepthChart";
+import PageNotFound from "./404";
 
 export {
     Login,
@@ -14,4 +15,5 @@ export {
     Events,
     Profile,
     DepthChart,
+    PageNotFound,
 }
