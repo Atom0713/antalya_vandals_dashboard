@@ -69,7 +69,8 @@ export function AttendanceOrderedDarkWithImageTable({
   headers,
   data,
   link = false,
-  url = ""
+  url = "",
+  user_id_field = "id"
 }) {
   return (
     <>
@@ -94,7 +95,7 @@ export function AttendanceOrderedDarkWithImageTable({
                         <td key={index}>{index + 1}</td>
                         <td>{
                           link &&
-                            <Link to={`${url}/${row["id"]}`}>
+                            <Link to={`${url}/${row[user_id_field]}`}>
                               {row.first_name} {row.last_name}
                             </Link>
                           }

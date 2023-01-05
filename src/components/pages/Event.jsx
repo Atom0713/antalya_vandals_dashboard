@@ -149,6 +149,7 @@ export default function Event() {
           data={state.attendance}
           link={true}
           url={"/me"}
+          user_id_field={"user_id"}
         />
       }
     </Layout>
