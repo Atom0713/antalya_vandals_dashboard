@@ -4,7 +4,10 @@ import { addUser } from "../../api/user";
 import { fetchAllRoles, fetchPositions } from "../../api/";
 import { BlueButton } from "../buttons";
 import { USERROLES } from "../constants";
-import { Layout } from '../'
+import { Layout } from '../';
+import DatePicker from 'react-date-picker';
+import 'react-date-picker/dist/DatePicker.css';
+import { formatDate } from "../../utils/formatDate";
 
 export default function AddUser({ setShowUserForm, user }) {
   const [role, setRole] = useState(user.role.id);
@@ -16,6 +19,7 @@ export default function AddUser({ setShowUserForm, user }) {
   const [error, setError] = useState();
   const [state, setState] = useState({});
   const [userRoles, setUserRoles] = useState({});
+  const [value, onChange] = useState(new Date(946728338000));
 
 
   useEffect(() => {
@@ -67,6 +71,7 @@ export default function AddUser({ setShowUserForm, user }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    addUserBody['dob'] = formatDate(value)
     addUser(addUserBody)
       .then((response) => 
       {
@@ -129,12 +134,10 @@ export default function AddUser({ setShowUserForm, user }) {
             <div className="form-group row">
               <label className="col-sm-3 col-form-label">Date of Birth *</label>
               <div className="col-sm-9">
-                <input
-                  name="dob"
-                  className="form-control"
-                  placeholder="YYYY-MM-DD"
-                  onChange={handleChange}
-                />
+              <DatePicker
+                onChange={onChange}
+                value={value}
+              />
               </div>
             </div>
           </div>
@@ -142,7 +145,7 @@ export default function AddUser({ setShowUserForm, user }) {
       </>
     )
   }
-
+  console.log(formatDate(value))
   const selectPosition =() => {
     return (
       <div className="row">
