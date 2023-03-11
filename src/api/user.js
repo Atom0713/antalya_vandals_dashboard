@@ -33,7 +33,7 @@ export async function fetchUsersByRole(id) {
 }
 
 export async function addUser(body) {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/add`, {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/`, {
     method: "POST",
     headers: headers,
     body: JSON.stringify(body),
