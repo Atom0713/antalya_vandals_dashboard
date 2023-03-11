@@ -3,11 +3,23 @@ import { BlueButton } from "../buttons";
 import { addEvent } from "../../api/";
 import { useNavigate } from "react-router-dom";
 import { Layout } from '../';
+import DatePicker from 'react-date-picker';
+import 'react-date-picker/dist/DatePicker.css';
+import { formatDate } from "../../utils/formatDate";
 
 export default function AddEvent({ setShowAddEventForm, user }) {
   const [addEventBody, setAddEventBody] = useState({});
   const [error, setError] = useState();
+  const [date, onChange] = useState(new Date());
   const navigate = useNavigate();
+
+  
+  if (error)
+    return (
+      <div>
+        <h1>OOPS!</h1>
+      </div>
+    );
 
   const handleBackClick = () => {
     setShowAddEventForm(false);
@@ -15,6 +27,7 @@ export default function AddEvent({ setShowAddEventForm, user }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    addEventBody['date'] = formatDate(date)
     addEvent(addEventBody)
       .then((response) => 
       {
@@ -77,11 +90,9 @@ export default function AddEvent({ setShowAddEventForm, user }) {
                         Date of the event
                       </label>
                       <div className="col-sm-9">
-                        <input
-                          name="date"
-                          className="form-control"
-                          placeholder="YYYY-MM-DD"
-                          onChange={handleChange}
+                        <DatePicker
+                          onChange={onChange}
+                          value={date}
                         />
                       </div>
                     </div>
