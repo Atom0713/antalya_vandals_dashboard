@@ -39,6 +39,7 @@ export default function AddUser({ setShowUserForm, user }) {
       setState({
         positions: response[1]
       })
+      setAddUserBody(addUserBody)
     })
       
   }, [user.role.id]);
@@ -62,7 +63,7 @@ export default function AddUser({ setShowUserForm, user }) {
   };
   const handleChange = (event) => {
     let value = event.target.value
-    if (event.target.name === "position"){
+    if (event.target.name === "position_id"){
       value = parseInt(value)
     } 
     addUserBody[event.target.name] = value;
@@ -82,7 +83,11 @@ export default function AddUser({ setShowUserForm, user }) {
 
   const toggleFormChange = (event) => {
     setRole(USERROLES[event.target.value]);
-    setAddUserBody({"role_id": USERROLES[event.target.value]});
+    if (!(event.target.value === USERROLES.ADMIN)){
+      setAddUserBody({"role_id": USERROLES[event.target.value], "position_id": state.positions[0].id});
+    }else {
+      setAddUserBody({"role_id": USERROLES[event.target.value]});
+    }
   };
 
   const commonFormElemenets = () => {
@@ -145,7 +150,7 @@ export default function AddUser({ setShowUserForm, user }) {
       </>
     )
   }
-  console.log(formatDate(value))
+
   const selectPosition =() => {
     return (
       <div className="row">
@@ -153,7 +158,7 @@ export default function AddUser({ setShowUserForm, user }) {
           <div className="form-group row">
             <label className="col-sm-3 col-form-label">Mevki *</label>
             <div className="col-sm-9">
-              <select className="js-example-basic-single" style={{width:"100%"}} onChange={handleChange} name="position">
+              <select className="js-example-basic-single" style={{width:"100%"}} onChange={handleChange} name="position_id">
                 {state.positions && state.positions.map((item) => (
                   <option key={item.id} value={item.id}>{item.name}</option>
                 ))}
@@ -176,7 +181,7 @@ export default function AddUser({ setShowUserForm, user }) {
         <div className="row">
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Boy *</label>
+              <label className="col-sm-3 col-form-label">Boy (cm) *</label>
               <div className="col-sm-9">
                 <input
                   name="height"
@@ -189,7 +194,7 @@ export default function AddUser({ setShowUserForm, user }) {
           </div>
           <div className="col-md-6">
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Kilo *</label>
+              <label className="col-sm-3 col-form-label">Kilo (kg) *</label>
               <div className="col-sm-9">
                 <input
                   name="weight"
