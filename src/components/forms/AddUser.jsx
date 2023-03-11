@@ -47,7 +47,7 @@ export default function AddUser({ setShowUserForm, user }) {
   if (error)
     return (
       <div>
-        <h1>{error}</h1>
+        <h1>OOPS!</h1>
       </div>
     );
 
