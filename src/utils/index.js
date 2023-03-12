@@ -1,4 +1,5 @@
-import { formatDate } from "./formatDate"
+import { formatDate, formatDateTime } from "./formatDate"
 export {
-    formatDate
+    formatDate,
+    formatDateTime,
 }

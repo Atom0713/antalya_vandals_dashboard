@@ -13,3 +13,15 @@ export function formatDate(date) {
 
     return [year, month, day].join('-');
 }
+
+export function formatDateTime(date) {
+    if (!(date instanceof Date)) {
+        return null
+    }
+
+    let hour = '' + (date.getHours() + 1);
+    let minute = '' + date.getMinutes();
+    let second = date.getSeconds();
+    let time = [hour, minute, second].join(':')
+    return [formatDate(date), time].join(' ')
+}
