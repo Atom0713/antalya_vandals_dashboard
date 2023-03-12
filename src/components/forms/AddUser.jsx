@@ -7,6 +7,7 @@ import { USERROLES } from "../constants";
 import { Layout } from '../';
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
+import './custom_css/DatePicker.css';
 import { formatDate } from "../../utils/formatDate";
 
 export default function AddUser({ setShowUserForm, user }) {

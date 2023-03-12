@@ -211,7 +211,7 @@ export default function NavBar({ user }) {
                   <div className="preview-item-content">
                     <div className="preview-item-content">
                       <Link className="d-sm-block navbar-profile-name" to="/">
-                        Dashboard
+                        Ana sayfa
                       </Link>
                     </div>
                     <div className="dropdown-divider"></div>
