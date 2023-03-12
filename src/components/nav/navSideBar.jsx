@@ -37,7 +37,7 @@ export default function NavSideBar({ user }) {
             <span className="menu-icon">
               <i className="mdi mdi-view-dashboard"></i>
             </span>
-            <span className="menu-title">Dashboard</span>
+            <span className="menu-title">Ana sayfa</span>
           </Link>
         </li>
         {[USERROLES.ADMIN, USERROLES.STAFF, USERROLES.PLAYER].includes(user.role.id) && (
