@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { fetchUsersByRole, addEventAttendance } from "../../api/";
 import { USERROLES } from "../constants";
 import { Layout } from '../';
-
-import { useNavigate } from "react-router-dom";
-
+import { BlueButton } from "../buttons";
 
 function Attandance({setShowAttendanceForm, event_id, user }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -12,14 +10,11 @@ function Attandance({setShowAttendanceForm, event_id, user }) {
   const [playersAttandanceList, setPlayersAttandanceList] = useState([]);
   const [addAttandanceBody, setAddAttandanceBody] = useState({});
   const [checkedState, setCheckedState] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    setIsLoading(true);
     fetchUsersByRole(USERROLES.PLAYER)
       .then((response) => {
         setPlayersAttandanceList(response);
-        setIsLoading(false);
         setCheckedState(new Array(response.length).fill(true));
         const initAttandance = {};
         response.map(
@@ -30,16 +25,20 @@ function Attandance({setShowAttendanceForm, event_id, user }) {
             })
         );
         setAddAttandanceBody({attendance: initAttandance, "event_id": parseInt(event_id)});
+        setIsLoading(false);
       })
       .catch((error) => setError(error.message));
   }, []);
 
+  const handleBackClick = () => {
+    setShowAttendanceForm(false);
+  };
+
   const handleSubmit = (event) => {
-    event.target.reset();
+    event.preventDefault();
     addEventAttendance(addAttandanceBody)
       .then((response) =>{
-        setShowAttendanceForm(false)
-        navigate(`/event/${event_id}`, {replace: true})
+        window.location.reload(false);
     })
       .catch((error) => setError(error.message));
   };
@@ -78,6 +77,7 @@ function Attandance({setShowAttendanceForm, event_id, user }) {
     );
   return (
     <Layout user={user}>
+      {BlueButton(handleBackClick, "Back")}
       <div className="row">
         <div className="col-12 grid-margin">
           <div className="card">
