@@ -5,6 +5,7 @@ import { OrderedDarkWithImageTable } from "../tables";
 import { USERROLES } from "../constants";
 import { BlueButton } from "../buttons";
 import { Layout } from '../';
+import { Spinner } from '../spinner';
 
 export default function User() {
   const [showUserForm, setShowUserForm] = useState(false);
@@ -40,41 +41,35 @@ export default function User() {
       </div>
     );
 
-  if (isLoading)
-    return (
-      <div>
-        <h1>Loading...</h1>
-      </div>
-    );
-
   if (showUserForm)
     return <AddUser setShowUserForm={setShowUserForm} user={state.user} />;
 
   return (
-    <Layout user={state.user}>
-      {[USERROLES.ADMIN, USERROLES.STAFF].includes(state.user.role.id)
-        ? BlueButton(handleAddUserClick, "Add user")
-        : null}
-      {state.staff && (
-        <OrderedDarkWithImageTable
-          title={"Coaching staff"}
-          headers={["Name", "Positions", "Date of birth"]}
-          order={["first_name", "position", "dob"]}
-          link={true}
-          url={"/me"}
-          data={state.staff}
-        />
-      )}
-      {state.players && (
-        <OrderedDarkWithImageTable
-          title={"Players"}
-          headers={["Name", "Position", "Date of birth", "Height", "Weight"]}
-          order={["first_name", "position", "dob", "height", "weight"]}
-          link={true}
-          url={"/me"}
-          data={state.players}
-        />
-      )}
-    </Layout>
+    isLoading ? <Spinner /> :
+      <Layout user={state.user}>
+        {[USERROLES.ADMIN, USERROLES.STAFF].includes(state.user.role.id)
+          ? BlueButton(handleAddUserClick, "Add user")
+          : null}
+        {state.staff && (
+          <OrderedDarkWithImageTable
+            title={"Coaching staff"}
+            headers={["Name", "Positions", "Date of birth"]}
+            order={["first_name", "position", "dob"]}
+            link={true}
+            url={"/me"}
+            data={state.staff}
+          />
+        )}
+        {state.players && (
+          <OrderedDarkWithImageTable
+            title={"Players"}
+            headers={["Name", "Position", "Date of birth", "Height", "Weight"]}
+            order={["first_name", "position", "dob", "height", "weight"]}
+            link={true}
+            url={"/me"}
+            data={state.players}
+          />
+        )}
+      </Layout>
   );
 }
