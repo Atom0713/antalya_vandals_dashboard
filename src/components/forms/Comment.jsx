@@ -1,13 +1,19 @@
 import React, { useState, useContext } from "react";
 import { addComment } from "../../api/";
+import { useNavigate } from "react-router-dom";
 
 export default function Comment({ event_id, user }) {
 
     const [error, setError] = useState();
     const [comment, setComment] = useState();
+    const navigate = useNavigate();
 
-    const handleSubmit = () => {
+    const handleSubmit = (event) => {
+        event.preventDefault();
         addComment({"comment": comment, "event_id": parseInt(event_id), "user_id": user.id})
+        .then((response) => {
+            window.location.reload(false);
+        })
         .catch((error) => setError(error.message)
         );
     };
