@@ -3,11 +3,19 @@ import { loginUser } from "../../api";
 import { useAuth } from "../shared/useAuth";
 import { Spinner } from "../spinner";
 
+import showPwdImg from '../../assets/svg/show_password.svg'
+import hidePwdImg from '../../assets/svg/hide_password.svg';
+
+import './css/Login.css';
+
+
 
 export default function Login() {
   const { login } = useAuth();
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
+
+  const [isRevealPwd, setIsRevealPwd] = useState(false);
   const [isLoading, setIsLoading] = useState(false)
   
   const handleSubmit = async (event) => {
@@ -45,12 +53,17 @@ export default function Login() {
                         onChange={(e) => setUserName(e.target.value)}
                       />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group pwd-container">
                       <label>Password *</label>
                       <input
-                        type="text"
+                        type={isRevealPwd ? "text" : "password"}
                         className="form-control p_input"
                         onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <img
+                        title={isRevealPwd ? "Hide password" : "Show password"}
+                        src={isRevealPwd ? hidePwdImg : showPwdImg}
+                        onClick={() => setIsRevealPwd(prevState => !prevState)}
                       />
                     </div>
                     {/* <div className="form-group d-flex align-items-center justify-content-between">
