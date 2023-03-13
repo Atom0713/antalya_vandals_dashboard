@@ -1,10 +1,20 @@
 import React from "react";
 import { PieChart } from "react-minimal-pie-chart";
 
-export default function AphexChart({total, attended}) {
+const getAttendance = (attendance) => {
+    let counter = 0;
+    for (let i = 0; i <= attendance.length -1 ; i++) {
+        if (attendance[i].present) {
+            counter++;
+        }
+    }
+        return counter
+};
+
+export default function AphexChart({attendance}) {
   return <div className="Chart">
             <PieChart
-                totalValue={total}
+                totalValue={attendance.length}
                 paddingAngle={10}
                 labelStyle={{
                 fontSize: "5px",
@@ -18,13 +28,13 @@ export default function AphexChart({total, attended}) {
                 data={[
                     {
                         title: "Total",
-                        value: total,
-                        color: "#07b9a2"
+                        value: attendance.length,
+                        color: "#ff0000"
                     },
                     {
                         title: "Attendance",
-                        value: attended,
-                        color: "#ff0000"
+                        value: getAttendance(attendance),
+                        color: "#07b9a2"
                     }
 
                 ]}

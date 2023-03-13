@@ -58,26 +58,6 @@ export default function Event() {
       </>
     );
 
-  const getAttendance = () => {
-    let counter = 0;
-    for (let i = 0; i <= state.attendance.length -1 ; i++) {
-      if (state.attendance[i].present) {
-          counter++;
-      }
-    }
-      return counter
-  };
-
-  const attendanceChart = (
-    <>
-      <h4 className="card-title">Attendance</h4>
-      <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
-        <AphexChart total={state.attendance.length} attended={getAttendance()}
-        />
-      </div>
-    </>
-  )
-
   return (
     isLoading ? <Spinner /> :
     <Layout user={state.user}>
@@ -99,7 +79,13 @@ export default function Event() {
                   <p className="text-muted mb-0">{state.event.date}</p>
                 </div>
               </div>
-              {state.event.completed && attendanceChart}
+              {state.event.completed && 
+              <>
+                <h4 className="card-title">Attendance</h4>
+                <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+                  <AphexChart attendance={state.attendance}/>
+                </div>
+              </>}
             </div>
           </div>
         </div>
@@ -124,7 +110,7 @@ export default function Event() {
                             <p className="text-muted">
                              Author: {comment.author}
                             </p>
-                            <p className="text-muted mb-0">Date: {comment.date} </p>
+                            <p className="text-muted mb-0">Date: {comment.created_at} </p>
                           </div>
                         </div>
                       </div>
