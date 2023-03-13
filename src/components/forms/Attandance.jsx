@@ -3,6 +3,7 @@ import { fetchUsersByRole, addEventAttendance } from "../../api/";
 import { USERROLES } from "../constants";
 import { Layout } from '../';
 import { BlueButton } from "../buttons";
+import { useNavigate } from "react-router-dom";
 
 function Attandance({setShowAttendanceForm, event_id, user }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -10,6 +11,7 @@ function Attandance({setShowAttendanceForm, event_id, user }) {
   const [playersAttandanceList, setPlayersAttandanceList] = useState([]);
   const [addAttandanceBody, setAddAttandanceBody] = useState({});
   const [checkedState, setCheckedState] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUsersByRole(USERROLES.PLAYER)
@@ -35,9 +37,11 @@ function Attandance({setShowAttendanceForm, event_id, user }) {
   };
 
   const handleSubmit = (event) => {
+    event.target.reset();
     addEventAttendance(addAttandanceBody)
       .then((response) =>{
-        setShowAttendanceForm(true)
+        setShowAttendanceForm(false)
+        navigate(`/event/${event_id}`, {replace: true})
     })
       .catch((error) => setError(error.message));
   };

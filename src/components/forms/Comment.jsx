@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { addComment } from "../../api/";
 
-export default function Comment({setOnCommentSubmit, event_id, user }) {
+export default function Comment({event_id, user }) {
 
     const [error, setError] = useState();
     const [comment, setComment] = useState();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = () => {
         addComment({"comment": comment, "event_id": parseInt(event_id), "user_id": user.id})
-        .then((response) => {
-            setOnCommentSubmit(true)
-        })
         .catch((error) => setError(error.message)
         );
     };
