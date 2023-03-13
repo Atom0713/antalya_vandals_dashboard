@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Layout } from '../';
 import { USERROLES } from "../constants";
 import { fetchUsersByRole, fetchUser } from "../../api/";
+import { Spinner } from "../spinner";
 
 export default function DepthChart() {
     const [state, setState] = useState()
@@ -23,14 +24,8 @@ export default function DepthChart() {
         .catch((error) => setError(error.message));
     }, []);
 
-    if (isLoading)
-        return (
-            <div>
-                <h1>Loading...</h1>
-            </div>
-        );
-
   return (
+    isLoading ? <Spinner /> :
     <Layout user={state.user}>
         <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">

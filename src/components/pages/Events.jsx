@@ -5,6 +5,7 @@ import { OrderedDarkWithImageTable } from "../tables";
 import { BlueButton } from "../buttons";
 import { Event, Layout } from "../";
 import { USERROLES } from "../constants";
+import { Spinner } from "../spinner";
 
 export default function Events() {
   const [showAddEventForm, setShowAddEventForm] = useState(false);
@@ -39,17 +40,11 @@ export default function Events() {
       </div>
     );
 
-  if (isLoading)
-    return (
-      <div className="row">
-        <h1>Loading...</h1>
-      </div>
-    );
-
   if (showAddEventForm)
     return <AddEvent setShowAddEventForm={setShowAddEventForm} user={state.user} />;
 
   return (
+    isLoading ? <Spinner /> :
     <Layout user={state.user}>
       {[USERROLES.ADMIN, USERROLES.STAFF].includes(state.user.role.id) &&
       !showAddEventForm

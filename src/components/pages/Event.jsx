@@ -6,6 +6,7 @@ import { Attandance, Comment } from "../forms";
 import { Layout } from '../';
 
 import { AttendanceOrderedDarkWithImageTable } from "../tables";
+import { Spinner } from "../spinner";
 
 import AphexChart from '../charts/pieChart';
 
@@ -50,13 +51,6 @@ export default function Event() {
       </div>
     );
 
-  if (isLoading)
-    return (
-      <div className="row">
-        <h1>Loading...</h1>
-      </div>
-    );
-
   if (showAtandanceForm)
     return ( /* Reload page when Attendance returns here*/
       <>
@@ -85,6 +79,7 @@ export default function Event() {
   )
 
   return (
+    isLoading ? <Spinner /> :
     <Layout user={state.user}>
       {!state.event.completed && BlueButton(handleAddAttendanceClick, "Get attandance")}
       <div className="row">

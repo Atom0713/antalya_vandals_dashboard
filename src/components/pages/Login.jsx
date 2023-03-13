@@ -1,23 +1,31 @@
 import React, { useState } from "react";
 import { loginUser } from "../../api";
 import { useAuth } from "../shared/useAuth";
+import { Spinner } from "../spinner";
 
 
 export default function Login() {
   const { login } = useAuth();
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
+  const [isLoading, setIsLoading] = useState(false)
   
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     await loginUser({
         username,
         password,
       })
       .then((response) => {
         login(response.access_token);
+        setIsLoading(false);
       }).catch((error) => console.log(error));
   };
+
+  if (isLoading){
+    return <Spinner />
+  }
 
   return (
     <div className="login_container">
