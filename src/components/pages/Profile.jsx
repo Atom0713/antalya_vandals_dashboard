@@ -3,15 +3,15 @@ import { useParams } from "react-router-dom";
 import { fetchUserById } from '../../api';
 import { USERROLES } from '../constants';
 import { Layout } from '../';
+import { Spinner } from "../spinner";
 
 export default function Profile() {
     const { id } = useParams();
     const [state, setState] = useState({});
-    const [isLoading, setIsLoading] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState({})
 
     useEffect(() => {
-        setIsLoading(true);
         fetchUserById(id)
         .then((response) => {
             setState({user: response});
@@ -20,15 +20,9 @@ export default function Profile() {
         .catch((error) => setError(error.message));
       }, []);
 
-    if (isLoading){
-        return (
-            <div>
-                Loading...
-            </div>
-        )
-    }
 
     const PlayerDetails = (
+        isLoading ? <></> :
         <>
             <h4 className="card-title">Height</h4>
             <div className="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
@@ -47,6 +41,7 @@ export default function Profile() {
 
 
     return (
+        isLoading ? <Spinner /> :
         <Layout user={state.user}>
             <div className="row">
                 <div className="col-md-4 grid-margin">

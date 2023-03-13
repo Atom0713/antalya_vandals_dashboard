@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { loginUser } from "../../api";
 import { useAuth } from "../shared/useAuth";
+import { Spinner } from "../spinner";
 
 import showPwdImg from '../../assets/svg/show_password.svg'
 import hidePwdImg from '../../assets/svg/hide_password.svg';
@@ -15,17 +16,24 @@ export default function Login() {
   const [password, setPassword] = useState();
 
   const [isRevealPwd, setIsRevealPwd] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
   
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     await loginUser({
         username,
         password,
       })
       .then((response) => {
         login(response.access_token);
+        setIsLoading(false);
       }).catch((error) => console.log(error));
   };
+
+  if (isLoading){
+    return <Spinner />
+  }
 
   return (
     <div className="login_container">

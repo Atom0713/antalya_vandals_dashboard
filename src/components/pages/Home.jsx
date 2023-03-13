@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Layout } from '../';
 import { fetchUser } from '../../api';
+import { Spinner } from "../spinner";
 
 export default function Home() {
 
@@ -16,13 +17,8 @@ export default function Home() {
       .catch((error) => console.log(error.message));
   }, []);
 
-  if (isLoading)
-    return (
-      <div>
-      </div>
-    );
-
   return (
+    isLoading ? <Spinner /> :
     <Layout user={state.user}>
       <div className="row">
         <div className="col-md-4 grid-margin stretch-card">

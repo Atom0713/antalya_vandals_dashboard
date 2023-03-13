@@ -9,6 +9,7 @@ import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import './custom_css/DatePicker.css';
 import { formatDate } from "../../utils/formatDate";
+import { Spinner } from "../spinner";
 
 export default function AddUser({ setShowUserForm, user }) {
   const [role, setRole] = useState(user.role.id);
@@ -36,11 +37,11 @@ export default function AddUser({ setShowUserForm, user }) {
         });
       }
       setUserRoles(roles);
-      setIsLoading(false);
       setState({
         positions: response[1]
       })
       setAddUserBody(addUserBody)
+      setIsLoading(false);
     })
       
   }, [user.role.id]);
@@ -53,11 +54,7 @@ export default function AddUser({ setShowUserForm, user }) {
     );
 
   if (isLoading)
-    return (
-      <div>
-        <h1>Loading...</h1>
-      </div>
-    );
+    return <Spinner />;
 
   const handleBackClick = () => {
     setShowUserForm(false);
