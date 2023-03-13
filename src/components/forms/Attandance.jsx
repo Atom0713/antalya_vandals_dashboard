@@ -35,10 +35,9 @@ function Attandance({setShowAttendanceForm, event_id, user }) {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
     addEventAttendance(addAttandanceBody)
       .then((response) =>{
-        window.location.reload(false);
+        setShowAttendanceForm(true)
     })
       .catch((error) => setError(error.message));
   };

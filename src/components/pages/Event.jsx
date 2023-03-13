@@ -19,6 +19,7 @@ export default function Event() {
 
 
   const [showAtandanceForm, setShowAttendanceForm] = useState(false);
+  const [onCommentSubmit, setOnCommentSubmit] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -120,7 +121,7 @@ export default function Event() {
           </div>
         </div>
       </div>
-      <Comment event_id={id} user={state.user}/>
+      <Comment setOnCommentSubmit={setOnCommentSubmit} event_id={id} user={state.user}/>
       {state.event.completed &&
         <AttendanceOrderedDarkWithImageTable
           title={"Attendance"}
