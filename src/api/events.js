@@ -39,5 +39,5 @@ export async function addEventAttendance(body) {
     body: JSON.stringify(body),
   });
 
-  return response.json();
+  return response;
 }

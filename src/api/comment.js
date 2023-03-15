@@ -8,7 +8,7 @@ export async function addComment(body) {
       body: JSON.stringify(body),
     });
   
-    return response.json();
+    return response;
 }
 
 export async function fetchEventComments(event_id) {

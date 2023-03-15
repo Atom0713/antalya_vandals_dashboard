@@ -4,6 +4,7 @@ import { USERROLES } from "../constants";
 import { Layout } from '../';
 import { BlueButton } from "../buttons";
 import { useNavigate } from "react-router-dom";
+import { Spinner } from "../spinner";
 
 function Attandance({setShowAttendanceForm, event_id, user }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,13 +38,19 @@ function Attandance({setShowAttendanceForm, event_id, user }) {
   };
 
   const handleSubmit = (event) => {
-    event.target.reset();
+    event.preventDefault();
+
     addEventAttendance(addAttandanceBody)
-      .then((response) =>{
-        setShowAttendanceForm(false)
-        navigate(`/event/${event_id}`, {replace: true})
+    .then(res => {
+        if(res.status != 200) {
+          throw new Error("Server responds with error!");
+      }
+      return res.json();
     })
-      .catch((error) => setError(error.message));
+      .then(response => {
+        window.location.reload(false);
+    })
+      .catch(error => setError(error.message));
   };
 
   const handleOnChange = (event, position) => {
@@ -72,13 +79,8 @@ function Attandance({setShowAttendanceForm, event_id, user }) {
       </div>
     );
 
-  if (isLoading)
-    return (
-      <div className="row">
-        <h1>Loading...</h1>
-      </div>
-    );
   return (
+    isLoading ? <Spinner /> :
     <Layout user={user}>
       {BlueButton(handleBackClick, "Back")}
       <div className="row">

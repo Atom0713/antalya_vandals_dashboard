@@ -6,8 +6,18 @@ export default function Comment({event_id, user }) {
     const [error, setError] = useState();
     const [comment, setComment] = useState();
 
-    const handleSubmit = () => {
+    const handleSubmit = (event) => {
+        event.preventDefault();
         addComment({"comment": comment, "event_id": parseInt(event_id), "user_id": user.id})
+        .then(res => {
+              if(res.status != 200) {
+                throw new Error("Server responds with error!");
+            }
+            return res.json();
+          })
+        .then((response) => {
+            window.location.reload(false);
+        })
         .catch((error) => setError(error.message)
         );
     };
@@ -39,5 +49,5 @@ export default function Comment({event_id, user }) {
                 </div>
             </div>
         </div>
-    )
+    );
 }
