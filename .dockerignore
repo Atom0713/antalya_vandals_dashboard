@@ -1,0 +1,13 @@
+# Ignore all .log files, no matter where they're located
+**/*.log
+
+# Ignore all .txt files
+*.txt
+
+# Ignore any directory named temp
+**/temp
+
+.git
+.gitignore
+
+.env
