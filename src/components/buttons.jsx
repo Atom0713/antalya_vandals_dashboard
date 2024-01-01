@@ -1,3 +1,5 @@
+import React from "react";
+
 export const BlueButton = (handleClick, text) => {
   return (
     <div className="page-header">
