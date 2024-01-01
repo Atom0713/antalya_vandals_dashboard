@@ -1,10 +1,10 @@
 {
-  "name": "antalya_vandals",
+  "name": "organization_frontend",
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "18.7.0",
-    "npm": "8.15.0"
+    "node": "21.5.0",
+    "npm": "10.2.5"
   },
   "dependencies": {
     "jwt-decode": "^3.1.2",
