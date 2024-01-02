@@ -1,7 +1,7 @@
 # Requirements
 
-`NODE: v21.5.0`
-`npm: 10.2.5`
+`NODE: v18.16.1`
+`npm: 9.5.1`
 
 ## Local development
 1. Build docker image
